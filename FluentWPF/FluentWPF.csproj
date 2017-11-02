@@ -54,6 +54,7 @@
     <Compile Include="AcrylicWindow.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ParallaxView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

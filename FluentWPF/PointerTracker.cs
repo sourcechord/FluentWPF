@@ -24,7 +24,7 @@ namespace SourceChord.FluentWPF
         }
         // Using a DependencyProperty as the backing store for X.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty XProperty =
-            DependencyProperty.RegisterAttached("X", typeof(double), typeof(PointerTracker), new PropertyMetadata(double.NaN));
+            DependencyProperty.RegisterAttached("X", typeof(double), typeof(PointerTracker), new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.Inherits));
 
 
         public static double GetY(DependencyObject obj)
@@ -37,7 +37,7 @@ namespace SourceChord.FluentWPF
         }
         // Using a DependencyProperty as the backing store for Y.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty YProperty =
-            DependencyProperty.RegisterAttached("Y", typeof(double), typeof(PointerTracker), new PropertyMetadata(double.NaN));
+            DependencyProperty.RegisterAttached("Y", typeof(double), typeof(PointerTracker), new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.Inherits));
 
 
         public static Point GetPosition(DependencyObject obj)
@@ -50,7 +50,7 @@ namespace SourceChord.FluentWPF
         }
         // Using a DependencyProperty as the backing store for Position.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PositionProperty =
-            DependencyProperty.RegisterAttached("Position", typeof(Point), typeof(PointerTracker), new PropertyMetadata(null));
+            DependencyProperty.RegisterAttached("Position", typeof(Point), typeof(PointerTracker), new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.Inherits));
 
 
         public static bool GetIsEnter(DependencyObject obj)
@@ -63,7 +63,22 @@ namespace SourceChord.FluentWPF
         }
         // Using a DependencyProperty as the backing store for IsEnter.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsEnterProperty =
-            DependencyProperty.RegisterAttached("IsEnter", typeof(bool), typeof(PointerTracker), new PropertyMetadata(false));
+            DependencyProperty.RegisterAttached("IsEnter", typeof(bool), typeof(PointerTracker), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
+
+
+
+        public static UIElement GetRootObject(DependencyObject obj)
+        {
+            return (UIElement)obj.GetValue(RootObjectProperty);
+        }
+        private static void SetRootObject(DependencyObject obj, UIElement value)
+        {
+            obj.SetValue(RootObjectProperty, value);
+        }
+        // Using a DependencyProperty as the backing store for RootObject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RootObjectProperty =
+            DependencyProperty.RegisterAttached("RootObject", typeof(UIElement), typeof(PointerTracker), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+
 
 
 
@@ -92,6 +107,8 @@ namespace SourceChord.FluentWPF
                 ctrl.MouseEnter -= Ctrl_MouseEnter;
                 ctrl.MouseMove -= Ctrl_MouseMove;
                 ctrl.MouseLeave -= Ctrl_MouseLeave;
+
+                ctrl.ClearValue(PointerTracker.RootObjectProperty);
             }
 
 
@@ -101,6 +118,8 @@ namespace SourceChord.FluentWPF
                 ctrl.MouseEnter += Ctrl_MouseEnter;
                 ctrl.MouseMove += Ctrl_MouseMove;
                 ctrl.MouseLeave += Ctrl_MouseLeave;
+
+                SetRootObject(ctrl, ctrl);
             }
         }
 
@@ -140,7 +159,7 @@ namespace SourceChord.FluentWPF
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Any(o => o == DependencyProperty.UnsetValue)) return new Point(0, 0);
+            if (values.Any(o => o == DependencyProperty.UnsetValue || o == null)) return new Point(0, 0);
 
             var parent = values[0] as UIElement;
             var ctrl = values[1] as UIElement;
@@ -177,13 +196,6 @@ namespace SourceChord.FluentWPF
 
         }
 
-        public RevealBrushExtension(string root)
-        {
-            this.Root = root;
-        }
-
-        public string Root { get; set; }
-
         public Color Color { get; set; } = Colors.Black;
 
         public double Size { get; set; } = 100;
@@ -204,7 +216,7 @@ namespace SourceChord.FluentWPF
             // カーソルが領域外にある場合は、透明にする。
             var opacityBinding = new Binding("Opacity")
             {
-                ElementName = this.Root,
+                Source = pvt.TargetObject,
                 Path = new PropertyPath(PointerTracker.IsEnterProperty),
                 Converter = new OpacityConverter()
             };
@@ -213,9 +225,9 @@ namespace SourceChord.FluentWPF
             // グラデーションの中心位置をバインディング
             var binding = new MultiBinding();
             binding.Converter = new RelativePositionConverter();
-            binding.Bindings.Add(new Binding() { ElementName = this.Root });
+            binding.Bindings.Add(new Binding() { Source = pvt.TargetObject, Path = new PropertyPath(PointerTracker.RootObjectProperty) });
             binding.Bindings.Add(new Binding() { Source = pvt.TargetObject });
-            binding.Bindings.Add(new Binding() { ElementName = this.Root, Path = new PropertyPath(PointerTracker.PositionProperty) });
+            binding.Bindings.Add(new Binding() { Source = pvt.TargetObject, Path = new PropertyPath(PointerTracker.PositionProperty) });
 
             BindingOperations.SetBinding(brush, RadialGradientBrush.CenterProperty, binding);
             BindingOperations.SetBinding(brush, RadialGradientBrush.GradientOriginProperty, binding);

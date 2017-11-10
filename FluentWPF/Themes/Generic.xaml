@@ -12,8 +12,10 @@
                 <ControlTemplate TargetType="{x:Type Window}">
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
                         <DockPanel LastChildFill="True">
-                            <Grid DockPanel.Dock="Top">
-                                <TextBlock Text="Title"/>
+                            <Grid DockPanel.Dock="Top" Height="30">
+                                <TextBlock Text="{TemplateBinding Title}"
+                                           Margin="8,0"
+                                           VerticalAlignment="Center"/>
                             </Grid>
                             <AdornerDecorator>
                                 <ContentPresenter/>

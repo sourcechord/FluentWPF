@@ -169,6 +169,19 @@ namespace SourceChord.FluentWPF
 
 
 
+        public Color FallbackColor
+        {
+            get { return (Color)GetValue(FallbackColorProperty); }
+            set { SetValue(FallbackColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FallbackColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FallbackColorProperty =
+            DependencyProperty.Register("FallbackColor", typeof(Color), typeof(AcrylicWindow), new PropertyMetadata(Colors.LightGray));
+
+
+
+
         #endregion
 
 

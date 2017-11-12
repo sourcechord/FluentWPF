@@ -13,22 +13,32 @@
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
                         <Grid>
                             <!-- Color tint overlay -->
-                            <Rectangle Opacity="{Binding TintOpacity, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Rectangle x:Name="tintColorLayer"
+                                       Opacity="{Binding TintOpacity, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Rectangle.Fill>
                                     <SolidColorBrush Color="{Binding TintColor, RelativeSource={RelativeSource TemplatedParent}}" />
                                 </Rectangle.Fill>
                             </Rectangle>
                             <!-- Tiled noise texture -->
-                            <Rectangle Opacity="{Binding NoiseOpacity, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Rectangle x:Name="noiseLayer"
+                                       Opacity="{Binding NoiseOpacity, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Rectangle.Fill>
                                     <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
                                                 TileMode="Tile" Stretch="None"
                                                 ViewportUnits="Absolute" Viewport="0,0,128,128"/>
                                 </Rectangle.Fill>
                             </Rectangle>
+                            
+                            <!-- Fallback color layer -->
+                            <Rectangle x:Name="fallbackLayer" Visibility="Collapsed">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="{Binding FallbackColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
 
                             <DockPanel LastChildFill="True">
-                                <Grid DockPanel.Dock="Top" Height="30">
+                                <Grid x:Name="captionGrid"
+                                      DockPanel.Dock="Top" Height="30">
                                     <TextBlock Text="{TemplateBinding Title}"
                                            Margin="8,0"
                                            VerticalAlignment="Center"/>
@@ -41,6 +51,24 @@
 
 
                     </Border>
+
+                    <ControlTemplate.Triggers>
+                        <!--<Trigger Property="IsActive" Value="False">
+                            <Setter  Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
+                        </Trigger>-->
+                        <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource Self}}" Value="False">
+                            <!--<Setter Property="FontSize" Value="15"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontFamily" Value="Arial"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>-->
+                            <Setter TargetName="tintColorLayer" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="fallbackLayer" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="captionGrid" Property="TextBlock.Foreground" Value="Gray" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -54,6 +82,14 @@
         <Style.Triggers>
             <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
                 <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
+            </Trigger>
+            <Trigger Property="IsActive" Value="False">
+                <!--<Setter Property="Window.Foreground" Value="Gray" />-->
+                <!--<Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{Binding FallbackColor, RelativeSource={RelativeSource Self}}"/>
+                    </Setter.Value>
+                </Setter>-->
             </Trigger>
         </Style.Triggers>
     </Style>

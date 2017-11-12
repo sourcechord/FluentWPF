@@ -7,10 +7,13 @@
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <!--<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>-->
         <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Blue"/>
+        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                    <Border x:Name="windowBorder"
+                            BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
                         <Grid>
                             <!-- Color tint overlay -->
                             <Rectangle x:Name="tintColorLayer"
@@ -53,20 +56,12 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
-                        <!--<Trigger Property="IsActive" Value="False">
-                            <Setter  Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
-                        </Trigger>-->
                         <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource Self}}" Value="False">
-                            <!--<Setter Property="FontSize" Value="15"/>
-                            <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="FontFamily" Value="Arial"/>
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="HorizontalAlignment" Value="Left"/>-->
                             <Setter TargetName="tintColorLayer" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="fallbackLayer" Property="Visibility" Value="Visible" />
                             <Setter TargetName="captionGrid" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="windowBorder" Property="Border.BorderBrush" Value="Gray" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -84,12 +79,7 @@
                 <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
             </Trigger>
             <Trigger Property="IsActive" Value="False">
-                <!--<Setter Property="Window.Foreground" Value="Gray" />-->
-                <!--<Setter Property="Background">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{Binding FallbackColor, RelativeSource={RelativeSource Self}}"/>
-                    </Setter.Value>
-                </Setter>-->
+
             </Trigger>
         </Style.Triggers>
     </Style>

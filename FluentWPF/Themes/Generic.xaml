@@ -11,16 +11,34 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                        <DockPanel LastChildFill="True">
-                            <Grid DockPanel.Dock="Top" Height="30">
-                                <TextBlock Text="{TemplateBinding Title}"
+                        <Grid>
+                            <!-- Color tint overlay -->
+                            <Rectangle Opacity="{Binding TintOpacity, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="{Binding TintColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <!-- Tiled noise texture -->
+                            <Rectangle Opacity="{Binding NoiseOpacity, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
+                                                TileMode="Tile" Stretch="None"
+                                                ViewportUnits="Absolute" Viewport="0,0,128,128"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <DockPanel LastChildFill="True">
+                                <Grid DockPanel.Dock="Top" Height="30">
+                                    <TextBlock Text="{TemplateBinding Title}"
                                            Margin="8,0"
                                            VerticalAlignment="Center"/>
-                            </Grid>
-                            <AdornerDecorator>
-                                <ContentPresenter/>
-                            </AdornerDecorator>
-                        </DockPanel>
+                                </Grid>
+                                <AdornerDecorator>
+                                    <ContentPresenter/>
+                                </AdornerDecorator>
+                            </DockPanel>
+                        </Grid>
+
 
                     </Border>
                 </ControlTemplate>

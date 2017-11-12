@@ -112,7 +112,8 @@ namespace SourceChord.FluentWPF
             var accentStructSize = Marshal.SizeOf(accent);
             accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
             accent.AccentFlags = 2;
-            accent.GradientColor = 0x70FF7777;
+            //accent.GradientColor = 0x99FFFFFF;  // 60%の透明度が基本
+            accent.GradientColor = 0x00FFFFFF;  // Tint Colorはここでは設定せず、Bindingで外部から変えられるようにXAML側のレイヤーとして定義
 
             var accentPtr = Marshal.AllocHGlobal(accentStructSize);
             Marshal.StructureToPtr(accent, accentPtr, false);
@@ -126,6 +127,49 @@ namespace SourceChord.FluentWPF
 
             Marshal.FreeHGlobal(accentPtr);
         }
+
+
+        #region Dependency Property
+
+
+
+        public Color TintColor
+        {
+            get { return (Color)GetValue(TintColorProperty); }
+            set { SetValue(TintColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TintColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TintColorProperty =
+            DependencyProperty.Register("TintColor", typeof(Color), typeof(AcrylicWindow), new PropertyMetadata(Colors.Red));
+
+
+        public double TintOpacity
+        {
+            get { return (double)GetValue(TintOpacityProperty); }
+            set { SetValue(TintOpacityProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TintOpacity.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TintOpacityProperty =
+            DependencyProperty.Register("TintOpacity", typeof(double), typeof(AcrylicWindow), new PropertyMetadata(0.6));
+
+
+
+        public double NoiseOpacity
+        {
+            get { return (double)GetValue(NoiseOpacityProperty); }
+            set { SetValue(NoiseOpacityProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for NoiseOpacity.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty NoiseOpacityProperty =
+            DependencyProperty.Register("NoiseOpacity", typeof(double), typeof(AcrylicWindow), new PropertyMetadata(0.1));
+
+
+
+
+        #endregion
 
 
         #region Attached Property

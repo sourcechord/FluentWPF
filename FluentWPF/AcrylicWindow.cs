@@ -88,6 +88,11 @@ namespace SourceChord.FluentWPF
         static AcrylicWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AcrylicWindow), new FrameworkPropertyMetadata(typeof(AcrylicWindow)));
+
+            TintColorProperty = AcrylicElement.TintColorProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(Colors.Red, FrameworkPropertyMetadataOptions.Inherits));
+            TintOpacityProperty = AcrylicElement.TintOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.6, FrameworkPropertyMetadataOptions.Inherits));
+            NoiseOpacityProperty = AcrylicElement.NoiseOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.1, FrameworkPropertyMetadataOptions.Inherits));
+            FallbackColorProperty = AcrylicElement.FallbackColorProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.Inherits));
         }
 
 
@@ -140,8 +145,16 @@ namespace SourceChord.FluentWPF
         }
 
         // Using a DependencyProperty as the backing store for TintColor.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TintColorProperty =
-            DependencyProperty.Register("TintColor", typeof(Color), typeof(AcrylicWindow), new PropertyMetadata(Colors.Red));
+        public static readonly DependencyProperty TintColorProperty;
+        public static Color GetTintColor(DependencyObject obj)
+        {
+            return (Color)obj.GetValue(AcrylicElement.TintColorProperty);
+        }
+
+        public static void SetTintColor(DependencyObject obj, Color value)
+        {
+            obj.SetValue(AcrylicElement.TintColorProperty, value);
+        }
 
 
         public double TintOpacity
@@ -151,8 +164,16 @@ namespace SourceChord.FluentWPF
         }
 
         // Using a DependencyProperty as the backing store for TintOpacity.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TintOpacityProperty =
-            DependencyProperty.Register("TintOpacity", typeof(double), typeof(AcrylicWindow), new PropertyMetadata(0.6));
+        public static readonly DependencyProperty TintOpacityProperty;
+        public static double GetTintOpacity(DependencyObject obj)
+        {
+            return (double)obj.GetValue(AcrylicElement.TintOpacityProperty);
+        }
+
+        public static void SetTintOpacity(DependencyObject obj, double value)
+        {
+            obj.SetValue(AcrylicElement.TintOpacityProperty, value);
+        }
 
 
 
@@ -163,10 +184,16 @@ namespace SourceChord.FluentWPF
         }
 
         // Using a DependencyProperty as the backing store for NoiseOpacity.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NoiseOpacityProperty =
-            DependencyProperty.Register("NoiseOpacity", typeof(double), typeof(AcrylicWindow), new PropertyMetadata(0.1));
+        public static readonly DependencyProperty NoiseOpacityProperty;
+        public static double GetNoiseOpacity(DependencyObject obj)
+        {
+            return (double)obj.GetValue(AcrylicElement.NoiseOpacityProperty);
+        }
 
-
+        public static void SetNoiseOpacity(DependencyObject obj, double value)
+        {
+            obj.SetValue(AcrylicElement.NoiseOpacityProperty, value);
+        }
 
 
         public Color FallbackColor
@@ -176,10 +203,16 @@ namespace SourceChord.FluentWPF
         }
 
         // Using a DependencyProperty as the backing store for FallbackColor.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty FallbackColorProperty =
-            DependencyProperty.Register("FallbackColor", typeof(Color), typeof(AcrylicWindow), new PropertyMetadata(Colors.LightGray));
+        public static readonly DependencyProperty FallbackColorProperty;
+        public static Color GetFallbackColor(DependencyObject obj)
+        {
+            return (Color)obj.GetValue(AcrylicElement.FallbackColorProperty);
+        }
 
-
+        public static void SetFallbackColor(DependencyObject obj, Color value)
+        {
+            obj.SetValue(AcrylicElement.FallbackColorProperty, value);
+        }
 
 
         #endregion
@@ -226,5 +259,77 @@ namespace SourceChord.FluentWPF
             }
         }
         #endregion
+    }
+
+    public class AcrylicElement
+    {
+
+
+        public static Color GetTintColor(DependencyObject obj)
+        {
+            return (Color)obj.GetValue(TintColorProperty);
+        }
+
+        public static void SetTintColor(DependencyObject obj, Color value)
+        {
+            obj.SetValue(TintColorProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for TintColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TintColorProperty =
+            DependencyProperty.RegisterAttached("TintColor", typeof(Color), typeof(AcrylicElement), new FrameworkPropertyMetadata(Colors.White, FrameworkPropertyMetadataOptions.Inherits));
+
+
+
+
+        public static double GetTintOpacity(DependencyObject obj)
+        {
+            return (double)obj.GetValue(TintOpacityProperty);
+        }
+
+        public static void SetTintOpacity(DependencyObject obj, double value)
+        {
+            obj.SetValue(TintOpacityProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for TintOpacity.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TintOpacityProperty =
+            DependencyProperty.RegisterAttached("TintOpacity", typeof(double), typeof(AcrylicElement), new PropertyMetadata(0.6));
+
+
+
+
+        public static double GetNoiseOpacity(DependencyObject obj)
+        {
+            return (double)obj.GetValue(NoiseOpacityProperty);
+        }
+
+        public static void SetNoiseOpacity(DependencyObject obj, double value)
+        {
+            obj.SetValue(NoiseOpacityProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for NoiseOpacity.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty NoiseOpacityProperty =
+            DependencyProperty.RegisterAttached("NoiseOpacity", typeof(double), typeof(AcrylicElement), new PropertyMetadata(0.1));
+
+
+
+
+        public static Color GetFallbackColor(DependencyObject obj)
+        {
+            return (Color)obj.GetValue(FallbackColorProperty);
+        }
+
+        public static void SetFallbackColor(DependencyObject obj, Color value)
+        {
+            obj.SetValue(FallbackColorProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for FallbackColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FallbackColorProperty =
+            DependencyProperty.RegisterAttached("FallbackColor", typeof(Color), typeof(AcrylicElement), new PropertyMetadata(Colors.LightGray));
+
+
     }
 }

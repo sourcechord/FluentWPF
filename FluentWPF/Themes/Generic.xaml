@@ -18,17 +18,17 @@
                 <ControlTemplate TargetType="{x:Type Window}">
                     <Border x:Name="windowBorder"
                             BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                        <Grid>
+                        <Grid >
                             <!-- Color tint overlay -->
                             <Rectangle x:Name="tintColorLayer"
-                                       Opacity="{Binding TintOpacity, RelativeSource={RelativeSource TemplatedParent}}">
+                                       Opacity="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(local:AcrylicWindow.TintOpacity)}">
                                 <Rectangle.Fill>
-                                    <SolidColorBrush Color="{Binding TintColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=Rectangle}, Path=(local:AcrylicWindow.TintColor)}" />
                                 </Rectangle.Fill>
                             </Rectangle>
                             <!-- Tiled noise texture -->
                             <Rectangle x:Name="noiseLayer"
-                                       Opacity="{Binding NoiseOpacity, RelativeSource={RelativeSource TemplatedParent}}">
+                                       Opacity="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(local:AcrylicWindow.NoiseOpacity)}">
                                 <Rectangle.Fill>
                                     <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
                                                 TileMode="Tile" Stretch="None"
@@ -39,7 +39,7 @@
                             <!-- Fallback color layer -->
                             <Rectangle x:Name="fallbackLayer" Visibility="Collapsed">
                                 <Rectangle.Fill>
-                                    <SolidColorBrush Color="{Binding FallbackColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(local:AcrylicWindow.FallbackColor)}" />
                                 </Rectangle.Fill>
                             </Rectangle>
 

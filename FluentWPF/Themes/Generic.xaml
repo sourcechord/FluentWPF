@@ -3,13 +3,149 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:SourceChord.FluentWPF">
     <local:AddValueConverter x:Key="addValueConverter" />
+
+    <Style x:Key="CaptionButtonStyleKey" TargetType="{x:Type Button}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontFamily" Value="Marlett"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Width" Value="45" />
+        <Setter Property="Height" Value="29" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    </Style>
+
+    <Style x:Key="GrayCaptionButtonStyleKey" TargetType="{x:Type Button}" BasedOn="{StaticResource CaptionButtonStyleKey}">
+        <Setter Property="Background" Value="DarkGray" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.0" Duration="0:0:0.200">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.6" Duration="0:0:0.200">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="1" Duration="0:0:0.200">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border x:Name="border" Background="{TemplateBinding Background}" />
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RedCaptionButtonStyleKey" TargetType="{x:Type Button}" BasedOn="{StaticResource CaptionButtonStyleKey}">
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.0" Duration="0:0:0.200">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="1" Duration="0:0:0.200">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <ColorAnimation Storyboard.TargetProperty="Color" Storyboard.TargetName="brush"
+                                                         To="White" Duration="0:0:0.200">
+                                            <ColorAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.6" Duration="0:0:0.200">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <ColorAnimation Storyboard.TargetProperty="Color" Storyboard.TargetName="brush"
+                                                         To="White" Duration="0:0:0.200">
+                                            <ColorAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border x:Name="border" Background="{TemplateBinding Background}" />
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush x:Name="brush" Color="Black"/>
+                            </TextBlock.Foreground>
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="AcrylicWindowStyle" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <!--<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>-->
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush">
             <Setter.Value>
-                <SolidColorBrush Color="{x:Static local:AccentColors.SystemAccentColor}" />
+                <SolidColorBrush Color="{x:Static local:AccentColors.ImmersiveSystemAccent}" />
             </Setter.Value>
         </Setter>
         <Setter Property="BorderThickness" Value="1"/>
@@ -19,6 +155,9 @@
                     <Border x:Name="windowBorder"
                             BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
                         <Grid >
+                            <Grid.CommandBindings>
+                                <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}"  />
+                            </Grid.CommandBindings>
                             <!-- Color tint overlay -->
                             <Rectangle x:Name="tintColorLayer"
                                        Opacity="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(local:AcrylicWindow.TintOpacity)}">
@@ -43,12 +182,20 @@
                                 </Rectangle.Fill>
                             </Rectangle>
 
+                            <!-- Title bar area -->
                             <DockPanel LastChildFill="True">
                                 <Grid x:Name="captionGrid"
                                       DockPanel.Dock="Top" Height="30">
                                     <TextBlock Text="{TemplateBinding Title}"
                                            Margin="8,0"
                                            VerticalAlignment="Center"/>
+
+                                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <Button Content="0" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}"/>
+                                        <Button x:Name="btnMaximizeButton" Content="1" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
+                                        <Button x:Name="btnRestoreButton" Content="2" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" Visibility="Collapsed"/>
+                                        <Button Content="r" Background="Red" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}"/>
+                                    </StackPanel>
                                 </Grid>
                                 <AdornerDecorator>
                                     <ContentPresenter/>
@@ -67,6 +214,10 @@
                             <Setter TargetName="captionGrid" Property="TextBlock.Foreground" Value="Gray" />
                             <Setter TargetName="windowBorder" Property="Border.BorderBrush" Value="Gray" />
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource Self}}" Value="Maximized">
+                            <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -74,8 +225,8 @@
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome CaptionHeight="{x:Static SystemParameters.CaptionHeight}"
-                      GlassFrameThickness="-1"
-                      ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+                      GlassFrameThickness="1" 
+                      ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" UseAeroCaptionButtons="False" />
             </Setter.Value>
         </Setter>
         <Style.Triggers>

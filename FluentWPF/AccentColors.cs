@@ -27,8 +27,6 @@ namespace SourceChord.FluentWPF
             return Color.FromArgb(bytes[3], bytes[0], bytes[1], bytes[2]);
         }
 
-        public static Color SystemAccentColor { get; private set; }
-
         public static Color ImmersiveSystemAccent { get; private set; }
         public static Color ImmersiveSystemAccentDark1 { get; private set; }
         public static Color ImmersiveSystemAccentDark2 { get; private set; }
@@ -39,8 +37,6 @@ namespace SourceChord.FluentWPF
 
         static AccentColors()
         {
-            SystemAccentColor = GetColorByTypeName("ImmersiveStartBackground");
-
             ImmersiveSystemAccent = GetColorByTypeName("ImmersiveSystemAccent");
             ImmersiveSystemAccentDark1 = GetColorByTypeName("ImmersiveSystemAccentDark1");
             ImmersiveSystemAccentDark2 = GetColorByTypeName("ImmersiveSystemAccentDark2");

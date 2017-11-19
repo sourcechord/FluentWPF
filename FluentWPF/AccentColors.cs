@@ -35,8 +35,18 @@ namespace SourceChord.FluentWPF
         public static Color ImmersiveSystemAccentLight2 { get; private set; }
         public static Color ImmersiveSystemAccentLight3 { get; private set; }
 
+
+        public static Brush ImmersiveSystemAccentBrush { get; private set; }
+        public static Brush ImmersiveSystemAccentDark1Brush { get; private set; }
+        public static Brush ImmersiveSystemAccentDark2Brush { get; private set; }
+        public static Brush ImmersiveSystemAccentDark3Brush { get; private set; }
+        public static Brush ImmersiveSystemAccentLight1Brush { get; private set; }
+        public static Brush ImmersiveSystemAccentLight2Brush { get; private set; }
+        public static Brush ImmersiveSystemAccentLight3Brush { get; private set; }
+
         static AccentColors()
         {
+            // 各種Color定義
             ImmersiveSystemAccent = GetColorByTypeName("ImmersiveSystemAccent");
             ImmersiveSystemAccentDark1 = GetColorByTypeName("ImmersiveSystemAccentDark1");
             ImmersiveSystemAccentDark2 = GetColorByTypeName("ImmersiveSystemAccentDark2");
@@ -44,6 +54,22 @@ namespace SourceChord.FluentWPF
             ImmersiveSystemAccentLight1 = GetColorByTypeName("ImmersiveSystemAccentLight1");
             ImmersiveSystemAccentLight2 = GetColorByTypeName("ImmersiveSystemAccentLight2");
             ImmersiveSystemAccentLight3 = GetColorByTypeName("ImmersiveSystemAccentLight3");
+
+            // ブラシ類の定義
+            ImmersiveSystemAccentBrush = CreateBrush(ImmersiveSystemAccent);
+            ImmersiveSystemAccentDark1Brush = CreateBrush(ImmersiveSystemAccentDark1);
+            ImmersiveSystemAccentDark2Brush = CreateBrush(ImmersiveSystemAccentDark2);
+            ImmersiveSystemAccentDark3Brush = CreateBrush(ImmersiveSystemAccentDark3);
+            ImmersiveSystemAccentLight1Brush = CreateBrush(ImmersiveSystemAccentLight1);
+            ImmersiveSystemAccentLight2Brush = CreateBrush(ImmersiveSystemAccentLight2);
+            ImmersiveSystemAccentLight3Brush = CreateBrush(ImmersiveSystemAccentLight3);
+        }
+
+        internal static Brush CreateBrush(Color color)
+        {
+            var brush = new SolidColorBrush(color);
+            brush.Freeze();
+            return brush;
         }
     }
 }

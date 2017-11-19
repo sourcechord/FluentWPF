@@ -7,7 +7,7 @@
     <Style x:Key="CaptionButtonStyleKey" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Foreground" Value="Black" />
-        <Setter Property="FontFamily" Value="Marlett"/>
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -30,9 +30,9 @@
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
-                                                         To="0.0" Duration="0:0:0.200">
+                                                         To="0.0" Duration="0:0:0.150">
                                             <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
+                                                <CubicEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
@@ -40,9 +40,9 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
-                                                         To="0.6" Duration="0:0:0.200">
+                                                         To="0.6" Duration="0:0:0.150">
                                             <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
+                                                <ExponentialEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
@@ -50,9 +50,9 @@
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
-                                                         To="1" Duration="0:0:0.200">
+                                                         To="1" Duration="0:0:0.150">
                                             <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
+                                                <ExponentialEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
@@ -82,9 +82,9 @@
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
-                                                         To="0.0" Duration="0:0:0.200">
+                                                         To="0.0" Duration="0:0:0.150">
                                             <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
+                                                <CubicEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
@@ -92,15 +92,15 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
-                                                         To="1" Duration="0:0:0.200">
+                                                         To="1" Duration="0:0:0.150">
                                             <DoubleAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <ColorAnimation Storyboard.TargetProperty="Color" Storyboard.TargetName="brush"
-                                                         To="White" Duration="0:0:0.200">
+                                                         To="White" Duration="0:0:0.150">
                                             <ColorAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
+                                                <ExponentialEase EasingMode="EaseOut"/>
                                             </ColorAnimation.EasingFunction>
                                         </ColorAnimation>
                                     </Storyboard>
@@ -108,15 +108,15 @@
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
-                                                         To="0.6" Duration="0:0:0.200">
+                                                         To="0.6" Duration="0:0:0.150">
                                             <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
+                                                <ExponentialEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <ColorAnimation Storyboard.TargetProperty="Color" Storyboard.TargetName="brush"
-                                                         To="White" Duration="0:0:0.200">
+                                                         To="White" Duration="0:0:0.150">
                                             <ColorAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
+                                                <ExponentialEase EasingMode="EaseOut"/>
                                             </ColorAnimation.EasingFunction>
                                         </ColorAnimation>
                                     </Storyboard>
@@ -143,11 +143,7 @@
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <!--<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>-->
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush">
-            <Setter.Value>
-                <SolidColorBrush Color="{x:Static local:AccentColors.ImmersiveSystemAccent}" />
-            </Setter.Value>
-        </Setter>
+        <Setter Property="BorderBrush" Value="{x:Static local:AccentColors.ImmersiveSystemAccentBrush}" />
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -191,10 +187,10 @@
                                            VerticalAlignment="Center"/>
 
                                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                        <Button Content="0" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}"/>
-                                        <Button x:Name="btnMaximizeButton" Content="1" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
-                                        <Button x:Name="btnRestoreButton" Content="2" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" Visibility="Collapsed"/>
-                                        <Button Content="r" Background="Red" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}"/>
+                                        <Button Content="&#xE921;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" />
+                                        <Button x:Name="btnMaximizeButton" Content="&#xE922;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
+                                        <Button x:Name="btnRestoreButton" Content="&#xE923;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" Visibility="Collapsed"/>
+                                        <Button Content="&#xE8BB;" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}"/>
                                     </StackPanel>
                                 </Grid>
                                 <AdornerDecorator>

@@ -105,7 +105,7 @@ namespace SourceChord.FluentWPF
             if (oldValue && !newValue)
             {
                 ctrl.MouseEnter -= Ctrl_MouseEnter;
-                ctrl.MouseMove -= Ctrl_MouseMove;
+                ctrl.PreviewMouseMove -= Ctrl_PreviewMouseMove;
                 ctrl.MouseLeave -= Ctrl_MouseLeave;
 
                 ctrl.ClearValue(PointerTracker.RootObjectProperty);
@@ -116,7 +116,7 @@ namespace SourceChord.FluentWPF
             if (!oldValue && newValue)
             {
                 ctrl.MouseEnter += Ctrl_MouseEnter;
-                ctrl.MouseMove += Ctrl_MouseMove;
+                ctrl.PreviewMouseMove += Ctrl_PreviewMouseMove;
                 ctrl.MouseLeave += Ctrl_MouseLeave;
 
                 SetRootObject(ctrl, ctrl);
@@ -132,7 +132,7 @@ namespace SourceChord.FluentWPF
             }
         }
 
-        private static void Ctrl_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        private static void Ctrl_PreviewMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             var ctrl = sender as UIElement;
             if (ctrl != null && GetIsEnter(ctrl))
@@ -180,7 +180,8 @@ namespace SourceChord.FluentWPF
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var isEnter = (bool)value;
-            return isEnter ? 1 : 0;
+            var opacity = (double)parameter;
+            return isEnter ? opacity : 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -197,6 +198,7 @@ namespace SourceChord.FluentWPF
         }
 
         public Color Color { get; set; } = Colors.Black;
+        public double Opacity { get; set; } = 1;
 
         public double Size { get; set; } = 100;
 
@@ -218,7 +220,8 @@ namespace SourceChord.FluentWPF
             {
                 Source = pvt.TargetObject,
                 Path = new PropertyPath(PointerTracker.IsEnterProperty),
-                Converter = new OpacityConverter()
+                Converter = new OpacityConverter(),
+                ConverterParameter = this.Opacity
             };
             BindingOperations.SetBinding(brush, RadialGradientBrush.OpacityProperty, opacityBinding);
 

@@ -8,7 +8,7 @@ using System.Windows;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("FluentWPF")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Fluent Design System for WPF")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SourceChord")]
 [assembly: AssemblyProduct("FluentWPF")]

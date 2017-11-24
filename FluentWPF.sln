@@ -9,6 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{6FD229
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentWPFSample", "Sample\FluentWPFSample\FluentWPFSample.csproj", "{CCAC5625-C8EE-49C5-8407-ACC8289CCC81}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{76CF6319-C5D3-48EF-97AA-25BD04543DE1}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\pack.bat = Nuget\pack.bat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

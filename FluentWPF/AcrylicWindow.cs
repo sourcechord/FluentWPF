@@ -93,6 +93,7 @@ namespace SourceChord.FluentWPF
             TintOpacityProperty = AcrylicElement.TintOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.6, FrameworkPropertyMetadataOptions.Inherits));
             NoiseOpacityProperty = AcrylicElement.NoiseOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.1, FrameworkPropertyMetadataOptions.Inherits));
             FallbackColorProperty = AcrylicElement.FallbackColorProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.Inherits));
+            ShowTitleBarProperty = AcrylicElement.ShowTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
         }
 
 
@@ -220,6 +221,28 @@ namespace SourceChord.FluentWPF
         }
 
 
+
+        public bool ShowTitleBar
+        {
+            get { return (bool)GetValue(ShowTitleBarProperty); }
+            set { SetValue(ShowTitleBarProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowTitleBar.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowTitleBarProperty;
+        public static bool GetShowTitleBar(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(AcrylicElement.ShowTitleBarProperty);
+        }
+
+        public static void SetShowTitleBar(DependencyObject obj, bool value)
+        {
+            obj.SetValue(AcrylicElement.ShowTitleBarProperty, value);
+        }
+
+
+
+
         #endregion
 
 
@@ -248,14 +271,6 @@ namespace SourceChord.FluentWPF
             var value = (bool)e.NewValue;
             if (value)
             {
-                var chrome = new WindowChrome()
-                {
-                    CaptionHeight = SystemParameters.CaptionHeight,
-                    GlassFrameThickness = new Thickness(-1),
-                    ResizeBorderThickness = SystemParameters.WindowResizeBorderThickness
-                };
-                WindowChrome.SetWindowChrome(win, chrome);
-
                 var dic = new ResourceDictionary() { Source = new Uri("pack://application:,,,/FluentWPF;component/Themes/Generic.xaml") };
                 var style = dic["AcrylicWindowStyle"] as Style;
                 win.Style = style;
@@ -266,7 +281,7 @@ namespace SourceChord.FluentWPF
         #endregion
     }
 
-    public class AcrylicElement
+    internal class AcrylicElement
     {
 
 
@@ -334,6 +349,24 @@ namespace SourceChord.FluentWPF
         // Using a DependencyProperty as the backing store for FallbackColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FallbackColorProperty =
             DependencyProperty.RegisterAttached("FallbackColor", typeof(Color), typeof(AcrylicElement), new PropertyMetadata(Colors.LightGray));
+
+
+
+
+
+        public static bool GetShowTitleBar(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(ShowTitleBarProperty);
+        }
+
+        public static void SetShowTitleBar(DependencyObject obj, bool value)
+        {
+            obj.SetValue(ShowTitleBarProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for ShowTitleBar.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowTitleBarProperty =
+            DependencyProperty.RegisterAttached("ShowTitleBar", typeof(bool), typeof(AcrylicElement), new PropertyMetadata(true));
 
 
     }

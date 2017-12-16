@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:SourceChord.FluentWPF">
     <local:AddValueConverter x:Key="addValueConverter" />
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
     <Style x:Key="CaptionButtonStyleKey" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -145,77 +146,74 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{x:Static local:AccentColors.ImmersiveSystemAccentBrush}" />
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Template">
+        <Setter Property="ContentTemplate">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Window}">
-                    <Border x:Name="windowBorder"
-                            BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                        <Grid >
-                            <Grid.CommandBindings>
-                                <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}"  />
-                            </Grid.CommandBindings>
-                            <!-- Color tint overlay -->
-                            <Rectangle x:Name="tintColorLayer"
-                                       Opacity="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(local:AcrylicWindow.TintOpacity)}">
-                                <Rectangle.Fill>
-                                    <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=Rectangle}, Path=(local:AcrylicWindow.TintColor)}" />
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <!-- Tiled noise texture -->
-                            <Rectangle x:Name="noiseLayer"
-                                       Opacity="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(local:AcrylicWindow.NoiseOpacity)}">
-                                <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
+                <DataTemplate>
+                    <Grid >
+                        <Grid.CommandBindings>
+                            <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}"  />
+                        </Grid.CommandBindings>
+                        <!-- Color tint overlay -->
+                        <Rectangle x:Name="tintColorLayer"
+                                       Opacity="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.TintOpacity)}">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=Rectangle}, Path=(local:AcrylicWindow.TintColor)}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <!-- Tiled noise texture -->
+                        <Rectangle x:Name="noiseLayer"
+                                       Opacity="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.NoiseOpacity)}">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
                                                 TileMode="Tile" Stretch="None"
                                                 ViewportUnits="Absolute" Viewport="0,0,128,128"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            
-                            <!-- Fallback color layer -->
-                            <Rectangle x:Name="fallbackLayer" Visibility="Collapsed">
-                                <Rectangle.Fill>
-                                    <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(local:AcrylicWindow.FallbackColor)}" />
-                                </Rectangle.Fill>
-                            </Rectangle>
+                            </Rectangle.Fill>
+                        </Rectangle>
 
-                            <!-- Title bar area -->
-                            <DockPanel LastChildFill="True">
-                                <Grid x:Name="captionGrid"
-                                      DockPanel.Dock="Top" Height="30">
-                                    <TextBlock Text="{TemplateBinding Title}"
+                        <!-- Fallback color layer -->
+                        <Rectangle x:Name="fallbackLayer" Visibility="Collapsed">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.FallbackColor)}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <!-- Title bar area -->
+                        <DockPanel LastChildFill="True">
+                            <Grid x:Name="captionGrid"
+                                  DockPanel.Dock="Top" Height="30"
+                                  Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                                                       Path=(local:AcrylicWindow.ShowTitleBar),
+                                                       Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}"
                                            Margin="8,0"
                                            VerticalAlignment="Center"/>
 
-                                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                        <Button Content="&#xE921;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" />
-                                        <Button x:Name="btnMaximizeButton" Content="&#xE922;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
-                                        <Button x:Name="btnRestoreButton" Content="&#xE923;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" Visibility="Collapsed"/>
-                                        <Button Content="&#xE8BB;" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}"/>
-                                    </StackPanel>
-                                </Grid>
-                                <AdornerDecorator>
-                                    <ContentPresenter/>
-                                </AdornerDecorator>
-                            </DockPanel>
-                        </Grid>
-
-
-                    </Border>
-
-                    <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource Self}}" Value="False">
+                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <Button Content="&#xE921;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" />
+                                    <Button x:Name="btnMaximizeButton" Content="&#xE922;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
+                                    <Button x:Name="btnRestoreButton" Content="&#xE923;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" Visibility="Collapsed"/>
+                                    <Button Content="&#xE8BB;" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}"/>
+                                </StackPanel>
+                            </Grid>
+                            <AdornerDecorator>
+                                <ContentControl Content="{Binding}"/>
+                            </AdornerDecorator>
+                        </DockPanel>
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
                             <Setter TargetName="tintColorLayer" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="fallbackLayer" Property="Visibility" Value="Visible" />
                             <Setter TargetName="captionGrid" Property="TextBlock.Foreground" Value="Gray" />
-                            <Setter TargetName="windowBorder" Property="Border.BorderBrush" Value="Gray" />
+                            <!--<Setter TargetName="windowBorder" Property="Border.BorderBrush" Value="Gray" />-->
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource Self}}" Value="Maximized">
+                        <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
                             <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Visible" />
                         </DataTrigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
             </Setter.Value>
         </Setter>
         <Setter Property="WindowChrome.WindowChrome">
@@ -227,25 +225,41 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
-                <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
             </Trigger>
             <Trigger Property="IsActive" Value="False">
-
+            </Trigger>
+            <Trigger Property="local:AcrylicWindow.ShowTitleBar" Value="False">
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome CaptionHeight="0"
+                                      GlassFrameThickness="1" 
+                                      ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" UseAeroCaptionButtons="False" />
+                    </Setter.Value>
+                </Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style TargetType="{x:Type local:AcrylicWindow}" BasedOn="{StaticResource AcrylicWindowStyle}">
-        <!--<Setter Property="Template">
+        <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:AcrylicWindow}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                <ControlTemplate TargetType="{x:Type Window}" >
+                    <Border x:Name="windowBorder"
+                            BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=BorderBrush}"
+                            BorderThickness="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path= BorderThickness}"
+                            Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Background}">
+                        <ContentPresenter />
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource Self}}" Value="False">
+                            <Setter TargetName="windowBorder" Property="Border.BorderBrush" Value="Gray" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource Self}}" Value="Maximized">
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
-        </Setter>-->
+        </Setter>
     </Style>
 
     <Style TargetType="{x:Type local:ParallaxView}">

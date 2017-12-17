@@ -104,17 +104,21 @@ namespace SourceChord.FluentWPF
 
         private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            // Sourceが設定されたら、VisualTreeをたどって、ScrollViewerを探す。
-            // ⇒見つかったら、そいつの各種プロパティと、このParallaxViewのオフセット値をバインディングする。
+            // Sourceが設定されたら、VisualTreeを辿りScrollViewerを探す。
+            // ⇒見つかったScrollViewerの各種プロパティと、このParallaxViewのオフセット値をバインディングする。
             var parallax = d as ParallaxView;
-            var ctrl = e.NewValue as DependencyObject;
-            var viewer = GetScrollViewer(ctrl);
-
-            if (viewer != null)
+            var ctrl = e.NewValue as FrameworkElement;
+            ctrl.Loaded += (_, __) =>
             {
-                viewer.ScrollChanged += (sender, _) => { parallax.OnScrollUpdated(sender as ScrollViewer); };
-                viewer.SizeChanged += (sender, _) => { parallax.OnScrollUpdated(sender as ScrollViewer); };
-            }
+                var viewer = GetScrollViewer(ctrl);
+
+                if (viewer != null)
+                {
+                    viewer.ScrollChanged += (sender, ___) => { parallax.OnScrollUpdated(sender as ScrollViewer); };
+                    viewer.SizeChanged += (sender, ___) => { parallax.OnScrollUpdated(sender as ScrollViewer); };
+                }
+            };
+
         }
 
 

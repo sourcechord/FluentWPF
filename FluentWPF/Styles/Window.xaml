@@ -1,5 +1,280 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SourceChord.FluentWPF">
-    
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+    <Style x:Key="CaptionButtonStyleKey" TargetType="{x:Type Button}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Width" Value="45" />
+        <Setter Property="Height" Value="29" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    </Style>
+
+    <Style x:Key="GrayCaptionButtonStyleKey" TargetType="{x:Type Button}" BasedOn="{StaticResource CaptionButtonStyleKey}">
+        <Setter Property="Background" Value="DarkGray" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.0" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.6" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="1" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.0" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter"
+                                                         To="0.3" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border x:Name="border" Background="{TemplateBinding Background}" />
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RedCaptionButtonStyleKey" TargetType="{x:Type Button}" BasedOn="{StaticResource CaptionButtonStyleKey}">
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.0" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="1" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <ColorAnimation Storyboard.TargetProperty="Color" Storyboard.TargetName="brush"
+                                                         To="White" Duration="0:0:0.150">
+                                            <ColorAnimation.EasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut"/>
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.6" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <ColorAnimation Storyboard.TargetProperty="Color" Storyboard.TargetName="brush"
+                                                         To="White" Duration="0:0:0.150">
+                                            <ColorAnimation.EasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut"/>
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.0" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter"
+                                                         To="0.3" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border x:Name="border" Background="{TemplateBinding Background}" />
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush x:Name="brush" Color="Black"/>
+                            </TextBlock.Foreground>
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AcrylicWindowStyle" TargetType="{x:Type Window}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <!--<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>-->
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{x:Static local:AccentColors.ImmersiveSystemAccentBrush}" />
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid >
+                        <Grid.CommandBindings>
+                            <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}"  />
+                        </Grid.CommandBindings>
+                        <!-- Color tint overlay -->
+                        <Rectangle x:Name="tintColorLayer"
+                                       Opacity="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.TintOpacity)}">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=Rectangle}, Path=(local:AcrylicWindow.TintColor)}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <!-- Tiled noise texture -->
+                        <Rectangle x:Name="noiseLayer"
+                                       Opacity="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.NoiseOpacity)}">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
+                                                TileMode="Tile" Stretch="None"
+                                                ViewportUnits="Absolute" Viewport="0,0,128,128"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <!-- Fallback color layer -->
+                        <Rectangle x:Name="fallbackLayer" Visibility="Collapsed">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.FallbackColor)}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <!-- Title bar area -->
+                        <DockPanel LastChildFill="True">
+                            <Grid x:Name="captionGrid"
+                                  DockPanel.Dock="Top" Height="30"
+                                  Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window},
+                                                       Path=(local:AcrylicWindow.ShowTitleBar),
+                                                       Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}"
+                                           Margin="8,0"
+                                           VerticalAlignment="Center"/>
+
+                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <Button x:Name="btnMinimizeButton" Content="&#xE921;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" />
+                                    <Button x:Name="btnMaximizeButton" Content="&#xE922;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
+                                    <Button x:Name="btnRestoreButton" Content="&#xE923;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" Visibility="Collapsed"/>
+                                    <Button x:Name="btnCloseButton" Content="&#xE8BB;" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}"/>
+                                </StackPanel>
+                            </Grid>
+                            <AdornerDecorator>
+                                <ContentControl Content="{Binding}"/>
+                            </AdornerDecorator>
+                        </DockPanel>
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+                            <Setter TargetName="tintColorLayer" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="fallbackLayer" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="captionGrid" Property="TextBlock.Foreground" Value="Gray" />
+                            <!--<Setter TargetName="windowBorder" Property="Border.BorderBrush" Value="Gray" />-->
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
+                            <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="CanMinimize">
+                            <Setter TargetName="btnMaximizeButton" Property="IsEnabled" Value="False" />
+                            <Setter TargetName="btnRestoreButton" Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="NoResize">
+                            <Setter TargetName="btnMinimizeButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome CaptionHeight="{x:Static SystemParameters.CaptionHeight}"
+                      GlassFrameThickness="1" 
+                      ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" UseAeroCaptionButtons="False" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
+            </Trigger>
+            <Trigger Property="IsActive" Value="False">
+            </Trigger>
+            <Trigger Property="local:AcrylicWindow.ShowTitleBar" Value="False">
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome CaptionHeight="0"
+                                      GlassFrameThickness="1" 
+                                      ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" UseAeroCaptionButtons="False" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

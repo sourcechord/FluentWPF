@@ -271,7 +271,7 @@ namespace SourceChord.FluentWPF
             var value = (bool)e.NewValue;
             if (value)
             {
-                var dic = new ResourceDictionary() { Source = new Uri("pack://application:,,,/FluentWPF;component/Themes/Generic.xaml") };
+                var dic = new ResourceDictionary() { Source = new Uri("pack://application:,,,/FluentWPF;component/Styles/Window.xaml") };
                 var style = dic["AcrylicWindowStyle"] as Style;
                 win.Style = style;
 

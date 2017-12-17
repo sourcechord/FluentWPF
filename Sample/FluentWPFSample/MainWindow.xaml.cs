@@ -24,5 +24,47 @@ namespace FluentWPFSample
         {
             InitializeComponent();
         }
+
+        private void OpenAcrylicWindow(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.AcrylicWindow();
+            win.ShowDialog();
+        }
+
+        private void OpenAcrylicWindow2(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.AcrylicWindow2();
+            win.ShowDialog();
+        }
+
+        private void OpenReveal(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.RevealStyles();
+            win.ShowDialog();
+        }
+
+        private void OpenParallax(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.ParallaxSample();
+            win.ShowDialog();
+        }
+
+        private void OpenAccentColors(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.AccentColorsSample();
+            win.ShowDialog();
+        }
+
+        private void OpenLogo(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.Logo();
+            win.ShowDialog();
+        }
+
+        private void OpenControls(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.Controls();
+            win.ShowDialog();
+        }
     }
 }

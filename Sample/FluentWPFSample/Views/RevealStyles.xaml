@@ -1,0 +1,55 @@
+﻿<fw:AcrylicWindow x:Class="FluentWPFSample.Views.RevealStyles"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:local="clr-namespace:FluentWPFSample.Views"
+                  xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+                  mc:Ignorable="d"
+                  Title="RevealStyles"
+                  Height="300" Width="600" fw:AcrylicWindow.TintColor="White" fw:AcrylicWindow.NoiseOpacity="0.02" >
+    <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF" >
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <UniformGrid Columns="5" Rows="5">
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}" Background="DarkCyan"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+        </UniformGrid>
+        <TextBox HorizontalAlignment="Left" Height="46" Margin="10" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"
+                 Style="{StaticResource TextBoxRevealStyle}"/>
+
+        <ListBox Grid.Column="1" Margin="5"
+                 Style="{StaticResource ListBoxRevealStyle}">
+            <ListBoxItem>Item1</ListBoxItem>
+            <ListBoxItem>Item1</ListBoxItem>
+            <ListBoxItem>Item1</ListBoxItem>
+            <ListBoxItem>Item1</ListBoxItem>
+            <ListBoxItem>Item1</ListBoxItem>
+            <ListBoxItem>Item1</ListBoxItem>
+            <ListBoxItem>Item1</ListBoxItem>
+            <ListBoxItem>Item1</ListBoxItem>
+            <ListBoxItem>Item1</ListBoxItem>
+            <ListBoxItem>Item1</ListBoxItem>
+            <ListBoxItem>Item1</ListBoxItem>
+            <ListBoxItem>Item1</ListBoxItem>
+        </ListBox>
+    </Grid>
+</fw:AcrylicWindow>

@@ -7,6 +7,40 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <StackPanel Margin="5">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="5" />
+                    <Setter Property="Width" Value="110" />
+                </Style>
+            </StackPanel.Resources>
+            <GroupBox Header="Acrylic">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="AcrylicWindow" Click="OpenAcrylicWindow"/>
+                    <Button Content="AcrylicWindow&#xa;(Attached Property)" Click="OpenAcrylicWindow2" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Reveal">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Reveal Styles" Click="OpenReveal" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="ParallaxView">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="ParallaxView" Click="OpenParallax" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="AccentColors">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="AccentColors" Click="OpenAccentColors" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Other">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Logo" Click="OpenLogo" />
+                    <Button Content="Controls" Click="OpenControls" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
     </Grid>
 </Window>

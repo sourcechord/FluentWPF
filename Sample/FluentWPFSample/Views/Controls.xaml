@@ -1,0 +1,75 @@
+﻿<fw:AcrylicWindow x:Class="FluentWPFSample.Views.Controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FluentWPFSample.Views"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        mc:Ignorable="d"
+        Title="Controls" Height="480" Width="640">
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="ファイル(_F)" />
+            <MenuItem Header="編集(_E)" />
+            <MenuItem Header="オプション(_O)">
+                <MenuItem IsCheckable="True" Header="オプション1" />
+                <MenuItem IsCheckable="True" Header="オプション2" />
+                <MenuItem IsCheckable="True" Header="オプション3" />
+            </MenuItem>
+        </Menu>
+
+        <Grid ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <!-- ボタン系コントロール類 -->
+                <WrapPanel>
+                    <Button Content="Button"  Width="80" Height="35" Margin="5"/>
+                    <ToggleButton Content="Toggle"  Width="80" Height="35" Margin="5"/>
+                    <RepeatButton Content="Repeat"  Width="80" Height="35" Margin="5"/>
+                    <Button Content="Button"  Width="80" Height="35" Margin="5"
+                    Style="{StaticResource ButtonGhostRevealStyle}"/>
+                    <Button Content="Button"  Width="80" Height="35" Margin="5"
+                    Style="{StaticResource ButtonRevealStyle}"/>
+                </WrapPanel>
+                <Label Content="Label" HorizontalAlignment="Left" Margin="5" />
+                <TextBlock HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Text="TextBlock" />
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="5" TextWrapping="Wrap" Text="TextBox" Width="120"/>
+                <PasswordBox HorizontalAlignment="Left" Height="23" Margin="5" Password="test" Width="120"/>
+                <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="5" />
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton Content="RadioButton" Margin="5" IsChecked="True"/>
+                    <RadioButton Content="RadioButton" Margin="5"/>
+                </StackPanel>
+                <Slider HorizontalAlignment="Left" Margin="10" Value="30" Width="130"/>
+                <ProgressBar HorizontalAlignment="Left" Height="10" Margin="5" Width="100"/>
+                <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="60" Margin="5" Width="150"/>
+                <Expander Header="Expander" HorizontalAlignment="Left" Height="80" Margin="5" VerticalAlignment="Top" Width="150">
+                    <Grid Background="#FFE5E5E5"/>
+                </Expander>
+            </StackPanel>
+
+
+            <StackPanel Grid.Column="1">
+                <ListBox Height="150" Width="200">
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                    <ListBoxItem>test</ListBoxItem>
+                </ListBox>
+            </StackPanel>
+
+        </Grid>
+    </DockPanel>
+</fw:AcrylicWindow>

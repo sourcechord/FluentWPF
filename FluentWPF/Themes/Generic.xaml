@@ -58,7 +58,22 @@
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Disabled"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.0" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter"
+                                                         To="0.3" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
@@ -122,7 +137,22 @@
                                         </ColorAnimation>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Disabled"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border"
+                                                         To="0.0" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseIn"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter"
+                                                         To="0.3" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
@@ -189,10 +219,10 @@
                                            VerticalAlignment="Center"/>
 
                                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                    <Button Content="&#xE921;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" />
+                                    <Button x:Name="btnMinimizeButton" Content="&#xE921;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" />
                                     <Button x:Name="btnMaximizeButton" Content="&#xE922;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
                                     <Button x:Name="btnRestoreButton" Content="&#xE923;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" Visibility="Collapsed"/>
-                                    <Button Content="&#xE8BB;" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}"/>
+                                    <Button x:Name="btnCloseButton" Content="&#xE8BB;" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}"/>
                                 </StackPanel>
                             </Grid>
                             <AdornerDecorator>
@@ -212,6 +242,16 @@
                             <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Visible" />
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="CanMinimize">
+                            <Setter TargetName="btnMaximizeButton" Property="IsEnabled" Value="False" />
+                            <Setter TargetName="btnRestoreButton" Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="NoResize">
+                            <Setter TargetName="btnMinimizeButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+
                     </DataTemplate.Triggers>
                 </DataTemplate>
             </Setter.Value>
@@ -260,6 +300,36 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
+                    <Condition Property="WindowState" Value="Normal"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Window}" >
+                            <Border x:Name="windowBorder"
+                                    BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=BorderBrush}"
+                                    BorderThickness="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path= BorderThickness}"
+                                    Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Background}">
+                                <Grid>
+                                    <ContentPresenter />
+                                    <ResizeGrip HorizontalAlignment="Right" IsTabStop="False" VerticalAlignment="Bottom"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource Self}}" Value="False">
+                                    <Setter TargetName="windowBorder" Property="Border.BorderBrush" Value="Gray" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource Self}}" Value="Maximized">
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </MultiTrigger>
+        </Style.Triggers>
     </Style>
 
     <Style TargetType="{x:Type local:ParallaxView}">

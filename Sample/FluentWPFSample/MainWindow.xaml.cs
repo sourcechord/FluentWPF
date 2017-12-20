@@ -37,6 +37,12 @@ namespace FluentWPFSample
             win.ShowDialog();
         }
 
+        private void OpenAcrylicBrush(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.AcrylicBrushSample();
+            win.ShowDialog();
+        }
+
         private void OpenReveal(object sender, RoutedEventArgs e)
         {
             var win = new Views.RevealStyles();

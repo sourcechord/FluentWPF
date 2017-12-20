@@ -1,0 +1,44 @@
+﻿<Window x:Class="FluentWPFSample.Views.AcrylicBrushSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FluentWPFSample.Views"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        mc:Ignorable="d"
+        Title="AcrylicBrushSample" Height="480" Width="640">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="grid" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Button Content="Button" Margin="5" Width="75"/>
+                <Button Content="Button" Margin="5" Width="75"/>
+                <Button Content="Button" Margin="5" Width="75"/>
+                <Button Content="Button" Margin="5" Width="75"/>
+            </StackPanel>
+
+            <Image Grid.Column="1" Margin="5" Source="/FluentWPFSample;component/Assets/Images/1.jpg" />
+        </Grid>
+
+        <Rectangle 
+                   Grid.ColumnSpan="2" Margin="40"
+                   Fill="{fw:AcrylicBrush grid}"
+                   Stroke="Black"
+                   Visibility="{Binding IsChecked, ElementName=chkShowAcrylicLayer, Converter={StaticResource booleanToVisibilityConverter}}"/>
+
+        <CheckBox x:Name="chkShowAcrylicLayer"
+                  Grid.Row="1" Content="Show Acrylic Rect" HorizontalAlignment="Left" Margin="5"
+                  IsChecked="True"/>
+    </Grid>
+</Window>

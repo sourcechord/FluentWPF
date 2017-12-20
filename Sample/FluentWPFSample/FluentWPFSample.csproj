@@ -57,6 +57,9 @@
     <Compile Include="Views\AccentColorsSample.xaml.cs">
       <DependentUpon>AccentColorsSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AcrylicBrushSample.xaml.cs">
+      <DependentUpon>AcrylicBrushSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AcrylicWindow.xaml.cs">
       <DependentUpon>AcrylicWindow.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AccentColorsSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AcrylicBrushSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

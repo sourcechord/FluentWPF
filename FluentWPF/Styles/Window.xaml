@@ -170,7 +170,6 @@
 
     <Style x:Key="AcrylicWindowStyle" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-        <!--<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>-->
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{x:Static local:AccentColors.ImmersiveSystemAccentBrush}" />
         <Setter Property="BorderThickness" Value="1"/>
@@ -234,7 +233,6 @@
                             <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="fallbackLayer" Property="Visibility" Value="Visible" />
                             <Setter TargetName="captionGrid" Property="TextBlock.Foreground" Value="Gray" />
-                            <!--<Setter TargetName="windowBorder" Property="Border.BorderBrush" Value="Gray" />-->
                         </DataTrigger>
                         <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
                             <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />

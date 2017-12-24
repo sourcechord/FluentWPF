@@ -7,31 +7,31 @@
                   xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
                   mc:Ignorable="d"
                   Title="RevealStyles"
-                  Height="300" Width="600" fw:AcrylicWindow.TintColor="White" fw:AcrylicWindow.NoiseOpacity="0.02" >
+                  Height="300" Width="600" fw:AcrylicWindow.TintColor="White">
     <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF" >
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <UniformGrid Columns="5" Rows="5">
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}" Background="DarkCyan"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
-            <Button Content="A" Margin="2" Style="{StaticResource ButtonGhostRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}" BorderThickness="1"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}" BorderThickness="1"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}" BorderThickness="1"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}" Background="LightGray"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}" Background="Black"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}" Background="White"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonAccentRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}"/>
+            <Button Content="A" Margin="2" Style="{StaticResource ButtonRevealStyle}"/>
         </UniformGrid>
         <TextBox HorizontalAlignment="Left" Height="46" Margin="10" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"
                  Style="{StaticResource TextBoxRevealStyle}"/>

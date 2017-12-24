@@ -19,9 +19,18 @@ namespace FluentWPFSample.Views
     /// </summary>
     public partial class ParallaxSample : Window
     {
+        public List<string> Items { get; set; }
+
         public ParallaxSample()
         {
             InitializeComponent();
+            this.DataContext = this;
+
+            this.Items = new List<string>();
+            for (var i = 0; i < 100; i++)
+            {
+                this.Items.Add($"item{i:D3}");
+            }
         }
     }
 }

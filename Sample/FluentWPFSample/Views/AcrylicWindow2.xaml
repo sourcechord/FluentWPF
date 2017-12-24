@@ -7,9 +7,7 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
         Title="AcrylicWindow2" Height="300" Width="300"
-        fw:AcrylicWindow.Enabled="True"
-        fw:AcrylicWindow.TintColor="Red"
-        fw:AcrylicWindow.ShowTitleBar="True">
+        fw:AcrylicWindow.Enabled="True">
     <Grid>
         
     </Grid>

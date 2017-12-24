@@ -47,7 +47,7 @@
                                                 <CubicEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        
+
                                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="hoverLight"
                                                          To="0" Duration="0:0:0.100">
                                             <DoubleAnimation.EasingFunction>
@@ -152,10 +152,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-
-    <Style x:Key="ButtonGhostRevealStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonRevealStyle}">
-        <Setter Property="Background" Value="Transparent" />
     </Style>
 
     <Style x:Key="ButtonAccentRevealStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonRevealStyle}">

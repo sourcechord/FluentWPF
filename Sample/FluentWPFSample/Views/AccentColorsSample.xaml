@@ -6,50 +6,50 @@
         xmlns:local="clr-namespace:FluentWPFSample.Views"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
-        Title="AccentColorsSample" Height="480" Width="300">
+        Title="AccentColorsSample" Height="480" Width="480">
     <Grid>
-        <WrapPanel ItemWidth="100" ItemHeight="100">
-            <Rectangle HorizontalAlignment="Center" Height="83" Stroke="Black" VerticalAlignment="Center" Width="83">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="{x:Static fw:AccentColors.ImmersiveSystemAccent}" />
-                </Rectangle.Fill>
-            </Rectangle>
-
-            <Rectangle HorizontalAlignment="Center" Height="83" Stroke="Black" VerticalAlignment="Center" Width="83">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="{x:Static fw:AccentColors.ImmersiveSystemAccentDark1}" />
-                </Rectangle.Fill>
-            </Rectangle>
-
-            <Rectangle HorizontalAlignment="Center" Height="83" Stroke="Black" VerticalAlignment="Center" Width="83">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="{x:Static fw:AccentColors.ImmersiveSystemAccentDark2}" />
-                </Rectangle.Fill>
-            </Rectangle>
-
-            <Rectangle HorizontalAlignment="Center" Height="83" Stroke="Black" VerticalAlignment="Center" Width="83">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="{x:Static fw:AccentColors.ImmersiveSystemAccentDark3}" />
-                </Rectangle.Fill>
-            </Rectangle>
-
-            <Rectangle HorizontalAlignment="Center" Height="83" Stroke="Black" VerticalAlignment="Center" Width="83">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="{x:Static fw:AccentColors.ImmersiveSystemAccentLight1}" />
-                </Rectangle.Fill>
-            </Rectangle>
-
-            <Rectangle HorizontalAlignment="Center" Height="83" Stroke="Black" VerticalAlignment="Center" Width="83">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="{x:Static fw:AccentColors.ImmersiveSystemAccentLight2}" />
-                </Rectangle.Fill>
-            </Rectangle>
-
-            <Rectangle HorizontalAlignment="Center" Height="83" Stroke="Black" VerticalAlignment="Center" Width="83">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="{x:Static fw:AccentColors.ImmersiveSystemAccentLight3}" />
-                </Rectangle.Fill>
-            </Rectangle>
-        </WrapPanel>
+        <StackPanel Margin="5">
+            <StackPanel.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="Width" Value="120" />
+                    <Setter Property="Height" Value="120" />
+                    <Setter Property="Margin" Value="3" />
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="1" />
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextWrapping" Value="Wrap" />
+                    <Setter Property="VerticalAlignment" Value="Bottom" />
+                    <Setter Property="FontSize" Value="14" />
+                </Style>
+            </StackPanel.Resources>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}">
+                    <TextBlock Text="ImmersiveSystemAccentBrush" />
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentLight1Brush}">
+                    <TextBlock Text="ImmersiveSystemAccentLight1Brush"/>
+                </Border>
+                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentLight2Brush}">
+                    <TextBlock Text="ImmersiveSystemAccentLight2Brush"/>
+                </Border>
+                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentLight3Brush}">
+                    <TextBlock Text="ImmersiveSystemAccentLight3Brush" />
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentDark1Brush}">
+                    <TextBlock Text="ImmersiveSystemAccentDark1Brush" Foreground="White"/>
+                </Border>
+                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentDark2Brush}">
+                    <TextBlock Text="ImmersiveSystemAccentDark2Brush" Foreground="White"/>
+                </Border>
+                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentDark3Brush}">
+                    <TextBlock Text="ImmersiveSystemAccentDark3Brush" Foreground="White"/>
+                </Border>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

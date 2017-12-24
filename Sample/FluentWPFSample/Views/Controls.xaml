@@ -7,7 +7,7 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
         Title="Controls" Height="480" Width="640">
-    <DockPanel LastChildFill="True">
+    <DockPanel LastChildFill="True" fw:PointerTracker.Enabled="True" Background="#01FFFFFF" >
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="ファイル(_F)" />
             <MenuItem Header="編集(_E)" />

@@ -6,64 +6,13 @@
         xmlns:local="clr-namespace:FluentWPFSample.Views"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
-        Title="ParallaxSample" Height="300" Width="300">
+        Title="ParallaxSample" Height="300" Width="400">
     <Grid>
         <fw:ParallaxView VerticalShift="200" HorizontalShift="200"
                          Source="{Binding ElementName=list}">
-            <!--<Button Content="test" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Left"/>-->
             <Image Source="/FluentWPFSample;component/Assets/Images/1.jpg" Stretch="UniformToFill"/>
         </fw:ParallaxView>
-        <ListBox x:Name="list" Background="#55EEEEEE" ScrollViewer.CanContentScroll="False">
-            <ListBoxItem Width="300">item1</ListBoxItem>
-            <ListBoxItem Width="300">item2</ListBoxItem>
-            <ListBoxItem Width="300">item3</ListBoxItem>
-            <ListBoxItem Width="300">item4</ListBoxItem>
-            <ListBoxItem Width="300">item5</ListBoxItem>
-            <ListBoxItem Width="300">item6</ListBoxItem>
-            <ListBoxItem Width="300">item7</ListBoxItem>
-            <ListBoxItem Width="300">item8</ListBoxItem>
-            <ListBoxItem Width="300">item9</ListBoxItem>
-            <ListBoxItem Width="300">item10</ListBoxItem>
-            <ListBoxItem Width="300">item11</ListBoxItem>
-            <ListBoxItem Width="300">item12</ListBoxItem>
-            <ListBoxItem Width="300">item13</ListBoxItem>
-            <ListBoxItem Width="300">item14</ListBoxItem>
-            <ListBoxItem Width="300">item15</ListBoxItem>
-            <ListBoxItem Width="300">item16</ListBoxItem>
-            <ListBoxItem Width="300">item17</ListBoxItem>
-            <ListBoxItem Width="300">item18</ListBoxItem>
-            <ListBoxItem Width="300">item19</ListBoxItem>
-            <ListBoxItem Width="300">item20</ListBoxItem>
-            <ListBoxItem Width="300">item21</ListBoxItem>
-            <ListBoxItem Width="300">item22</ListBoxItem>
-            <ListBoxItem Width="300">item23</ListBoxItem>
-            <ListBoxItem Width="300">item24</ListBoxItem>
-            <ListBoxItem Width="300">item25</ListBoxItem>
-            <ListBoxItem Width="300">item26</ListBoxItem>
-            <ListBoxItem Width="300">item27</ListBoxItem>
-            <ListBoxItem Width="300">item28</ListBoxItem>
-            <ListBoxItem Width="300">item29</ListBoxItem>
-            <ListBoxItem Width="300">item30</ListBoxItem>
-            <ListBoxItem Width="300">item31</ListBoxItem>
-            <ListBoxItem Width="300">item32</ListBoxItem>
-            <ListBoxItem Width="300">item33</ListBoxItem>
-            <ListBoxItem Width="300">item34</ListBoxItem>
-            <ListBoxItem Width="300">item35</ListBoxItem>
-            <ListBoxItem Width="300">item36</ListBoxItem>
-            <ListBoxItem Width="300">item37</ListBoxItem>
-            <ListBoxItem Width="300">item38</ListBoxItem>
-            <ListBoxItem Width="300">item39</ListBoxItem>
-            <ListBoxItem Width="300">item40</ListBoxItem>
-            <ListBoxItem Width="300">item41</ListBoxItem>
-            <ListBoxItem Width="300">item42</ListBoxItem>
-            <ListBoxItem Width="300">item43</ListBoxItem>
-            <ListBoxItem Width="300">item44</ListBoxItem>
-            <ListBoxItem Width="300">item45</ListBoxItem>
-            <ListBoxItem Width="300">item46</ListBoxItem>
-            <ListBoxItem Width="300">item47</ListBoxItem>
-            <ListBoxItem Width="300">item48</ListBoxItem>
-            <ListBoxItem Width="300">item49</ListBoxItem>
-            <ListBoxItem Width="300">item50</ListBoxItem>
-        </ListBox>
+        <ListBox x:Name="list" Background="#88EEEEEE" ScrollViewer.CanContentScroll="False"
+                 ItemsSource="{Binding Items}"/>
     </Grid>
 </Window>

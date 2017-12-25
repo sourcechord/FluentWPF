@@ -53,7 +53,6 @@ namespace SourceChord.FluentWPF
             transformBinding.Converter = new BrushTranslationConverter();
             transformBinding.Bindings.Add(new Binding() { ElementName = this.TargetName });
             transformBinding.Bindings.Add(new Binding() { Source = target });
-
             BindingOperations.SetBinding(visualBrush, VisualBrush.VisualProperty, visualBinding);
 
 
@@ -117,6 +116,10 @@ namespace SourceChord.FluentWPF
 
             BindingOperations.SetBinding(grid, Grid.RenderTransformProperty, transformBinding);
 
+            target.LayoutUpdated += (_, __) =>
+            {
+                BindingOperations.GetBindingExpressionBase(grid, Grid.RenderTransformProperty)?.UpdateTarget();
+            };
 
             var brush = new VisualBrush(grid)
             {

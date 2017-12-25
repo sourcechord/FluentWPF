@@ -10,6 +10,7 @@ FluentWPF provides Fluent Design System for WPF.
 * ParallaxView
 * AccentColors
 
+![Reveal](./docs/Reveal/demo.gif)
 
 ## Install
 
@@ -183,10 +184,22 @@ Reveal effect for controls.
 
 To use reveal effect, parent container have to set `fw:PointerTracker.Enabled="True"`.
 
+![Reveal](./docs/Reveal/Reveal.gif)
 ```xml
+    <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF" Margin="3">
+        <StackPanel>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
+                    Style="{StaticResource ButtonRevealStyle}"/>
+
+            <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
+                    Background="Transparent"
+                    Style="{StaticResource ButtonRevealStyle}"/>
+
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="5" Text="TextBox" Width="120"
+                 Style="{StaticResource TextBoxRevealStyle}"/>
+        </StackPanel>
+    </Grid>
 ```
-
-
 
 
 ### ParallaxView

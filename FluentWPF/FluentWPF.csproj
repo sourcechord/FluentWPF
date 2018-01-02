@@ -81,6 +81,7 @@
     <Compile Include="AcrylicWindow.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DropShadowPanel.cs" />
     <Compile Include="ParallaxView.cs" />
     <Compile Include="PointerTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

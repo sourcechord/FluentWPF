@@ -78,6 +78,7 @@
     </Page>
     <Compile Include="AccentColors.cs" />
     <Compile Include="AcrylicBrush.cs" />
+    <Compile Include="AcrylicPanel.cs" />
     <Compile Include="AcrylicWindow.cs" />
   </ItemGroup>
   <ItemGroup>

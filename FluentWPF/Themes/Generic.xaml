@@ -123,7 +123,7 @@
                                     <Rectangle.RenderTransform>
                                         <MultiBinding Converter="{StaticResource brushTranslationConverter}">
                                             <Binding Path="Target" RelativeSource="{RelativeSource AncestorType={x:Type local:AcrylicPanel}}"/>
-                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type local:AcrylicPanel}}"/>
+                                            <Binding Path="Source" RelativeSource="{RelativeSource AncestorType={x:Type local:AcrylicPanel}}"/>
                                         </MultiBinding>
                                     </Rectangle.RenderTransform>
                                     <Rectangle.Effect>

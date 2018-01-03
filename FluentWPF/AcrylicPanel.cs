@@ -55,6 +55,15 @@ namespace SourceChord.FluentWPF
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register("Target", typeof(FrameworkElement), typeof(AcrylicPanel), new PropertyMetadata(null));
 
+        public FrameworkElement Source
+        {
+            get { return (FrameworkElement)GetValue(SourceProperty); }
+            set { SetValue(SourceProperty, value); }
+        }
+        // Using a DependencyProperty as the backing store for Source.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SourceProperty =
+            DependencyProperty.Register("Source", typeof(FrameworkElement), typeof(AcrylicPanel), new PropertyMetadata(null));
+
         public Color TintColor
         {
             get { return (Color)GetValue(TintColorProperty); }
@@ -89,6 +98,11 @@ namespace SourceChord.FluentWPF
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AcrylicPanel), new FrameworkPropertyMetadata(typeof(AcrylicPanel)));
         }
 
+
+        public AcrylicPanel()
+        {
+            this.Source = this;
+        }
 
         bool _isChanged = false;
         public override void OnApplyTemplate()

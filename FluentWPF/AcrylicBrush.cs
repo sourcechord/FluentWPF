@@ -41,87 +41,18 @@ namespace SourceChord.FluentWPF
             var pvt = serviceProvider.GetService(typeof(IProvideValueTarget)) as IProvideValueTarget;
             var target = pvt.TargetObject as FrameworkElement;
 
-            var visualBrush = new VisualBrush()
+            var acrylicPanel = new AcrylicPanel()
             {
-                Stretch = Stretch.None,
-                AlignmentX = AlignmentX.Left,
-                AlignmentY = AlignmentY.Top,
-                ViewboxUnits = BrushMappingMode.Absolute,
+                TintColor = this.TintColor,
+                TintOpacity = this.TintOpacity,
+                NoiseOpacity = this.NoiseOpacity,
+                Width = target.Width,
+                Height = target.Height
             };
-            var visualBinding = new Binding() { ElementName = this.TargetName };
-            var transformBinding = new MultiBinding();
-            transformBinding.Converter = new BrushTranslationConverter();
-            transformBinding.Bindings.Add(new Binding() { ElementName = this.TargetName });
-            transformBinding.Bindings.Add(new Binding() { Source = target });
-            BindingOperations.SetBinding(visualBrush, VisualBrush.VisualProperty, visualBinding);
+            BindingOperations.SetBinding(acrylicPanel, AcrylicPanel.TargetProperty, new Binding() { ElementName = this.TargetName });
+            BindingOperations.SetBinding(acrylicPanel, AcrylicPanel.SourceProperty, new Binding() { Source = target });
 
-
-            var rect = new Rectangle()
-            {
-                Fill = visualBrush,
-                Effect = new BlurEffect() { Radius = 100 }
-            };
-
-            var widthBinding = new Binding()
-            {
-                ElementName = this.TargetName,
-                Path = new PropertyPath("ActualWidth")
-            };
-            BindingOperations.SetBinding(rect, Rectangle.WidthProperty, widthBinding);
-            var heightBinding = new Binding()
-            {
-                ElementName = this.TargetName,
-                Path = new PropertyPath("ActualHeight")
-            };
-            BindingOperations.SetBinding(rect, Rectangle.HeightProperty, heightBinding);
-
-            // ぼかしレイヤーを、BitmapCacheを設定したContentControlに配置
-            var visual = new ContentControl()
-            {
-                Content = rect,
-                CacheMode = new BitmapCache(0.2)
-            };
-
-            var grid = new Grid();
-
-            var background = new Rectangle();
-            var bgBinding = new PriorityBinding();
-            bgBinding.Bindings.Add(new Binding("Background") { ElementName = this.TargetName });
-            bgBinding.Bindings.Add(new Binding("Fill") { ElementName = this.TargetName });
-            BindingOperations.SetBinding(background, Rectangle.FillProperty, bgBinding);
-            grid.Children.Add(background);
-
-            grid.Children.Add(visual);
-
-            var tintLayer = new Rectangle()
-            {
-                Fill = new SolidColorBrush(this.TintColor),
-                Opacity = this.TintOpacity
-            };
-            grid.Children.Add(tintLayer);
-
-            var imgNoise = new BitmapImage(new Uri(@"pack://application:,,,/FluentWPF;component/Assets/Images/noise.png"));
-            var noiseLayer = new Rectangle()
-            {
-                Fill = new ImageBrush(imgNoise)
-                {
-                    TileMode = TileMode.Tile,
-                    Stretch = Stretch.None,
-                    ViewportUnits = BrushMappingMode.Absolute,
-                    Viewport = new Rect(0, 0, 128, 128),
-                    Opacity = this.NoiseOpacity
-                }
-            };
-            grid.Children.Add(noiseLayer);
-
-            BindingOperations.SetBinding(grid, Grid.RenderTransformProperty, transformBinding);
-
-            target.LayoutUpdated += (_, __) =>
-            {
-                BindingOperations.GetBindingExpressionBase(grid, Grid.RenderTransformProperty)?.UpdateTarget();
-            };
-
-            var brush = new VisualBrush(grid)
+            var brush = new VisualBrush(acrylicPanel)
             {
                 Stretch = Stretch.None,
                 AlignmentX = AlignmentX.Left,

@@ -30,9 +30,9 @@
                     <ToggleButton Content="Toggle"  Width="80" Height="35" Margin="5"/>
                     <RepeatButton Content="Repeat"  Width="80" Height="35" Margin="5"/>
                     <Button Content="Button"  Width="80" Height="35" Margin="5"
-                    Style="{StaticResource ButtonGhostRevealStyle}"/>
+                            Style="{StaticResource ButtonRevealStyle}" Background="Transparent"/>
                     <Button Content="Button"  Width="80" Height="35" Margin="5"
-                    Style="{StaticResource ButtonRevealStyle}"/>
+                            Style="{StaticResource ButtonRevealStyle}"/>
                 </WrapPanel>
                 <Label Content="Label" HorizontalAlignment="Left" Margin="5" />
                 <TextBlock HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Text="TextBlock" />

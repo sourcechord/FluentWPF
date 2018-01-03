@@ -18,22 +18,24 @@
 
         </Grid>
 
-        <Grid Grid.Column="1" fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
-            <!--<Grid Grid.Column="1" >-->
-            <StackPanel VerticalAlignment="Center" Margin="24, 0">
-                <TextBlock Text="Fluent WPF" FontSize="24"/>
-                <TextBlock Text="SourceChord"/>
-            </StackPanel>
+        <fw:DropShadowPanel Grid.Column="1" >
+            <Grid fw:PointerTracker.Enabled="True" Background="#BBFFFFFF">
+                <!--<Grid Grid.Column="1" >-->
+                <StackPanel VerticalAlignment="Center" Margin="24, 0">
+                    <TextBlock Text="Fluent WPF" FontSize="24"/>
+                    <TextBlock Text="SourceChord"/>
+                </StackPanel>
 
-            <StackPanel Orientation="Horizontal" 
+                <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Right" Margin="25" VerticalAlignment="Bottom">
-                <Button Content="Button"  Width="80" Height="35" Margin="5"/>
-                <Button Content="Button"  Width="80" Height="35" Margin="5"
+                    <Button Content="Button"  Width="80" Height="35" Margin="5"/>
+                    <Button Content="Button"  Width="80" Height="35" Margin="5"
                     Style="{StaticResource ButtonRevealStyle}"/>
-                <Button Content="Button"  Width="80" Height="35" Margin="5" ClickMode="Release"
-                    Style="{StaticResource ButtonGhostRevealStyle}" Click="Button_Click"/>
-            </StackPanel>
+                    <Button Content="Button"  Width="80" Height="35" Margin="5" ClickMode="Release"
+                    Style="{StaticResource ButtonRevealStyle}" Click="Button_Click" Background="Transparent"/>
+                </StackPanel>
 
-        </Grid>
+            </Grid>
+        </fw:DropShadowPanel>
     </Grid>
 </fw:AcrylicWindow>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FluentWPFSample.Views"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
         mc:Ignorable="d"
         Title="Logo" Height="320" Width="480">
     <Grid>

@@ -94,6 +94,7 @@ namespace SourceChord.FluentWPF
             NoiseOpacityProperty = AcrylicElement.NoiseOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.03, FrameworkPropertyMetadataOptions.Inherits));
             FallbackColorProperty = AcrylicElement.FallbackColorProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.Inherits));
             ShowTitleBarProperty = AcrylicElement.ShowTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
+            ExtendViewIntoTitleBarProperty = AcrylicElement.ExtendViewIntoTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
         }
 
         public override void OnApplyTemplate()
@@ -233,6 +234,25 @@ namespace SourceChord.FluentWPF
         }
 
 
+        public bool ExtendViewIntoTitleBar
+        {
+            get { return (bool)GetValue(ExtendViewIntoTitleBarProperty); }
+            set { SetValue(ExtendViewIntoTitleBarProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ExtendViewIntoTitleBar.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ExtendViewIntoTitleBarProperty;
+        public static bool GetExtendViewIntoTitleBar(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(AcrylicElement.ExtendViewIntoTitleBarProperty);
+        }
+
+        public static void SetExtendViewIntoTitleBar(DependencyObject obj, bool value)
+        {
+            obj.SetValue(AcrylicElement.ExtendViewIntoTitleBarProperty, value);
+        }
+
+
 
 
         #endregion
@@ -359,6 +379,23 @@ namespace SourceChord.FluentWPF
         // Using a DependencyProperty as the backing store for ShowTitleBar.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowTitleBarProperty =
             DependencyProperty.RegisterAttached("ShowTitleBar", typeof(bool), typeof(AcrylicElement), new PropertyMetadata(true));
+
+
+
+
+        public static bool GetExtendViewIntoTitleBar(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(ExtendViewIntoTitleBarProperty);
+        }
+
+        public static void SetExtendViewIntoTitleBar(DependencyObject obj, bool value)
+        {
+            obj.SetValue(ExtendViewIntoTitleBarProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for ExtendViewIntoTitleBar.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ExtendViewIntoTitleBarProperty =
+            DependencyProperty.RegisterAttached("ExtendViewIntoTitleBar", typeof(bool), typeof(AcrylicElement), new PropertyMetadata(false));
 
 
     }

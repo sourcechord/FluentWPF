@@ -205,16 +205,24 @@
                         </Rectangle>
 
                         <!-- Title bar area -->
-                        <DockPanel LastChildFill="True">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <AdornerDecorator x:Name="windowContent"
+                                              Grid.Row="1">
+                                <ContentControl Content="{Binding}" ClipToBounds="True"/>
+                            </AdornerDecorator>
+
                             <Grid x:Name="captionGrid"
-                                  DockPanel.Dock="Top" Height="30"
                                   Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window},
                                                        Path=(local:AcrylicWindow.ShowTitleBar),
                                                        Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}"
+                                <TextBlock x:Name="captionText"
+                                           Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}"
                                            Margin="8,0"
                                            VerticalAlignment="Center"/>
-
                                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                                     <Button x:Name="btnMinimizeButton" Content="&#xE921;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" />
                                     <Button x:Name="btnMaximizeButton" Content="&#xE922;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
@@ -222,10 +230,7 @@
                                     <Button x:Name="btnCloseButton" Content="&#xE8BB;" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}"/>
                                 </StackPanel>
                             </Grid>
-                            <AdornerDecorator>
-                                <ContentControl Content="{Binding}"/>
-                            </AdornerDecorator>
-                        </DockPanel>
+                        </Grid>
                     </Grid>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
@@ -247,7 +252,11 @@
                             <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
-
+                        <DataTrigger Binding="{Binding ExtendViewIntoTitleBar, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                            <Setter TargetName="windowContent" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="windowContent" Property="Grid.RowSpan" Value="2" />
+                            <Setter TargetName="captionText" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
             </Setter.Value>

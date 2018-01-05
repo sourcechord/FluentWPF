@@ -8,25 +8,51 @@
         mc:Ignorable="d"
         Title="DropShadowPanelSample" Height="400" Width="600">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-        <fw:DropShadowPanel>
-            <Border Padding="50, 30" BorderBrush="Black" BorderThickness="2" Background="Beige" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="TextBlock" FontSize="18" />
-            </Border>
-        </fw:DropShadowPanel>
-
-        <Grid Grid.Column="1">
+        <Grid>
             <Grid.Effect>
                 <DropShadowEffect ShadowDepth="0" BlurRadius="20"/>
             </Grid.Effect>
-            <Border Padding="50, 30" BorderBrush="Black" BorderThickness="2" Background="Beige" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="TextBlock" FontSize="18" />
+            <Border Margin="20" Padding="10" BorderBrush="Black" BorderThickness="2" Background="Beige" >
+                <TextBlock TextWrapping="Wrap" >
+                    <Run Text="TextBlock" FontSize="18" />
+                    <LineBreak />
+                    <Run Text="This is Grid with DropShadowEffect." />
+                    <LineBreak />
+                    <Run Text="Text is blurly." />
+                </TextBlock>
             </Border>
         </Grid>
+
+        <fw:DropShadowPanel Grid.Row="1">
+            <Border Margin="20" Padding="10" BorderBrush="Black" BorderThickness="2" Background="Beige" >
+                <TextBlock TextWrapping="Wrap" >
+                    <Run Text="TextBlock" FontSize="18" />
+                    <LineBreak />
+                    <Run Text="This is DropShadowPanel." />
+                    <LineBreak />
+                    <Run Text="Text is ClearType antialiased." />
+                </TextBlock>
+            </Border>
+        </fw:DropShadowPanel>
+
+        <fw:DropShadowPanel Grid.Row="2"
+                            Background="White">
+            <Border Margin="20" Padding="10" BorderBrush="Black" BorderThickness="2" Background="Beige" >
+                <TextBlock TextWrapping="Wrap">
+                    <Run Text="TextBlock" FontSize="18" />
+                    <LineBreak />
+                    <Run Text="This is DropShadowPanel with Background property." />
+                    <LineBreak />
+                    <Run Text="DrowShadowEffect is applied to whole of DropShadowPanel's region." />
+                </TextBlock>
+            </Border>
+        </fw:DropShadowPanel>
 
     </Grid>
 </Window>

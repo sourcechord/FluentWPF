@@ -15,6 +15,18 @@ namespace SourceChord.FluentWPF
     public class DropShadowPanel : Decorator
     {
 
+
+        public Brush Background
+        {
+            get { return (Brush)GetValue(BackgroundProperty); }
+            set { SetValue(BackgroundProperty, value); }
+        }
+        // Using a DependencyProperty as the backing store for Background.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BackgroundProperty =
+            DependencyProperty.Register("Background", typeof(Brush), typeof(DropShadowPanel), new PropertyMetadata(null));
+
+
+
         public double BlurRadius
         {
             get { return (double)GetValue(BlurRadiusProperty); }
@@ -147,13 +159,14 @@ namespace SourceChord.FluentWPF
             BindingOperations.SetBinding(effect, DropShadowEffect.ShadowDepthProperty, new Binding("ShadowDepth") { Source = this });
             var border = new Rectangle()
             {
-                Fill = new VisualBrush(value)
-                {
-                    TileMode = TileMode.None,
-                    Stretch = Stretch.None
-                },
                 Effect = effect
             };
+            var brush = new VisualBrush(value)
+            {
+                TileMode = TileMode.None,
+                Stretch = Stretch.None
+            };
+            BindingOperations.SetBinding(border, Rectangle.FillProperty, new Binding("Background") { Source = this, TargetNullValue = brush });
 
             var grid = new Grid();
             grid.Children.Add(border);

@@ -19,8 +19,8 @@
 
         </Grid>
 
-        <fw:DropShadowPanel Grid.Column="1" >
-            <Grid fw:PointerTracker.Enabled="True" Background="#BBFFFFFF">
+        <fw:DropShadowPanel Grid.Column="1" ShadowMode="Outer" Background="#33FFFFFF">
+            <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
                 <!--<Grid Grid.Column="1" >-->
                 <StackPanel VerticalAlignment="Center" Margin="24, 0">
                     <TextBlock Text="Fluent WPF" FontSize="24"/>

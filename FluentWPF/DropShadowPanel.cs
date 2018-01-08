@@ -71,7 +71,7 @@ namespace SourceChord.FluentWPF
         }
         // Using a DependencyProperty as the backing store for ShadowOpacity.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShadowOpacityProperty =
-            DependencyProperty.Register("ShadowOpacity", typeof(double), typeof(DropShadowPanel), new PropertyMetadata(1.0));
+            DependencyProperty.Register("ShadowOpacity", typeof(double), typeof(DropShadowPanel), new PropertyMetadata(0.8));
 
 
         public RenderingBias RenderingBias
@@ -157,7 +157,7 @@ namespace SourceChord.FluentWPF
 
                     var ic = this.CreateInternalVisual(value);
 
-                    if (value != null)
+                    if (ic != null)
                     {
                         AddLogicalChild(ic);
                     }
@@ -188,7 +188,8 @@ namespace SourceChord.FluentWPF
                 TileMode = TileMode.None,
                 Stretch = Stretch.None,
                 AlignmentX = AlignmentX.Left,
-                AlignmentY = AlignmentY.Top
+                AlignmentY = AlignmentY.Top,
+                ViewboxUnits = BrushMappingMode.Absolute
             };
             var contentTrigger = new DataTrigger()
             {
@@ -276,7 +277,10 @@ namespace SourceChord.FluentWPF
             var grid = new Grid();
             BindingOperations.SetBinding(grid, Grid.BackgroundProperty, new Binding("Background") { Source = this });
             grid.Children.Add(border);
-            grid.Children.Add(value);
+            if (value != null)
+            {
+                grid.Children.Add(value);
+            }
 
             return grid;
         }

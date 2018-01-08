@@ -84,5 +84,11 @@ namespace FluentWPFSample
             var win = new Views.DropShadowPanelSample();
             win.ShowDialog();
         }
+
+        private void OpenDropShadowPanel2(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.DropShadowPanelSample2();
+            win.ShowDialog();
+        }
     }
 }

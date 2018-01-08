@@ -1,0 +1,50 @@
+﻿<Window x:Class="FluentWPFSample.Views.DropShadowPanelSample2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FluentWPFSample.Views"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        mc:Ignorable="d"
+        Title="DropShadowPanelSample2" Height="480" Width="640">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/FluentWPFSample;component/Assets/Images/1.jpg" Stretch="UniformToFill" Opacity="0.5"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <fw:DropShadowPanel ShadowMode="Content" Color="Yellow" BlurRadius="10" Opacity="1">
+            <Grid Margin="50">
+                <TextBlock Text="Top" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+                <TextBlock Text="Bottom" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" FontWeight="Bold"/>
+                <TextBlock Text="ShadowMode: Content"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </fw:DropShadowPanel>
+
+        <fw:DropShadowPanel Grid.Column="1"
+                            ShadowMode="Inner" Margin="50">
+            <TextBlock Text="ShadowMode: Inner"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </fw:DropShadowPanel>
+
+        <fw:DropShadowPanel Grid.Row="1"
+                            ShadowMode="Outer" Margin="50">
+            <TextBlock Text="ShadowMode: Outer"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </fw:DropShadowPanel>
+
+        <fw:DropShadowPanel Grid.Column="1" Grid.Row="1"
+                            ShadowMode="Outer" Margin="50"
+                            Background="#550077FF">
+            <TextBlock Text="Translucent itme with DropShadow" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </fw:DropShadowPanel>
+    </Grid>
+</Window>

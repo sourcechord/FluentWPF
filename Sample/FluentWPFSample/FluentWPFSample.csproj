@@ -75,6 +75,9 @@
     <Compile Include="Views\DropShadowPanelSample.xaml.cs">
       <DependentUpon>DropShadowPanelSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DropShadowPanelSample2.xaml.cs">
+      <DependentUpon>DropShadowPanelSample2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Logo.xaml.cs">
       <DependentUpon>Logo.xaml</DependentUpon>
     </Compile>
@@ -121,6 +124,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DropShadowPanelSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DropShadowPanelSample2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

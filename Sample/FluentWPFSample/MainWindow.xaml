@@ -42,6 +42,7 @@
                     <Button Content="Logo" Click="OpenLogo" />
                     <Button Content="Controls" Click="OpenControls" />
                     <Button Content="DropShadowPanel" Click="OpenDropShadowPanel" />
+                    <Button Content="DropShadowPanel2" Click="OpenDropShadowPanel2" />
                 </StackPanel>
             </GroupBox>
         </StackPanel>

@@ -41,18 +41,30 @@
             </Border>
         </fw:DropShadowPanel>
 
-        <fw:DropShadowPanel Grid.Row="2"
-                            Background="White">
-            <Border Margin="20" Padding="10" BorderBrush="Black" BorderThickness="2" Background="Beige" >
-                <TextBlock TextWrapping="Wrap">
-                    <Run Text="TextBlock" FontSize="18" />
-                    <LineBreak />
-                    <Run Text="This is DropShadowPanel with Background property." />
-                    <LineBreak />
-                    <Run Text="DrowShadowEffect is applied to whole of DropShadowPanel's region." />
-                </TextBlock>
-            </Border>
-        </fw:DropShadowPanel>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0"
+                                Background="#880055FF"
+                                Margin="30">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.8"/>
+                </Grid.Effect>
+                <TextBlock Text="This is Grid with DropShadowEffect"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+            
+            <fw:DropShadowPanel Grid.Column="1"
+                                Background="#880055FF"
+                                Margin="30"
+                                ShadowMode="Outer">
+                <TextBlock Text="This is DropShadowPanel"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </fw:DropShadowPanel>
+        </Grid>
 
     </Grid>
 </Window>

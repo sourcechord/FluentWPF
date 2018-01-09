@@ -42,6 +42,11 @@ namespace FluentWPFSample
             var win = new Views.AcrylicPanelSample();
             win.ShowDialog();
         }
+        private void OpenAcrylicPanel2(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.AcrylicPanelSample2();
+            win.ShowDialog();
+        }
 
         private void OpenAcrylicBrush(object sender, RoutedEventArgs e)
         {

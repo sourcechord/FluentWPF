@@ -19,6 +19,7 @@
                     <Button Content="AcrylicWindow" Click="OpenAcrylicWindow"/>
                     <Button Content="AcrylicWindow&#xa;(Attached Property)" Click="OpenAcrylicWindow2" />
                     <Button Content="AcrylicPanel" Click="OpenAcrylicPanel" />
+                    <Button Content="AcrylicPanel2" Click="OpenAcrylicPanel2" />
                     <Button Content="AcrylicBrush" Click="OpenAcrylicBrush" />
                 </StackPanel>
             </GroupBox>

@@ -1,0 +1,84 @@
+﻿<Window x:Class="FluentWPFSample.Views.AcrylicPanelSample2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        xmlns:local="clr-namespace:FluentWPFSample.Views"
+        mc:Ignorable="d"
+        Title="AcrylicPanelSample2"
+        Width="640"
+        Height="480">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="grid" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button Width="75" Margin="5" Content="Button" />
+                <Button Width="75" Margin="5" Content="Button" />
+                <Button Width="75" Margin="5" Content="Button" />
+            </StackPanel>
+            <Image Grid.Row="1"
+                   Margin="5"
+                   Source="/FluentWPFSample;component/Assets/Images/1.jpg" />
+        </Grid>
+
+        <fw:AcrylicPanel
+                   Width="200" Height="200" HorizontalAlignment="Right"
+                         Target="{Binding ElementName=grid}"
+                    TintOpacity="{Binding Value, ElementName=sldTintOpacity}"
+                    NoiseOpacity="{Binding Value, ElementName=sldNoiseOpacity}"
+                   Visibility="{Binding IsChecked, ElementName=chkShowAcrylicLayer, Converter={StaticResource booleanToVisibilityConverter}}">
+            <fw:AcrylicPanel.Style>
+                <Style TargetType="{x:Type fw:AcrylicPanel}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsChecked, ElementName=btnWhite}" Value="True">
+                            <Setter Property="TintColor" Value="White" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsChecked, ElementName=btnRed}" Value="True">
+                            <Setter Property="TintColor" Value="Red" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsChecked, ElementName=btnGreen}" Value="True">
+                            <Setter Property="TintColor" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsChecked, ElementName=btnBlue}" Value="True">
+                            <Setter Property="TintColor" Value="Blue" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </fw:AcrylicPanel.Style>
+            <TextBlock Text="TextBlock" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </fw:AcrylicPanel>
+        <GroupBox Grid.Column="1" Header="Parameters"
+                  Margin="20">
+            <StackPanel Margin="5">
+                <CheckBox x:Name="chkShowAcrylicLayer"
+                          HorizontalAlignment="Left"
+                          Content="Show Acrylic Rect"
+                          IsChecked="True" />
+                <TextBlock Text="TintColor:" Margin="0,10,0,0" />
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton x:Name="btnWhite" Content="White" IsChecked="True"/>
+                    <RadioButton x:Name="btnRed" Content="Red" />
+                    <RadioButton x:Name="btnGreen" Content="Green"/>
+                    <RadioButton x:Name="btnBlue" Content="Blue"/>
+                </StackPanel>
+                <TextBlock Text="TintOpacity:" Margin="0,10,0,0"/>
+                <Slider x:Name="sldTintOpacity"
+                        Minimum="0" Maximum="1" Value="0.3" />
+                <TextBlock Text="NoiseOpacity:" Margin="0,10,0,0"/>
+                <Slider x:Name="sldNoiseOpacity"
+                        Minimum="0" Maximum="1" Value="0.03" />
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>

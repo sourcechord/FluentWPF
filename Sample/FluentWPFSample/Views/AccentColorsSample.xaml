@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FluentWPFSample.Views"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
-        Title="AccentColorsSample" Height="480" Width="480">
+        Title="AccentColorsSample" Height="600" Width="480">
     <Grid>
         <StackPanel Margin="5">
             <StackPanel.Resources>
@@ -24,30 +24,39 @@
                 </Style>
             </StackPanel.Resources>
             <StackPanel Orientation="Horizontal" Margin="5">
-                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}">
+                <Border Background="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentBrush)}">
                     <TextBlock Text="ImmersiveSystemAccentBrush" />
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
-                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentLight1Brush}">
+                <Border Background="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentLight1Brush)}">
                     <TextBlock Text="ImmersiveSystemAccentLight1Brush"/>
                 </Border>
-                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentLight2Brush}">
+                <Border Background="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentLight2Brush)}">
                     <TextBlock Text="ImmersiveSystemAccentLight2Brush"/>
                 </Border>
-                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentLight3Brush}">
+                <Border Background="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentLight3Brush)}">
                     <TextBlock Text="ImmersiveSystemAccentLight3Brush" />
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
-                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentDark1Brush}">
+                <Border Background="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentDark1Brush)}">
                     <TextBlock Text="ImmersiveSystemAccentDark1Brush" Foreground="White"/>
                 </Border>
-                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentDark2Brush}">
+                <Border Background="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentDark2Brush)}">
                     <TextBlock Text="ImmersiveSystemAccentDark2Brush" Foreground="White"/>
                 </Border>
-                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentDark3Brush}">
+                <Border Background="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentDark3Brush)}">
                     <TextBlock Text="ImmersiveSystemAccentDark3Brush" Foreground="White"/>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}">
+                    <TextBlock Text="x:Static"/>
+                </Border>
+                <Border Background="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentBrush)}">
+                    <TextBlock Text="Binding" />
                 </Border>
             </StackPanel>
         </StackPanel>

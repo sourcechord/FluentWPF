@@ -22,11 +22,7 @@ namespace SourceChord.FluentWPF
 
         private static readonly int WM_DWMCOLORIZATIONCOLORCHANGED = 0x0320;
 
-        public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
-        private static void OnStaticPropertyChanged([CallerMemberName]string propertyName = null)
-        {
-            StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(propertyName));
-        }
+
 
         static AccentColors()
         {
@@ -188,6 +184,13 @@ namespace SourceChord.FluentWPF
             var brush = new SolidColorBrush(color);
             brush.Freeze();
             return brush;
+        }
+
+
+        public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+        protected static void OnStaticPropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

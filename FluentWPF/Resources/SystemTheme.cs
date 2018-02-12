@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,7 @@ namespace SourceChord.FluentWPF
         static SystemTheme()
         {
             SystemTheme.Instance = new SystemTheme();
+            Theme = GetTheme();
         }
 
         protected override IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -31,7 +34,7 @@ namespace SourceChord.FluentWPF
                 if (systemParmeter == "ImmersiveColorSet")
                 {
                     // 再度レジストリから Dark/Lightの設定を取得
-                    var theme = GetTheme();
+                    Theme = GetTheme();
 
                     handled = true;
                 }
@@ -49,7 +52,21 @@ namespace SourceChord.FluentWPF
             var intValue = (int)regkey.GetValue("AppsUseLightTheme");
             Console.WriteLine(intValue);
 
-            return intValue == 0 ? ApplicationTheme.Light : ApplicationTheme.Dark;
+            return intValue == 0 ? ApplicationTheme.Dark : ApplicationTheme.Light;
+        }
+
+        private static ApplicationTheme theme;
+        public static ApplicationTheme Theme
+        {
+            get { return theme; }
+            private set { if (!object.Equals(theme, value)) { theme = value; OnStaticPropertyChanged(); } }
+        }
+
+
+        public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+        protected static void OnStaticPropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

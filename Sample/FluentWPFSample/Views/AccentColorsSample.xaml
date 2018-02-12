@@ -7,6 +7,21 @@
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
         Title="AccentColorsSample" Height="600" Width="480">
+    <Window.Resources>
+        <local:RadioButtonConverter x:Key="radioButtonConverter"/>
+    </Window.Resources>
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=(fw:SystemTheme.Theme)}" Value="Light">
+                    <Setter Property="Background" Value="White" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(fw:SystemTheme.Theme)}" Value="Dark">
+                    <Setter Property="Background" Value="Black" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
     <Grid>
         <StackPanel Margin="5">
             <StackPanel.Resources>
@@ -26,6 +41,18 @@
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Border Background="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentBrush)}">
                     <TextBlock Text="ImmersiveSystemAccentBrush" />
+                </Border>
+                <Border Background="White">
+                    <StackPanel>
+                        <RadioButton Content="Light"
+                                     IsEnabled="False"
+                                     IsChecked="{Binding Path=(fw:SystemTheme.Theme),
+                                     Converter={StaticResource radioButtonConverter}, ConverterParameter=Light, Mode=OneWay}"/>
+                        <RadioButton Content="Dark"
+                                     IsEnabled="False"
+                                     IsChecked="{Binding Path=(fw:SystemTheme.Theme),
+                                     Converter={StaticResource radioButtonConverter}, ConverterParameter=Dark, Mode=OneWay}"/>
+                    </StackPanel>
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">

@@ -328,6 +328,7 @@ namespace SourceChord.FluentWPF
                 win.Style = style;
 
                 win.Loaded += (_, __) => { EnableBlur(win); };
+                if(win.IsLoaded) EnableBlur(win);
             }
         }
         #endregion

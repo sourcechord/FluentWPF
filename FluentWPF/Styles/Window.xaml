@@ -210,7 +210,7 @@
                         <!-- Title bar area -->
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <AdornerDecorator x:Name="windowContent"
@@ -219,6 +219,7 @@
                             </AdornerDecorator>
 
                             <Grid x:Name="captionGrid"
+                                  Height="30"
                                   Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window},
                                                        Path=(local:AcrylicWindow.ShowTitleBar),
                                                        Converter={StaticResource BooleanToVisibilityConverter}}">

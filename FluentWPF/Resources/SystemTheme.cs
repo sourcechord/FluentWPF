@@ -35,6 +35,7 @@ namespace SourceChord.FluentWPF
                 {
                     // 再度レジストリから Dark/Lightの設定を取得
                     Theme = GetTheme();
+                    SystemTheme.ThemeChanged?.Invoke(null, null);
 
                     handled = true;
                 }
@@ -68,5 +69,8 @@ namespace SourceChord.FluentWPF
         {
             StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(propertyName));
         }
+
+
+        public static event EventHandler ThemeChanged;
     }
 }

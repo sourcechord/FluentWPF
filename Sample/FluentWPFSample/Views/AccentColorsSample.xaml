@@ -8,9 +8,31 @@
         mc:Ignorable="d"
         Title="AccentColorsSample" Height="600" Width="480">
     <Window.Resources>
-        <local:RadioButtonConverter x:Key="radioButtonConverter"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <local:RadioButtonConverter x:Key="radioButtonConverter"/>
+                </ResourceDictionary>
+                
+                <fw:ResourceDictionaryEx>
+                    <!--<fw:ResourceDictionaryEx.Light>
+                        <ResourceDictionary Source="/FluentWPFSample;component/Dictionary1.xaml" />
+                    </fw:ResourceDictionaryEx.Light>
+                    <fw:ResourceDictionaryEx.Dark>
+                        <ResourceDictionary Source="/FluentWPFSample;component/Dictionary2.xaml" />
+                    </fw:ResourceDictionaryEx.Dark>-->
+                    <fw:ResourceDictionaryEx.ThemeDictionaries>
+                        <fw:ThemeResource ThemeName="Light" Source="/FluentWPFSample;component/Dictionary1.xaml" />
+                        <fw:ThemeResource ThemeName="Dark" Source="/FluentWPFSample;component/Dictionary2.xaml" />
+
+                    </fw:ResourceDictionaryEx.ThemeDictionaries>
+
+                </fw:ResourceDictionaryEx>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
     </Window.Resources>
-    <Window.Style>
+    <!--<Window.Style>
         <Style TargetType="{x:Type Window}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=(fw:SystemTheme.Theme)}" Value="Light">
@@ -21,7 +43,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-    </Window.Style>
+    </Window.Style>-->
     <Grid>
         <StackPanel Margin="5">
             <StackPanel.Resources>

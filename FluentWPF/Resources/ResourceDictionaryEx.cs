@@ -16,13 +16,29 @@ namespace SourceChord.FluentWPF
         Dark,
     }
 
+
+
+    public class ThemeDictionary : ResourceDictionary
+    {
+        public string ThemeName { get; set; }
+
+        public new Uri Source
+        {
+            get { return base.Source; }
+            set { base.Source = value; }
+        }
+    }
+
+    public class ThemeCollection : ObservableCollection<ThemeDictionary>
+    {
+
+    }
+
     public class ResourceDictionaryEx : ResourceDictionary
     {
-        public ObservableCollection<ThemeResource> ThemeDictionaries { get; set; } = new ObservableCollection<ThemeResource>();
+        public ThemeCollection ThemeDictionaries { get; set; } = new ThemeCollection();
 
         public ElementTheme RequestedTheme { get; set; }
-
-        public string ThemeName { get; set; }
 
         public ResourceDictionaryEx()
         {
@@ -34,7 +50,7 @@ namespace SourceChord.FluentWPF
         {
             if (e == null) return;
             if (e.NewItems == null) return;
-            var item = e.NewItems[0] as ThemeResource;
+            var item = e.NewItems[0] as ThemeDictionary;
             if (item != null)
             {
                 this.ChangeTheme();
@@ -54,12 +70,12 @@ namespace SourceChord.FluentWPF
             {
                 case ApplicationTheme.Light:
                     this.MergedDictionaries.Clear();
-                    var light = this.ThemeDictionaries.OfType<ThemeResource>().FirstOrDefault(o => o.ThemeName == "Light");
+                    var light = this.ThemeDictionaries.OfType<ThemeDictionary>().FirstOrDefault(o => o.ThemeName == "Light");
                     if (light != null) { this.MergedDictionaries.Add(light); }
                     break;
                 case ApplicationTheme.Dark:
                     this.MergedDictionaries.Clear();
-                    var dark = this.ThemeDictionaries.OfType<ThemeResource>().FirstOrDefault(o => o.ThemeName == "Dark");
+                    var dark = this.ThemeDictionaries.OfType<ThemeDictionary>().FirstOrDefault(o => o.ThemeName == "Dark");
                     if (dark != null) { this.MergedDictionaries.Add(dark); }
                     break;
                 default:
@@ -68,14 +84,4 @@ namespace SourceChord.FluentWPF
         }
     }
 
-    public class ThemeResource : ResourceDictionary
-    {
-        public string ThemeName { get; set; }
-
-        public new Uri Source
-        {
-            get { return base.Source; }
-            set { base.Source = value; }
-        }
-    }
 }

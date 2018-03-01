@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,20 +20,67 @@ namespace SourceChord.FluentWPF
 
 
 
-    public class ThemeDictionary : ResourceDictionary
+    public class ThemeDictionary : ResourceDictionary, INotifyPropertyChanged
     {
-        public string ThemeName { get; set; }
+        private string themeName;
+        public string ThemeName
+        {
+            get { return themeName; }
+            set { this.themeName = value; this.OnPropertyChanged(); }
+        }
+
+
 
         public new Uri Source
         {
             get { return base.Source; }
-            set { base.Source = value; }
+            set { base.Source = value; this.OnPropertyChanged(); }
         }
+
+        #region
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var eventHandler = this.PropertyChanged;
+            if (eventHandler != null)
+            {
+                eventHandler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
     }
 
     public class ThemeCollection : ObservableCollection<ThemeDictionary>
     {
+        public ThemeCollection()
+        {
+            this.CollectionChanged += ThemeCollection_CollectionChanged;
+        }
 
+        private void ThemeCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+            {
+                foreach (ThemeDictionary item in e.OldItems)
+                {
+                    item.PropertyChanged -= Item_PropertyChanged;
+                }
+            }
+            else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                foreach (ThemeDictionary item in e.NewItems)
+                {
+                    item.PropertyChanged += Item_PropertyChanged;
+                }
+            }
+        }
+
+        private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var args = new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset);
+            OnCollectionChanged(args);
+        }
     }
 
     public class ResourceDictionaryEx : ResourceDictionary
@@ -48,13 +97,14 @@ namespace SourceChord.FluentWPF
 
         private void ThemeDictionaries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e == null) return;
-            if (e.NewItems == null) return;
-            var item = e.NewItems[0] as ThemeDictionary;
-            if (item != null)
-            {
-                this.ChangeTheme();
-            }
+            //if (e == null) return;
+            //if (e.NewItems == null) return;
+            //var item = e.NewItems[0] as ThemeDictionary;
+            //if (item != null)
+            //{
+            //    this.ChangeTheme();
+            //}
+            this.ChangeTheme();
         }
 
         private void SystemTheme_ThemeChanged(object sender, EventArgs e)

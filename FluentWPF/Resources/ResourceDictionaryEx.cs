@@ -103,7 +103,13 @@ namespace SourceChord.FluentWPF
     {
         public ThemeCollection ThemeDictionaries { get; set; } = new ThemeCollection();
 
-        public ElementTheme RequestedTheme { get; set; }
+        private ElementTheme requestedTheme;
+        public ElementTheme RequestedTheme
+        {
+            get { return requestedTheme; }
+            set { requestedTheme = value; this.ChangeTheme(); }
+        }
+
 
         public ResourceDictionaryEx()
         {
@@ -124,21 +130,29 @@ namespace SourceChord.FluentWPF
 
         private void ChangeTheme()
         {
-            var current = SystemTheme.Theme;
-            switch (current)
+            switch (this.RequestedTheme)
             {
-                case ApplicationTheme.Light:
-                    this.MergedDictionaries.Clear();
-                    var light = this.ThemeDictionaries.OfType<ThemeDictionary>().FirstOrDefault(o => o.ThemeName == "Light");
-                    if (light != null) { this.MergedDictionaries.Add(light); }
+                case ElementTheme.Light:
+                    this.ChangeTheme("Light");
                     break;
-                case ApplicationTheme.Dark:
-                    this.MergedDictionaries.Clear();
-                    var dark = this.ThemeDictionaries.OfType<ThemeDictionary>().FirstOrDefault(o => o.ThemeName == "Dark");
-                    if (dark != null) { this.MergedDictionaries.Add(dark); }
+                case ElementTheme.Dark:
+                    this.ChangeTheme("Dark");
                     break;
+                case ElementTheme.Default:
                 default:
+                    this.ChangeTheme(SystemTheme.Theme.ToString());
                     break;
+            }
+        }
+
+        private void ChangeTheme(string themeName)
+        {
+            this.MergedDictionaries.Clear();
+            var theme = this.ThemeDictionaries.OfType<ThemeDictionary>()
+                                              .FirstOrDefault(o => o.ThemeName == themeName);
+            if (theme != null)
+            {
+                this.MergedDictionaries.Add(theme);
             }
         }
     }

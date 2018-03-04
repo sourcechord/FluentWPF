@@ -13,9 +13,9 @@
                 <ResourceDictionary>
                     <local:RadioButtonConverter x:Key="radioButtonConverter"/>
                 </ResourceDictionary>
-                <fw:ResourceDictionaryEx>
+                <fw:ResourceDictionaryEx RequestedTheme="Default">
                     <fw:ResourceDictionaryEx.ThemeDictionaries>
-                        <fw:ThemeDictionary x:Name="Light" ThemeName="Light" Source="/FluentWPFSample;component/Dictionary1.xaml" />
+                        <fw:ThemeDictionary ThemeName="Light" Source="/FluentWPFSample;component/Dictionary1.xaml" />
                         <fw:ThemeDictionary ThemeName="Dark" Source="/FluentWPFSample;component/Dictionary2.xaml" />
                     </fw:ResourceDictionaryEx.ThemeDictionaries>
                 </fw:ResourceDictionaryEx>

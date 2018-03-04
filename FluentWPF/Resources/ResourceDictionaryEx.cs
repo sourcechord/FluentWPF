@@ -53,24 +53,40 @@ namespace SourceChord.FluentWPF
 
     public class ThemeCollection : ObservableCollection<ThemeDictionary>
     {
+        private IList<ThemeDictionary> _previousList;
+
         public ThemeCollection()
         {
+            this._previousList = new List<ThemeDictionary>();
             this.CollectionChanged += ThemeCollection_CollectionChanged;
         }
 
         private void ThemeCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
             {
-                foreach (ThemeDictionary item in e.OldItems)
+                // Resetの場合は、全リスト要素のイベントを解除
+                foreach (var item in this._previousList)
                 {
                     item.PropertyChanged -= Item_PropertyChanged;
                 }
+                this._previousList.Clear();
             }
-            else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+
+
+            if (e.OldItems != null)
+            {
+                foreach (ThemeDictionary item in e.OldItems)
+                {
+                    this._previousList.Remove(item);
+                    item.PropertyChanged -= Item_PropertyChanged;
+                }
+            }
+            if (e.NewItems != null)
             {
                 foreach (ThemeDictionary item in e.NewItems)
                 {
+                    this._previousList.Add(item);
                     item.PropertyChanged += Item_PropertyChanged;
                 }
             }
@@ -97,13 +113,6 @@ namespace SourceChord.FluentWPF
 
         private void ThemeDictionaries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            //if (e == null) return;
-            //if (e.NewItems == null) return;
-            //var item = e.NewItems[0] as ThemeDictionary;
-            //if (item != null)
-            //{
-            //    this.ChangeTheme();
-            //}
             this.ChangeTheme();
         }
 

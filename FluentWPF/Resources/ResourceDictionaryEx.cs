@@ -103,8 +103,8 @@ namespace SourceChord.FluentWPF
     {
         public ThemeCollection ThemeDictionaries { get; set; } = new ThemeCollection();
 
-        private ElementTheme requestedTheme;
-        public ElementTheme RequestedTheme
+        private ElementTheme? requestedTheme;
+        public ElementTheme? RequestedTheme
         {
             get { return requestedTheme; }
             set { requestedTheme = value; this.ChangeTheme(); }
@@ -115,11 +115,7 @@ namespace SourceChord.FluentWPF
         {
             SystemTheme.ThemeChanged += SystemTheme_ThemeChanged;
             this.ThemeDictionaries.CollectionChanged += ThemeDictionaries_CollectionChanged;
-        }
-
-        private void ThemeDictionaries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            this.ChangeTheme();
+            ResourceDictionaryEx.GlobalThemeChanged += ResourceDictionaryEx_GlobalThemeChanged;
         }
 
         private void SystemTheme_ThemeChanged(object sender, EventArgs e)
@@ -127,16 +123,27 @@ namespace SourceChord.FluentWPF
             this.ChangeTheme();
         }
 
+        private void ThemeDictionaries_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            this.ChangeTheme();
+        }
+
+        private void ResourceDictionaryEx_GlobalThemeChanged(object sender, EventArgs e)
+        {
+            this.ChangeTheme();
+        }
+
 
         private void ChangeTheme()
         {
-            switch (this.RequestedTheme)
+            var theme = this.RequestedTheme ?? ResourceDictionaryEx.GlobalTheme;
+            switch (theme)
             {
                 case ElementTheme.Light:
-                    this.ChangeTheme("Light");
+                    this.ChangeTheme(ApplicationTheme.Light.ToString());
                     break;
                 case ElementTheme.Dark:
-                    this.ChangeTheme("Dark");
+                    this.ChangeTheme(ApplicationTheme.Dark.ToString());
                     break;
                 case ElementTheme.Default:
                 default:
@@ -155,6 +162,17 @@ namespace SourceChord.FluentWPF
                 this.MergedDictionaries.Add(theme);
             }
         }
+
+        #region static members
+        private static ElementTheme? globalTheme;
+        public static ElementTheme? GlobalTheme
+        {
+            get { return globalTheme; }
+            set { globalTheme = value; GlobalThemeChanged?.Invoke(null, null); }
+        }
+
+        public static event EventHandler<EventArgs> GlobalThemeChanged;
+        #endregion
     }
 
 }

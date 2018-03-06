@@ -110,7 +110,6 @@ namespace SourceChord.FluentWPF
             set { requestedTheme = value; this.ChangeTheme(); }
         }
 
-
         public ResourceDictionaryEx()
         {
             SystemTheme.ThemeChanged += SystemTheme_ThemeChanged;

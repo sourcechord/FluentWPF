@@ -8,20 +8,21 @@
         mc:Ignorable="d"
         Title="AccentColorsSample" Height="600" Width="480">
     <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <local:RadioButtonConverter x:Key="radioButtonConverter"/>
-                </ResourceDictionary>
-                <fw:ResourceDictionaryEx RequestedTheme="Default">
-                    <fw:ResourceDictionaryEx.ThemeDictionaries>
-                        <fw:ThemeDictionary ThemeName="Light" Source="/FluentWPFSample;component/Dictionary1.xaml" />
-                        <fw:ThemeDictionary ThemeName="Dark" Source="/FluentWPFSample;component/Dictionary2.xaml" />
-                    </fw:ResourceDictionaryEx.ThemeDictionaries>
-                </fw:ResourceDictionaryEx>
-
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <fw:ResourceDictionaryEx>
+            <local:RadioButtonConverter x:Key="radioButtonConverter"/>
+            <fw:ResourceDictionaryEx.ThemeDictionaries>
+                <fw:ThemeDictionary ThemeName="Light">
+                    <Style TargetType="{x:Type Grid}">
+                        <Setter Property="Background" Value="Beige" />
+                    </Style>
+                </fw:ThemeDictionary>
+                <fw:ThemeDictionary ThemeName="Dark">
+                    <Style TargetType="{x:Type Grid}">
+                        <Setter Property="Background" Value="Gray" />
+                    </Style>
+                </fw:ThemeDictionary>
+            </fw:ResourceDictionaryEx.ThemeDictionaries>
+        </fw:ResourceDictionaryEx>
 
     </Window.Resources>
     <Grid>

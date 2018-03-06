@@ -49,6 +49,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\ResourceDictionaryEx.cs" />
+    <Compile Include="Resources\SystemTheme.cs" />
+    <Compile Include="Resources\ThemeHandler.cs" />
     <Page Include="Styles\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -77,7 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AccentColors.cs" />
+    <Compile Include="Resources\AccentColors.cs" />
     <Compile Include="AcrylicBrush.cs" />
     <Compile Include="AcrylicPanel.cs" />
     <Compile Include="AcrylicWindow.cs" />

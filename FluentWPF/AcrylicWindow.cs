@@ -94,7 +94,6 @@ namespace SourceChord.FluentWPF
             NoiseOpacityProperty = AcrylicElement.NoiseOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.03, FrameworkPropertyMetadataOptions.Inherits));
             FallbackColorProperty = AcrylicElement.FallbackColorProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.Inherits));
             ShowTitleBarProperty = AcrylicElement.ShowTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
-            TitleBarForegroundProperty = AcrylicElement.TitleBarForegroundProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(Colors.Black, FrameworkPropertyMetadataOptions.Inherits));
             ExtendViewIntoTitleBarProperty = AcrylicElement.ExtendViewIntoTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
         }
 
@@ -255,25 +254,6 @@ namespace SourceChord.FluentWPF
         }
 
 
-        public Color TitleBarForeground
-        {
-            get { return (Color)GetValue(TitleBarForegroundProperty); }
-            set { SetValue(TitleBarForegroundProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for TitleBarColor.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TitleBarForegroundProperty;
-        public static Color GetTitleBarForeground(DependencyObject obj)
-        {
-            return (Color)obj.GetValue(AcrylicElement.TitleBarForegroundProperty);
-        }
-
-        public static void SetTitleBarForeground(DependencyObject obj, Color value)
-        {
-            obj.SetValue(AcrylicElement.TitleBarForegroundProperty, value);
-        }
-
-
         public bool ExtendViewIntoTitleBar
         {
             get { return (bool)GetValue(ExtendViewIntoTitleBarProperty); }
@@ -420,25 +400,6 @@ namespace SourceChord.FluentWPF
         // Using a DependencyProperty as the backing store for ShowTitleBar.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowTitleBarProperty =
             DependencyProperty.RegisterAttached("ShowTitleBar", typeof(bool), typeof(AcrylicElement), new PropertyMetadata(true));
-
-
-
-
-
-        public static Color GetTitleBarForeground(DependencyObject obj)
-        {
-            return (Color)obj.GetValue(TitleBarForegroundProperty);
-        }
-
-        public static void SetTitleBarForeground(DependencyObject obj, Color value)
-        {
-            obj.SetValue(TitleBarForegroundProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for TitleBarColor.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TitleBarForegroundProperty =
-            DependencyProperty.RegisterAttached("TitleBarForeground", typeof(Color), typeof(AcrylicElement), new FrameworkPropertyMetadata(Colors.Black, FrameworkPropertyMetadataOptions.Inherits));
-
 
 
 

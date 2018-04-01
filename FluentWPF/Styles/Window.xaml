@@ -244,6 +244,7 @@
                             <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="fallbackLayer" Property="Visibility" Value="Visible" />
                             <Setter TargetName="captionGrid" Property="TextBlock.Foreground" Value="Gray" />
+                            <Setter TargetName="captionGrid" Property="IsEnabled" Value="False" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
                             <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
@@ -278,6 +279,7 @@
             <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
             </Trigger>
             <Trigger Property="IsActive" Value="False">
+                <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumLowColorBrush}" />
             </Trigger>
             <Trigger Property="local:AcrylicWindow.ShowTitleBar" Value="False">
                 <Setter Property="WindowChrome.WindowChrome">

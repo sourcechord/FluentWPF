@@ -172,7 +172,9 @@
     </Style>
 
     <Style x:Key="AcrylicWindowStyle" TargetType="{x:Type Window}">
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <Setter Property="local:AcrylicWindow.TintColor" Value="{DynamicResource SystemControlAcrylicWindowTintColor}"/>
+        <Setter Property="local:AcrylicWindow.FallbackColor" Value="{DynamicResource SystemControlAcrylicWindowFallbackColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlAcrylicWindowForegroundBrush}"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{x:Static local:AccentColors.ImmersiveSystemAccentBrush}" />
         <Setter Property="BorderThickness" Value="1"/>

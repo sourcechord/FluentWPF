@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:SourceChord.FluentWPF.Styles">
+                    xmlns:local="clr-namespace:SourceChord.FluentWPF">
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Colors.xaml" />
         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Button.xaml" />
         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/ListBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/ScrollBar.xaml" />

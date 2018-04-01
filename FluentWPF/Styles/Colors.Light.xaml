@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:SourceChord.FluentWPF">
+    <Color x:Key="SystemBaseLowColor">#33000000</Color>
+    <Color x:Key="SystemBaseMediumLowColor">#66000000</Color>   <!-- for Disabled UI -->
+    <Color x:Key="SystemBaseMediumColor">#99000000</Color>      <!-- for Secondary text -->
+    <Color x:Key="SystemBaseMediumHighColor">#CC000000</Color>
+    <Color x:Key="SystemBaseHighColor">#FF000000</Color>        <!-- for Primary text -->
+
+    <Color x:Key="SystemAltLowColor">#33FFFFFF</Color>
+    <Color x:Key="SystemAltMediumLowColor">#66FFFFFF</Color>
+    <Color x:Key="SystemAltMediumColor">#99FFFFFF</Color>
+    <Color x:Key="SystemAltMediumHighColor">#CCFFFFFF</Color>
+    <Color x:Key="SystemAltHighColor">#FFFFFFFF</Color>         <!-- for Content area -->
+
+    <Color x:Key="SystemControlAcrylicWindowTintColor">#FFFFFFFF</Color>
+    <Color x:Key="SystemControlAcrylicWindowFallbackColor">#FFE6E6E6</Color>
+    <SolidColorBrush x:Key="SystemControlAcrylicWindowForegroundBrush" Color="{StaticResource SystemBaseHighColor}" />
+    
+</ResourceDictionary>

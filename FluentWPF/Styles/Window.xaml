@@ -78,10 +78,8 @@
                         <Border x:Name="border" Background="{TemplateBinding Background}" />
                         <ContentPresenter x:Name="contentPresenter" Focusable="False"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                            <TextBlock.Foreground>
-                                <SolidColorBrush x:Name="brush" Color="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.TitleBarForeground)}"/>
-                            </TextBlock.Foreground>
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          TextBlock.Foreground="{DynamicResource SystemBaseHighColorBrush}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -114,12 +112,12 @@
                                                 <CubicEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <ColorAnimation Storyboard.TargetProperty="Color" Storyboard.TargetName="brush"
-                                                         To="White" Duration="0:0:0.150">
-                                            <ColorAnimation.EasingFunction>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="mouseoverPresenter"
+                                                         To="1.0" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
                                                 <ExponentialEase EasingMode="EaseOut"/>
-                                            </ColorAnimation.EasingFunction>
-                                        </ColorAnimation>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
@@ -130,12 +128,12 @@
                                                 <ExponentialEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <ColorAnimation Storyboard.TargetProperty="Color" Storyboard.TargetName="brush"
-                                                         To="White" Duration="0:0:0.150">
-                                            <ColorAnimation.EasingFunction>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="mouseoverPresenter"
+                                                         To="1.0" Duration="0:0:0.150">
+                                            <DoubleAnimation.EasingFunction>
                                                 <ExponentialEase EasingMode="EaseOut"/>
-                                            </ColorAnimation.EasingFunction>
-                                        </ColorAnimation>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
@@ -160,11 +158,12 @@
                         <Border x:Name="border" Background="{TemplateBinding Background}" />
                         <ContentPresenter x:Name="contentPresenter" Focusable="False"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                            <TextBlock.Foreground>
-                                <SolidColorBrush x:Name="brush" Color="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.TitleBarForeground)}"/>
-                            </TextBlock.Foreground>
-                        </ContentPresenter>
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          TextBlock.Foreground="{DynamicResource SystemBaseHighColorBrush}" />
+                        <ContentPresenter x:Name="mouseoverPresenter" Focusable="False" Opacity="0.0"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          TextBlock.Foreground="White" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -228,11 +227,8 @@
                                 <TextBlock x:Name="captionText"
                                            Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}"
                                            Margin="8,0"
-                                           VerticalAlignment="Center">
-                                            <TextBlock.Foreground>
-                                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.TitleBarForeground)}" />
-                                            </TextBlock.Foreground>
-                                </TextBlock>
+                                           VerticalAlignment="Center"
+                                           Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
                                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                                     <Button x:Name="btnMinimizeButton" Content="&#xE921;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" />
                                     <Button x:Name="btnMaximizeButton" Content="&#xE922;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>

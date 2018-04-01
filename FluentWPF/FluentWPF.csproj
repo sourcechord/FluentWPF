@@ -137,8 +137,6 @@
   <ItemGroup>
     <Resource Include="Assets\Images\noiseBlack.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Styles\Colors\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

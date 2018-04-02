@@ -15,11 +15,11 @@
         </Grid.ColumnDefinitions>
         <Grid Background="#30000000">
             <Rectangle x:Name="rect" HorizontalAlignment="Center" Height="83" Stroke="Black" VerticalAlignment="Center" Width="83"
-                       Fill="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}" />
+                       Fill="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentBrush)}" />
 
         </Grid>
 
-        <fw:DropShadowPanel Grid.Column="1" ShadowMode="Outer" Background="#33FFFFFF">
+        <fw:DropShadowPanel Grid.Column="1" ShadowMode="Outer" Background="#66FFFFFF">
             <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
                 <!--<Grid Grid.Column="1" >-->
                 <StackPanel VerticalAlignment="Center" Margin="24, 0">

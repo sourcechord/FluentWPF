@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SourceChord.FluentWPF.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -110,7 +111,7 @@ namespace SourceChord.FluentWPF
             var accent = new AccentPolicy();
             var accentStructSize = Marshal.SizeOf(accent);
             // ウィンドウ背景のぼかしを行うのはWindows10の場合のみ
-            accent.AccentState = IsWin10() ? AccentState.ACCENT_ENABLE_BLURBEHIND : AccentState.ACCENT_ENABLE_TRANSPARENTGRADIENT;
+            accent.AccentState = SystemInfo.IsWin10() ? AccentState.ACCENT_ENABLE_BLURBEHIND : AccentState.ACCENT_ENABLE_TRANSPARENTGRADIENT;
             accent.AccentFlags = 2;
             //accent.GradientColor = 0x99FFFFFF;  // 60%の透明度が基本
             accent.GradientColor = 0x00FFFFFF;  // Tint Colorはここでは設定せず、Bindingで外部から変えられるようにXAML側のレイヤーとして定義
@@ -132,29 +133,6 @@ namespace SourceChord.FluentWPF
             win.CommandBindings.Add(new CommandBinding(SystemCommands.MaximizeWindowCommand, (_, __) => { SystemCommands.MaximizeWindow(win); }));
             win.CommandBindings.Add(new CommandBinding(SystemCommands.RestoreWindowCommand, (_, __) => { SystemCommands.RestoreWindow(win); }));
         }
-
-        /// <summary>
-        /// 実行環境のOSがWindows10か否かを判定
-        /// </summary>
-        /// <returns></returns>
-        internal static bool IsWin10()
-        {
-            var isWin10 = false;
-            using (var mc = new System.Management.ManagementClass("Win32_OperatingSystem"))
-            using (var moc = mc.GetInstances())
-            {
-                foreach (System.Management.ManagementObject mo in moc)
-                {
-                    var version = mo["Version"] as string;
-                    var majar = version.Split('.')
-                                       .FirstOrDefault();
-                    isWin10 = majar == "10";
-                }
-            }
-
-            return isWin10;
-        }
-
         #region Dependency Property
 
         public Color TintColor

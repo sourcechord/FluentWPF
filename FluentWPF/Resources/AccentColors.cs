@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SourceChord.FluentWPF.Utility;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -161,13 +162,27 @@ namespace SourceChord.FluentWPF
         internal static void Initialize()
         {
             // 各種Color定義
-            ImmersiveSystemAccent = GetColorByTypeName("ImmersiveSystemAccent");
-            ImmersiveSystemAccentDark1 = GetColorByTypeName("ImmersiveSystemAccentDark1");
-            ImmersiveSystemAccentDark2 = GetColorByTypeName("ImmersiveSystemAccentDark2");
-            ImmersiveSystemAccentDark3 = GetColorByTypeName("ImmersiveSystemAccentDark3");
-            ImmersiveSystemAccentLight1 = GetColorByTypeName("ImmersiveSystemAccentLight1");
-            ImmersiveSystemAccentLight2 = GetColorByTypeName("ImmersiveSystemAccentLight2");
-            ImmersiveSystemAccentLight3 = GetColorByTypeName("ImmersiveSystemAccentLight3");
+            if (!SystemInfo.IsWin7())
+            {
+                ImmersiveSystemAccent = GetColorByTypeName("ImmersiveSystemAccent");
+                ImmersiveSystemAccentDark1 = GetColorByTypeName("ImmersiveSystemAccentDark1");
+                ImmersiveSystemAccentDark2 = GetColorByTypeName("ImmersiveSystemAccentDark2");
+                ImmersiveSystemAccentDark3 = GetColorByTypeName("ImmersiveSystemAccentDark3");
+                ImmersiveSystemAccentLight1 = GetColorByTypeName("ImmersiveSystemAccentLight1");
+                ImmersiveSystemAccentLight2 = GetColorByTypeName("ImmersiveSystemAccentLight2");
+                ImmersiveSystemAccentLight3 = GetColorByTypeName("ImmersiveSystemAccentLight3");
+            }
+            else
+            {
+                // Windows7の場合は、OSにテーマカラーの設定はないので、固定値を使用する。
+                ImmersiveSystemAccent = (Color)ColorConverter.ConvertFromString("#FF2990CC");
+                ImmersiveSystemAccentDark1 = (Color)ColorConverter.ConvertFromString("#FF2481B6");
+                ImmersiveSystemAccentDark2 = (Color)ColorConverter.ConvertFromString("#FF2071A1");
+                ImmersiveSystemAccentDark3 = (Color)ColorConverter.ConvertFromString("#FF205B7E");
+                ImmersiveSystemAccentLight1 = (Color)ColorConverter.ConvertFromString("#FF2D9FE1");
+                ImmersiveSystemAccentLight2 = (Color)ColorConverter.ConvertFromString("#FF51A5D6");
+                ImmersiveSystemAccentLight3 = (Color)ColorConverter.ConvertFromString("#FF7BB1D0");
+            }
 
             // ブラシ類の定義
             ImmersiveSystemAccentBrush = CreateBrush(ImmersiveSystemAccent);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -296,8 +297,22 @@ namespace SourceChord.FluentWPF
             }
             return this.InternalVisual;
         }
-    }
 
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                if (this.InternalChild == null)
+                {
+                    return null;
+                }
+
+                var list = new List<UIElement>();
+                list.Add(this.InternalChild);
+                return list.GetEnumerator();
+            }
+        }
+    }
 
     internal class ClipInnerRectConverter : IMultiValueConverter
     {

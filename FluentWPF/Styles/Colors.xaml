@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:SourceChord.FluentWPF">
     <ResourceDictionary.MergedDictionaries>
 
-        <local:ResourceDictionaryEx RequestedTheme="Default">
+        <local:ResourceDictionaryEx>
             <local:ResourceDictionaryEx.ThemeDictionaries>
                 <local:ThemeDictionary ThemeName="Light">
                     <local:ThemeDictionary.MergedDictionaries>

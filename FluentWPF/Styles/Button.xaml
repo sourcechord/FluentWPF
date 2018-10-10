@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:SourceChord.FluentWPF">
+                    xmlns:local="clr-namespace:SourceChord.FluentWPF"
+                    xmlns:animation="clr-namespace:SourceChord.FluentWPF.Animations">
     <local:RelativePositionConverter x:Key="relativePositionConverter" />
 
     <Style x:Key="ButtonRevealStyle" TargetType="{x:Type Button}">
@@ -95,7 +96,16 @@
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Disabled"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <animation:BrushAnimation Storyboard.TargetProperty="(TextElement.Foreground)" Storyboard.TargetName="contentPresenter"
+                                                                  BeginTime="0:0:0.500" Duration="0:0:4.000" AutoReverse="False">
+                                            <animation:BrushAnimation.To>
+                                                <SolidColorBrush Color="#FF838383"/>
+                                            </animation:BrushAnimation.To>
+                                        </animation:BrushAnimation>
+                                    </Storyboard>
+                                </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Border x:Name="backgroundBorder"

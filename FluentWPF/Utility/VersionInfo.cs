@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SourceChord.FluentWPF.Utility
 {
-    struct VersionInfo : IEquatable<VersionInfo>, IComparable<VersionInfo>
+    struct VersionInfo : IEquatable<VersionInfo>, IComparable<VersionInfo>, IComparable
     {
         public int Major;
         public int Minor;
@@ -36,7 +36,7 @@ namespace SourceChord.FluentWPF.Utility
 
         public static bool operator ==(VersionInfo left, VersionInfo right)
         {
-            return left.Major == right.Major && left.Minor == right.Minor && left.Build == right.Build;
+            return left.Equals(right);
         }
 
         public static bool operator !=(VersionInfo left, VersionInfo right)
@@ -65,6 +65,16 @@ namespace SourceChord.FluentWPF.Utility
             }
         }
 
+        public int CompareTo(object obj)
+        {
+            if (!(obj is VersionInfo other))
+            {
+                throw new ArgumentException();
+            }
+
+            return this.CompareTo(other);
+        }
+
         public static bool operator <(VersionInfo left, VersionInfo right)
         {
             return left.CompareTo(right) < 0;
@@ -77,12 +87,12 @@ namespace SourceChord.FluentWPF.Utility
 
         public static bool operator >(VersionInfo left, VersionInfo right)
         {
-            return right < left;
+            return left.CompareTo(right) > 0;
         }
 
         public static bool operator >=(VersionInfo left, VersionInfo right)
         {
-            return right <= left;
+            return left.CompareTo(right) >= 0;
         }
 
         public override string ToString()

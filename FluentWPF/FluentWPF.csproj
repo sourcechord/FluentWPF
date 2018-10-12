@@ -54,6 +54,8 @@
     <Compile Include="Resources\SystemTheme.cs" />
     <Compile Include="Resources\ThemeHandler.cs" />
     <Compile Include="Utility\SystemInfo.cs" />
+    <Compile Include="Utility\VersionInfo.cs" />
+    <Compile Include="Utility\VersionInfos.cs" />
     <Page Include="Styles\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

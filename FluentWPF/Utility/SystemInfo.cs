@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace SourceChord.FluentWPF.Utility
 {
-    struct VersionInfo
-    {
-        public int Major;
-        public int Minor;
-        public int Build;
-    }
     class SystemInfo
     {
         public static Lazy<VersionInfo> Version { get; private set; } = new Lazy<VersionInfo>(() => GetVersionInfo());

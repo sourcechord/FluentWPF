@@ -40,7 +40,8 @@ namespace SourceChord.FluentWPF
         ACCENT_ENABLE_GRADIENT = 1,
         ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
         ACCENT_ENABLE_BLURBEHIND = 3,
-        ACCENT_INVALID_STATE = 4
+        ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
+        ACCENT_INVALID_STATE = 5
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -111,7 +112,21 @@ namespace SourceChord.FluentWPF
             var accent = new AccentPolicy();
             var accentStructSize = Marshal.SizeOf(accent);
             // ウィンドウ背景のぼかしを行うのはWindows10の場合のみ
-            accent.AccentState = SystemInfo.IsWin10() ? AccentState.ACCENT_ENABLE_BLURBEHIND : AccentState.ACCENT_ENABLE_TRANSPARENTGRADIENT;
+            // OSのバージョンに従い、AccentStateを切り替える
+            var currentVersion = SystemInfo.Version.Value;
+            if (currentVersion >= VersionInfos.Windows10_1809)
+            {
+                accent.AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND;
+            }
+            else if (currentVersion >= VersionInfos.Windows10)
+            {
+                accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
+            }
+            else
+            {
+                accent.AccentState = AccentState.ACCENT_ENABLE_TRANSPARENTGRADIENT;
+            }
+
             accent.AccentFlags = 2;
             //accent.GradientColor = 0x99FFFFFF;  // 60%の透明度が基本
             accent.GradientColor = 0x00FFFFFF;  // Tint Colorはここでは設定せず、Bindingで外部から変えられるようにXAML側のレイヤーとして定義

@@ -8,6 +8,7 @@
     <owners>$author$</owners>
     <licenseUrl>https://github.com/sourcechord/FluentWPF/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/sourcechord/FluentWPF</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/sourcechord/FluentWPF/master/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright 2017</copyright>

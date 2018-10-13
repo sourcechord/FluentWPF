@@ -1,6 +1,8 @@
-# FluentWPF
-
-FluentWPF provides Fluent Design System for WPF.
+<h1 align="center">
+<img src="./logo.png" width="256"/><br />
+FluentWPF
+</h1>
+<h4 align="center">Fluent Design System for WPF</h4>
 
 ## Overview
 

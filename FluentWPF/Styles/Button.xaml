@@ -99,11 +99,17 @@
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
                                         <animation:BrushAnimation Storyboard.TargetProperty="(TextElement.Foreground)" Storyboard.TargetName="contentPresenter"
-                                                                  BeginTime="0:0:0.500" Duration="0:0:4.000" AutoReverse="False">
+                                                                  Duration="0:0:0.100" AutoReverse="False">
                                             <animation:BrushAnimation.To>
                                                 <SolidColorBrush Color="#FF838383"/>
                                             </animation:BrushAnimation.To>
                                         </animation:BrushAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="border"
+                                                         To="0" Duration="0:0:0.100" AutoReverse="False">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -149,7 +155,8 @@
                         </Border>
 
                         <!-- MouseOver border -->
-                        <Border BorderBrush="{local:RevealBrush Color=White,Size=120,Opacity=0.3}"
+                        <Border x:Name="border"
+                                BorderBrush="{local:RevealBrush Color=White,Size=120,Opacity=0.3}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                         </Border>
                     </Grid>
@@ -247,7 +254,22 @@
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Disabled"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <animation:BrushAnimation Storyboard.TargetProperty="(TextElement.Foreground)" Storyboard.TargetName="contentPresenter"
+                                                                  Duration="0:0:0.100" AutoReverse="False">
+                                            <animation:BrushAnimation.To>
+                                                <SolidColorBrush Color="#FF838383"/>
+                                            </animation:BrushAnimation.To>
+                                        </animation:BrushAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="border"
+                                                         To="0" Duration="0:0:0.100" AutoReverse="False">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Border x:Name="backgroundBorder"
@@ -291,7 +313,8 @@
                         </Border>
 
                         <!-- MouseOver border -->
-                        <Border BorderBrush="{local:RevealBrush Color=White,Size=120,Opacity=0.5}"
+                        <Border x:Name="border"
+                                BorderBrush="{local:RevealBrush Color=White,Size=120,Opacity=0.5}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                         </Border>
                     </Grid>

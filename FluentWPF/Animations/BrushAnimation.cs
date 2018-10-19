@@ -23,10 +23,18 @@ namespace SourceChord.FluentWPF.Animations
             var originValue = this.From ?? defaultOriginValue as Brush;
             var dstValue = this.To ?? defaultDestinationValue as Brush;
 
-            if (animationClock.CurrentProgress.Value == 0)
+            var progress = animationClock.CurrentProgress.Value;
+            if (progress == 0)
                 return originValue;
-            if (animationClock.CurrentProgress.Value == 1)
+            if (progress == 1)
                 return dstValue;
+
+            // Easingを適用
+            var easingFunction = this.EasingFunction;
+            if (easingFunction != null)
+            {
+                progress = easingFunction.Ease(progress);
+            }
 
             return new VisualBrush(new Border()
             {
@@ -36,7 +44,7 @@ namespace SourceChord.FluentWPF.Animations
                 Child = new Border()
                 {
                     Background = dstValue,
-                    Opacity = animationClock.CurrentProgress.Value,
+                    Opacity = progress,
                 }
             });
         }
@@ -46,21 +54,35 @@ namespace SourceChord.FluentWPF.Animations
             return new BrushAnimation();
         }
 
-        //we must define From and To, AnimationTimeline does not have this properties
+
         public Brush From
         {
             get { return (Brush)GetValue(FromProperty); }
             set { SetValue(FromProperty, value); }
         }
+        // Using a DependencyProperty as the backing store for From.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FromProperty =
+            DependencyProperty.Register("From", typeof(Brush), typeof(BrushAnimation), new PropertyMetadata(null));
+
+
         public Brush To
         {
             get { return (Brush)GetValue(ToProperty); }
             set { SetValue(ToProperty, value); }
         }
-
-        public static readonly DependencyProperty FromProperty =
-            DependencyProperty.Register("From", typeof(Brush), typeof(BrushAnimation));
+        // Using a DependencyProperty as the backing store for To.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ToProperty =
-            DependencyProperty.Register("To", typeof(Brush), typeof(BrushAnimation));
+            DependencyProperty.Register("To", typeof(Brush), typeof(BrushAnimation), new PropertyMetadata(null));
+
+
+        public IEasingFunction EasingFunction
+        {
+            get { return (IEasingFunction)GetValue(EasingFunctionProperty); }
+            set { SetValue(EasingFunctionProperty, value); }
+        }
+        // Using a DependencyProperty as the backing store for EasingFunction.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EasingFunctionProperty =
+            DependencyProperty.Register("EasingFunction", typeof(IEasingFunction), typeof(BrushAnimation), new PropertyMetadata(null));
+
     }
 }

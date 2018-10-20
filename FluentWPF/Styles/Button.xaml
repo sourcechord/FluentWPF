@@ -103,6 +103,9 @@
                                             <animation:BrushAnimation.To>
                                                 <SolidColorBrush Color="#FF838383"/>
                                             </animation:BrushAnimation.To>
+                                            <animation:BrushAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </animation:BrushAnimation.EasingFunction>
                                         </animation:BrushAnimation>
                                         <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="border"
                                                          To="0" Duration="0:0:0.100" AutoReverse="False">
@@ -261,6 +264,9 @@
                                             <animation:BrushAnimation.To>
                                                 <SolidColorBrush Color="#FF838383"/>
                                             </animation:BrushAnimation.To>
+                                            <animation:BrushAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </animation:BrushAnimation.EasingFunction>
                                         </animation:BrushAnimation>
                                         <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="border"
                                                          To="0" Duration="0:0:0.100" AutoReverse="False">

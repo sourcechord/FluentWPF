@@ -7,7 +7,6 @@
     <Style x:Key="CaptionButtonStyleKey" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Foreground" Value="Black" />
-        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -103,7 +102,7 @@
                                                 <CubicEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <animation:BrushAnimation Storyboard.TargetProperty="(TextElement.Foreground)" Storyboard.TargetName="contentPresenter"
+                                        <animation:BrushAnimation Storyboard.TargetProperty="(TextBlock.Foreground)" Storyboard.TargetName="contentPresenter"
                                                                   To="{DynamicResource SystemBaseHighColorBrush}" Duration="0:0:0.150" AutoReverse="False">
                                             <animation:BrushAnimation.EasingFunction>
                                                 <SineEase EasingMode="EaseInOut"/>
@@ -119,7 +118,7 @@
                                                 <CubicEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <animation:BrushAnimation Storyboard.TargetProperty="(TextElement.Foreground)" Storyboard.TargetName="contentPresenter"
+                                        <animation:BrushAnimation Storyboard.TargetProperty="(TextBlock.Foreground)" Storyboard.TargetName="contentPresenter"
                                                                   To="White" Duration="0:0:0.150" AutoReverse="False">
                                             <animation:BrushAnimation.EasingFunction>
                                                 <SineEase EasingMode="EaseInOut"/>
@@ -135,7 +134,7 @@
                                                 <ExponentialEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <animation:BrushAnimation Storyboard.TargetProperty="(TextElement.Foreground)" Storyboard.TargetName="contentPresenter"
+                                        <animation:BrushAnimation Storyboard.TargetProperty="(TextBlock.Foreground)" Storyboard.TargetName="contentPresenter"
                                                                   To="White" Duration="0:0:0.150" AutoReverse="False">
                                             <animation:BrushAnimation.EasingFunction>
                                                 <SineEase EasingMode="EaseInOut"/>
@@ -233,10 +232,26 @@
                                            VerticalAlignment="Center"
                                            Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
                                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                    <Button x:Name="btnMinimizeButton" Content="&#xE921;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" />
-                                    <Button x:Name="btnMaximizeButton" Content="&#xE922;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
-                                    <Button x:Name="btnRestoreButton" Content="&#xE923;" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" Visibility="Collapsed"/>
-                                    <Button x:Name="btnCloseButton" Content="&#xE8BB;" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}"/>
+                                    <Button x:Name="btnMinimizeButton" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}">
+                                        <Path Width="10" Height="10" Data="M0,4 L10,4 L10,5 L0,5 z"
+                                              Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                                              RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
+                                    </Button>
+                                    <Button x:Name="btnMaximizeButton" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}">
+                                        <Path Width="10" Height="10" Data="M1,1 L1,9 L9,9 L9,1 z M0,0 L10,0 L10,10 L0,10 z"
+                                              Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                                              RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
+                                    </Button>
+                                    <Button x:Name="btnRestoreButton" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" Visibility="Collapsed">
+                                        <Path Width="10" Height="10" Data="M1,3 L1,9 L7,9 L7,3 z M3,1 L3,2 L8,2 L8,7 L9,7 L9,1 z M2,0 L10,0 L10,8 L8,8 L8,10 L0,10 L0,2 L2,2 z"
+                                              Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                                              RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
+                                    </Button>
+                                    <Button x:Name="btnCloseButton" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}">
+                                        <Path Width="10" Height="10" Data="M0.7,0 L5,4.3 L9.3,0 L10,0.7 L5.7,5 L10,9.3 L9.3,10 L5,5.7 L0.7,10 L0,9.3 L4.3,5 L0,0.7 z"
+                                              Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                                              RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
+                                    </Button>
                                 </StackPanel>
                             </Grid>
                         </Grid>

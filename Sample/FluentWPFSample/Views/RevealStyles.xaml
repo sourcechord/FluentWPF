@@ -15,7 +15,7 @@
 
             <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
                     Background="Transparent"
-                    Style="{StaticResource ButtonRevealStyle}" Click="Button_Click"/>
+                    Style="{StaticResource ButtonRevealStyle}"/>
 
             <TextBox Name="TextBoxBox1" HorizontalAlignment="Left"  Margin="5"  Width="120" Style="{StaticResource TextBoxRevealStyle}" fw:TextBoxHelper.PlaceHolderText="Username" fw:TextBoxHelper.HeaderText="Enter username"/>
             <PasswordBox Name="PasswordBox1" HorizontalAlignment="Left"  Margin="5"  Width="120" Style="{StaticResource PasswordBoxRevealStyle}" fw:TextBoxHelper.PlaceHolderText="Password" fw:TextBoxHelper.HeaderText="Enter password"/>

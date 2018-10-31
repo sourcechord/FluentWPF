@@ -8,22 +8,26 @@ using System.Windows.Controls;
 
 namespace SourceChord.FluentWPF
 {
-    public class FluentControls : FrameworkElement
+    public class TextBoxHelper
     {
 
-        public static void SetHeadertext(UIElement element, string value)
+        public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.RegisterAttached("HeaderText", typeof(string), typeof(TextBoxHelper), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits));
+
+        public static void SetHeaderText(UIElement element, string value)
         {
-            element.SetValue(HeadertextProperty, value);
+            element.SetValue(HeaderTextProperty, value);
         }
-        public static string GetHeadertext(UIElement element)
+        public static string GetHeaderText(UIElement element)
         {
-            return (string)element.GetValue(HeadertextProperty);
+            return (string)element.GetValue(HeaderTextProperty);
         }
 
 
-        public static readonly DependencyProperty HeadertextProperty = DependencyProperty.RegisterAttached("Headertext", typeof(string), typeof(FluentControls), new PropertyMetadata(""));
 
+        //private static void TextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
 
+        //}
 
 
 

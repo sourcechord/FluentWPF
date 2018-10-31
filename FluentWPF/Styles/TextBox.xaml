@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:SourceChord.FluentWPF"
-                    xmlns:loc="using:SourceChord.FluentWPF.ddd"
-                    >
+                    xmlns:local="clr-namespace:SourceChord.FluentWPF" >
     <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
     <!--<SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
     <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>-->
@@ -86,7 +84,7 @@
                                 Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
 
                             <Grid>
-                                <TextBlock Text="{Binding Path=(local:FluentControls.Headertext), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                <TextBlock Text="{TemplateBinding local:TextBoxHelper.HeaderText}"/>
                                 <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                             </Grid>
 

@@ -6,6 +6,7 @@
     <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>-->
     <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="{x:Static local:AccentColors.ImmersiveSystemAccent}"/>
     <SolidColorBrush x:Key="TextBox.Focus.Border" Color="{x:Static local:AccentColors.ImmersiveSystemAccentLight1}"/>
+
     <Style x:Key="TextBoxRevealStyle" TargetType="{x:Type TextBox}">
         <!--<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>-->
         <Setter Property="Background" Value="#88FFFFFF"/>
@@ -16,20 +17,64 @@
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="ClipToBounds" Value="False"/>
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="enterGotFocus">
+                            <DoubleAnimation Storyboard.TargetName="TextBlock_PlaceHolder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To=".2"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+                        <Storyboard x:Key="exitGotFocus">
+                            <DoubleAnimation Storyboard.TargetName="TextBlock_PlaceHolder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+
+                        <Storyboard x:Key="enterHasText">
+                            <DoubleAnimation Storyboard.TargetName="TextBlock_PlaceHolder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             From=".2"
+                                             To="0"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+                        <Storyboard x:Key="exitHasText">
+                            <DoubleAnimation Storyboard.TargetName="TextBlock_PlaceHolder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+
+                    
                     <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="Label_Header" Margin="2,0,0,5" Text="{TemplateBinding local:TextBoxHelper.HeaderText}" FontSize="{TemplateBinding local:TextBoxHelper.HeaderSize}" Foreground="{TemplateBinding local:TextBoxHelper.HeaderForegroundBrush}"/>
+
+
                         <Border x:Name="border"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
+                                Grid.Row="1">
+                            <Grid>
+                                <TextBlock Name="TextBlock_PlaceHolder" Text="{TemplateBinding local:TextBoxHelper.PlaceHolderText}" Foreground="{TemplateBinding local:TextBoxHelper.PlaceHolderForegroundBrush}" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            </Grid>
+                            
                         </Border>
                         <Border BorderBrush="{local:RevealBrush Color=White,Size = 100, Opacity=0.4}"
-                                BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                                BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True" Grid.Row="1">
                         </Border>
                     </Grid>
 
@@ -44,7 +89,29 @@
                         <Trigger Property="IsKeyboardFocused" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
                             <Setter Property="Background" Value="#EEFFFFFF" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource enterGotFocus}" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource exitGotFocus}" />
+                            </Trigger.ExitActions>
                         </Trigger>
+
+
+                        <DataTrigger Binding="{Binding ElementName=Label_Header, Path=Text}" Value="">
+                            <Setter TargetName="Label_Header" Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+
+
+                        <DataTrigger Binding="{Binding Text.Count, RelativeSource={RelativeSource Self}}" Value="0">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource exitHasText}" />
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource enterHasText}" />
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -61,8 +128,7 @@
         </Style.Triggers>
     </Style>
 
-
-    <Style x:Key="TextBoxRevealStyle2" TargetType="{x:Type TextBox}">
+    <Style x:Key="PasswordBoxRevealStyle" TargetType="{x:Type PasswordBox}">
         <!--<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>-->
         <Setter Property="Background" Value="#88FFFFFF"/>
         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
@@ -72,25 +138,67 @@
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="ClipToBounds" Value="False"/>
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TextBox}">
+                <ControlTemplate TargetType="{x:Type PasswordBox}">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="enterGotFocus">
+                            <DoubleAnimation Storyboard.TargetName="TextBlock_PlaceHolder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To=".0"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+                        <Storyboard x:Key="exitGotFocus">
+                            <DoubleAnimation Storyboard.TargetName="TextBlock_PlaceHolder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+
+                        <Storyboard x:Key="enterHasText">
+                            <DoubleAnimation Storyboard.TargetName="TextBlock_PlaceHolder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             From=".2"
+                                             To="0"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+                        <Storyboard x:Key="exitHasText">
+                            <DoubleAnimation Storyboard.TargetName="TextBlock_PlaceHolder"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+
+
                     <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="Label_Header" Margin="2,0,0,5" Text="{TemplateBinding local:TextBoxHelper.HeaderText}" FontSize="{TemplateBinding local:TextBoxHelper.HeaderSize}" Foreground="{TemplateBinding local:TextBoxHelper.HeaderForegroundBrush}"/>
+
+                        <!--
+                        
+                        -->
+
                         <Border x:Name="border"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
+                                Grid.Row="1">
                             <Grid>
-                                <TextBlock Text="{TemplateBinding local:TextBoxHelper.HeaderText}"/>
+                                <TextBlock Name="TextBlock_PlaceHolder" Text="{TemplateBinding local:TextBoxHelper.PlaceHolderText}" Foreground="{TemplateBinding local:TextBoxHelper.PlaceHolderForegroundBrush}" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
                                 <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                             </Grid>
 
                         </Border>
                         <Border BorderBrush="{local:RevealBrush Color=White,Size = 100, Opacity=0.4}"
-                                BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                                BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True" Grid.Row="1">
                         </Border>
                     </Grid>
 
@@ -105,7 +213,29 @@
                         <Trigger Property="IsKeyboardFocused" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
                             <Setter Property="Background" Value="#EEFFFFFF" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource enterGotFocus}" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource exitGotFocus}" />
+                            </Trigger.ExitActions>
                         </Trigger>
+
+
+                        <DataTrigger Binding="{Binding ElementName=Label_Header, Path=Text}" Value="">
+                            <Setter TargetName="Label_Header" Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+
+
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Password, Mode=OneWay}" Value="">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource exitHasText}" />
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource enterHasText}" />
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -121,7 +251,5 @@
             </MultiTrigger>
         </Style.Triggers>
     </Style>
-
-
 
 </ResourceDictionary>

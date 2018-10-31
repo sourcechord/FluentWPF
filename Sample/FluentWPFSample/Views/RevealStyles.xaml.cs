@@ -23,5 +23,10 @@ namespace FluentWPFSample.Views
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            int a = PasswordBox1.Password.Length;
+        }
     }
 }

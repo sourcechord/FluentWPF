@@ -15,10 +15,10 @@
 
             <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
                     Background="Transparent"
-                    Style="{StaticResource ButtonRevealStyle}"/>
+                    Style="{StaticResource ButtonRevealStyle}" Click="Button_Click"/>
 
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="5" Text="" Width="120" fw:TextBoxHelper.HeaderText="Hello world"
-                 Style="{StaticResource TextBoxRevealStyle2}"/>
+            <TextBox Name="TextBoxBox1" HorizontalAlignment="Left"  Margin="5"  Width="120" Style="{StaticResource TextBoxRevealStyle}" fw:TextBoxHelper.PlaceHolderText="Username" fw:TextBoxHelper.HeaderText="Enter username"/>
+            <PasswordBox Name="PasswordBox1" HorizontalAlignment="Left"  Margin="5"  Width="120" Style="{StaticResource PasswordBoxRevealStyle}" fw:TextBoxHelper.PlaceHolderText="Password" fw:TextBoxHelper.HeaderText="Enter password"/>
         </StackPanel>
     </Grid>
 </fw:AcrylicWindow>

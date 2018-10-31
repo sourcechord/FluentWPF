@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SourceChord.FluentWPF
 {
     public class TextBoxHelper
     {
 
+        //header text
         public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.RegisterAttached("HeaderText", typeof(string), typeof(TextBoxHelper), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits));
 
         public static void SetHeaderText(UIElement element, string value)
@@ -24,12 +26,63 @@ namespace SourceChord.FluentWPF
 
 
 
-        //private static void TextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-
-        //}
 
 
+        //header size
+        public static readonly DependencyProperty HeaderSizeProperty = DependencyProperty.RegisterAttached("HeaderSize", typeof(double), typeof(TextBoxHelper), new FrameworkPropertyMetadata(14.0, FrameworkPropertyMetadataOptions.Inherits));
+
+        public static void SetHeaderSize(UIElement element, double value)
+        {
+            element.SetValue(HeaderSizeProperty, value);
+        }
+        public static double GetHeaderSize(UIElement element)
+        {
+            return (double)element.GetValue(HeaderSizeProperty);
+        }
+
+
+
+        //Header ForegroundBrush
+        public static readonly DependencyProperty HeaderForegroundBrushProperty = DependencyProperty.RegisterAttached("HeaderForegroundBrush", typeof(Brush), typeof(TextBoxHelper), new FrameworkPropertyMetadata(Brushes.Black, FrameworkPropertyMetadataOptions.Inherits));
+
+        public static void SetHeaderForegroundBrush(UIElement element, Brush value)
+        {
+            element.SetValue(HeaderForegroundBrushProperty, value);
+        }
+        public static Brush GetHeaderForegroundBrush(UIElement element)
+        {
+            return (Brush)element.GetValue(HeaderForegroundBrushProperty);
+        }
+
+
+
+        //Placeholder text
+        public static readonly DependencyProperty PlaceHolderTextProperty = DependencyProperty.RegisterAttached("PlaceHolderText", typeof(string), typeof(TextBoxHelper), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits));
+
+        public static void SetPlaceHolderText(UIElement element, string value)
+        {
+            element.SetValue(PlaceHolderTextProperty, value);
+        }
+        public static string GetPlaceHolderText(UIElement element)
+        {
+            return (string)element.GetValue(PlaceHolderTextProperty);
+        }
+
+
+        //PlaceHolder ForegroundBrush
+        public static readonly DependencyProperty PlaceHolderForegroundBrushProperty = DependencyProperty.RegisterAttached("PlaceHolderForegroundBrush", typeof(Brush), typeof(TextBoxHelper), new FrameworkPropertyMetadata(Brushes.DimGray, FrameworkPropertyMetadataOptions.Inherits));
+
+        public static void SetPlaceHolderForegroundBrush(UIElement element, Brush value)
+        {
+            element.SetValue(PlaceHolderForegroundBrushProperty, value);
+        }
+        public static Brush GetPlaceHolderForegroundBrush(UIElement element)
+        {
+            return (Brush)element.GetValue(PlaceHolderForegroundBrushProperty);
+        }
 
     }
+
+
+
 }

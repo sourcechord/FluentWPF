@@ -17,8 +17,8 @@
                     Background="Transparent"
                     Style="{StaticResource ButtonRevealStyle}"/>
 
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="5" Text="TextBox" Width="120"
-                 Style="{StaticResource TextBoxRevealStyle}"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="5" Text="TextBox" Width="120" fw:FluentControls.Headertext="Hello worldddd"
+                 Style="{StaticResource TextBoxRevealStyle2}"/>
         </StackPanel>
     </Grid>
 </fw:AcrylicWindow>

@@ -156,4 +156,17 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="{x:Type local:AcrylicPopup}">
+        <Setter Property="AllowsTransparency" Value="True" />
+        <!--<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:AcrylicPopup}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>-->
+    </Style>
 </ResourceDictionary>

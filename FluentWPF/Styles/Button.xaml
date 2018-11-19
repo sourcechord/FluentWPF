@@ -2,7 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SourceChord.FluentWPF"
                     xmlns:animation="clr-namespace:SourceChord.FluentWPF.Animations">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Brushes.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
     <local:RelativePositionConverter x:Key="relativePositionConverter" />
+    
+
+
 
     <Style x:Key="ButtonRevealStyle" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -159,7 +165,7 @@
 
                         <!-- MouseOver border -->
                         <Border x:Name="border"
-                                BorderBrush="{local:RevealBrush Color=White,Size=120,Opacity=0.3}"
+                                BorderBrush="{local:RevealBrush Color={StaticResource SystemBaseHighColorBrush},Size=120,Opacity=0.3}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                         </Border>
                     </Grid>
@@ -168,6 +174,8 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="root" Property="Background" Value="#BB808080"/>
                         </Trigger>
+
+                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

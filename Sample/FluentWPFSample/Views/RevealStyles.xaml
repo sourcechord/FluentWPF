@@ -10,7 +10,7 @@
                   Height="320" Width="320" fw:AcrylicWindow.TintColor="White">
     <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF" Margin="3">
         <StackPanel>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
+            <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32" IsEnabled="False"
                     Style="{StaticResource ButtonRevealStyle}"/>
 
             <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
@@ -20,5 +20,8 @@
             <TextBox Name="TextBoxBox1" HorizontalAlignment="Left"  Margin="5"  Width="120" Style="{StaticResource TextBoxRevealStyle}" fw:TextBoxHelper.PlaceHolderText="Username" fw:TextBoxHelper.HeaderText="Enter username"/>
             <PasswordBox Name="PasswordBox1" HorizontalAlignment="Left"  Margin="5"  Width="120" Style="{StaticResource PasswordBoxRevealStyle}" fw:TextBoxHelper.PlaceHolderText="Password" fw:TextBoxHelper.HeaderText="Enter password"/>
         </StackPanel>
+
+
+       
     </Grid>
 </fw:AcrylicWindow>

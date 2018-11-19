@@ -197,7 +197,7 @@ namespace SourceChord.FluentWPF
 
         }
 
-        public Color Color { get; set; } = Colors.Black;
+        public SolidColorBrush Color { get; set; } = Brushes.Black;
         public double Opacity { get; set; } = 1;
 
         public double Size { get; set; } = 100;
@@ -209,8 +209,18 @@ namespace SourceChord.FluentWPF
 
 
             // 円形のグラデーション表示をするブラシを作成
-            var bgColor = Color.FromArgb(0, this.Color.R, this.Color.G, this.Color.B);
-            var brush = new RadialGradientBrush(this.Color, bgColor);
+            Color clr = Color.Color;
+
+            //var bgColor =      Color.FromArgb(0, this.Color.R, this.Color.G, this.Color.B);
+
+
+            //var brush = new RadialGradientBrush(this.Color, bgColor);
+
+            var bgColor = System.Windows.Media.Color.FromArgb(0, clr.R, clr.G, clr.B);
+
+
+            var brush = new RadialGradientBrush(clr, bgColor);
+
             brush.MappingMode = BrushMappingMode.Absolute;
             brush.RadiusX = this.Size;
             brush.RadiusY = this.Size;

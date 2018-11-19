@@ -103,7 +103,7 @@
                         </DataTrigger>
 
 
-                        <DataTrigger Binding="{Binding Text.Count, RelativeSource={RelativeSource Self}}" Value="0">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text, Mode=OneWay}" Value="">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource exitHasText}" />
                             </DataTrigger.EnterActions>
@@ -182,9 +182,6 @@
 
                         <TextBlock x:Name="Label_Header" Margin="2,0,0,5" Text="{TemplateBinding local:TextBoxHelper.HeaderText}" FontSize="{TemplateBinding local:TextBoxHelper.HeaderSize}" Foreground="{TemplateBinding local:TextBoxHelper.HeaderForegroundBrush}"/>
 
-                        <!--
-                        
-                        -->
 
                         <Border x:Name="border"
                                 BorderBrush="{TemplateBinding BorderBrush}"

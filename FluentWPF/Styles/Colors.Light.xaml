@@ -16,5 +16,5 @@
     <Color x:Key="SystemControlAcrylicWindowTintColor">#FFFFFFFF</Color>
     <Color x:Key="SystemControlAcrylicWindowFallbackColor">#FFE6E6E6</Color>
     <SolidColorBrush x:Key="SystemControlAcrylicWindowForegroundBrush" Color="{StaticResource SystemBaseHighColor}" />
-    
+    <SolidColorBrush x:Key="SystemControlAcrylicWindowFallbackColorBrush" Color="{StaticResource SystemControlAcrylicWindowFallbackColor}" />
 </ResourceDictionary>

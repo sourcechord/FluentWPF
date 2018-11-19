@@ -23,5 +23,10 @@ namespace FluentWPFSample.Views
         {
             InitializeComponent();
         }
+
+        private void MenuItem1_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Hello world!");
+        }
     }
 }

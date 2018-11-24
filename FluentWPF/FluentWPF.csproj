@@ -50,8 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animations\BrushAnimation.cs" />
-    <Compile Include="AppBarButton.cs" />
-    <Compile Include="CommandBar.cs" />
     <Compile Include="FluentControls.cs" />
     <Compile Include="Resources\ResourceDictionaryEx.cs" />
     <Compile Include="Resources\SystemTheme.cs" />

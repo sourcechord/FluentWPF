@@ -54,6 +54,12 @@ namespace FluentWPFSample
             win.ShowDialog();
         }
 
+        private void OpenAcrylicMenuSample(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.AcrylicMenuSample();
+            win.ShowDialog();
+        }
+
         private void OpenReveal(object sender, RoutedEventArgs e)
         {
             var win = new Views.RevealStyles();

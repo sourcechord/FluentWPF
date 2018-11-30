@@ -49,6 +49,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcrylicContextMenu.cs" />
     <Compile Include="AcrylicPopup.cs" />
     <Compile Include="Animations\BrushAnimation.cs" />
     <Compile Include="Resources\ResourceDictionaryEx.cs" />

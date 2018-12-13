@@ -19,6 +19,8 @@
 
             <TextBox HorizontalAlignment="Left" Height="23" Margin="5" Text="TextBox" Width="120"
                  Style="{StaticResource TextBoxRevealStyle}"/>
+
+            <TextBox HorizontalAlignment="Left" Margin="5" Style="{StaticResource TextBoxRevealStyle}" fw:TextBoxHelper.PlaceHolderText="Placeholder" Width="200" fw:TextBoxHelper.HeaderText="Header"/>
         </StackPanel>
     </Grid>
 </fw:AcrylicWindow>

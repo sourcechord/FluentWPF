@@ -8,7 +8,7 @@
                   mc:Ignorable="d"
                   Title="AcrylicMenuSample" Height="450" Width="800">
     <DockPanel>
-        <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
+        <Menu DockPanel.Dock="Top" VerticalAlignment="Top" Style="{StaticResource AcrylicMenuStyle}">
             <MenuItem Header="MenuItem1">
                 <MenuItem Header="MenuItem3" />
                 <MenuItem Header="MenuItem4" />

@@ -17,10 +17,16 @@
                     Background="Transparent"
                     Style="{StaticResource ButtonRevealStyle}"/>
 
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="5" Text="TextBox" Width="120"
-                 Style="{StaticResource TextBoxRevealStyle}"/>
+            <TextBox HorizontalAlignment="Left" Margin="5" Text="TextBox" Width="120"
+                     Style="{StaticResource TextBoxRevealStyle}"/>
 
-            <TextBox HorizontalAlignment="Left" Margin="5" Style="{StaticResource TextBoxRevealStyle}" fw:TextBoxHelper.PlaceHolderText="Placeholder" Width="200" fw:TextBoxHelper.HeaderText="Header"/>
+            <TextBox HorizontalAlignment="Left" Margin="5" Width="200"
+                     Style="{StaticResource TextBoxRevealStyle}"
+                     fw:TextBoxHelper.PlaceHolderText="Placeholder" fw:TextBoxHelper.HeaderText="Header"/>
+
+            <PasswordBox HorizontalAlignment="Left" Margin="5" Width="200"
+                         Style="{StaticResource PasswordBoxRevealStyle}"
+                         fw:TextBoxHelper.PlaceHolderText="Password" fw:TextBoxHelper.HeaderText="Password"/>
         </StackPanel>
     </Grid>
 </fw:AcrylicWindow>

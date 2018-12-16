@@ -126,16 +126,16 @@
                                         <RadialGradientBrush x:Name="brush" MappingMode="Absolute" RadiusY="5" RadiusX="5">
                                             <RadialGradientBrush.Center>
                                                 <MultiBinding Converter="{StaticResource relativePositionConverter}">
-                                                    <Binding ElementName="pressLight" Path="(local:PointerTracker.RootObject)"/>
+                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.RootObject)"/>
                                                     <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}"/>
-                                                    <Binding ElementName="pressLight" Path="(local:PointerTracker.Position)" />
+                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.Position)" />
                                                 </MultiBinding>
                                             </RadialGradientBrush.Center>
                                             <RadialGradientBrush.GradientOrigin>
                                                 <MultiBinding Converter="{StaticResource relativePositionConverter}">
-                                                    <Binding ElementName="pressLight" Path="(local:PointerTracker.RootObject)"/>
+                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.RootObject)"/>
                                                     <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}"/>
-                                                    <Binding ElementName="pressLight" Path="(local:PointerTracker.Position)" />
+                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.Position)" />
                                                 </MultiBinding>
                                             </RadialGradientBrush.GradientOrigin>
                                             <GradientStop Color="Transparent" Offset="0"/>
@@ -287,16 +287,16 @@
                                         <RadialGradientBrush x:Name="brush" MappingMode="Absolute" RadiusY="5" RadiusX="5">
                                             <RadialGradientBrush.Center>
                                                 <MultiBinding Converter="{StaticResource relativePositionConverter}">
-                                                    <Binding ElementName="pressLight" Path="(local:PointerTracker.RootObject)"/>
+                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.RootObject)"/>
                                                     <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}"/>
-                                                    <Binding ElementName="pressLight" Path="(local:PointerTracker.Position)" />
+                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.Position)" />
                                                 </MultiBinding>
                                             </RadialGradientBrush.Center>
                                             <RadialGradientBrush.GradientOrigin>
                                                 <MultiBinding Converter="{StaticResource relativePositionConverter}">
-                                                    <Binding ElementName="pressLight" Path="(local:PointerTracker.RootObject)"/>
+                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.RootObject)"/>
                                                     <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}"/>
-                                                    <Binding ElementName="pressLight" Path="(local:PointerTracker.Position)" />
+                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.Position)" />
                                                 </MultiBinding>
                                             </RadialGradientBrush.GradientOrigin>
                                             <GradientStop Color="Transparent" Offset="0"/>

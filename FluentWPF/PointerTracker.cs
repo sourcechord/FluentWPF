@@ -205,8 +205,7 @@ namespace SourceChord.FluentWPF
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             var pvt = serviceProvider.GetService(typeof(IProvideValueTarget)) as IProvideValueTarget;
-            var target = pvt.TargetObject as FrameworkElement;
-
+            var target = pvt.TargetObject as DependencyObject;
 
             // 円形のグラデーション表示をするブラシを作成
             var bgColor = Color.FromArgb(0, this.Color.R, this.Color.G, this.Color.B);
@@ -218,7 +217,7 @@ namespace SourceChord.FluentWPF
             // カーソルが領域外にある場合は、透明にする。
             var opacityBinding = new Binding("Opacity")
             {
-                Source = pvt.TargetObject,
+                Source = target,
                 Path = new PropertyPath(PointerTracker.IsEnterProperty),
                 Converter = new OpacityConverter(),
                 ConverterParameter = this.Opacity
@@ -228,9 +227,9 @@ namespace SourceChord.FluentWPF
             // グラデーションの中心位置をバインディング
             var binding = new MultiBinding();
             binding.Converter = new RelativePositionConverter();
-            binding.Bindings.Add(new Binding() { Source = pvt.TargetObject, Path = new PropertyPath(PointerTracker.RootObjectProperty) });
-            binding.Bindings.Add(new Binding() { Source = pvt.TargetObject });
-            binding.Bindings.Add(new Binding() { Source = pvt.TargetObject, Path = new PropertyPath(PointerTracker.PositionProperty) });
+            binding.Bindings.Add(new Binding() { Source = target, Path = new PropertyPath(PointerTracker.RootObjectProperty) });
+            binding.Bindings.Add(new Binding() { Source = target });
+            binding.Bindings.Add(new Binding() { Source = target, Path = new PropertyPath(PointerTracker.PositionProperty) });
 
             BindingOperations.SetBinding(brush, RadialGradientBrush.CenterProperty, binding);
             BindingOperations.SetBinding(brush, RadialGradientBrush.GradientOriginProperty, binding);

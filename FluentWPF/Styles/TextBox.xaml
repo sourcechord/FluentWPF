@@ -58,7 +58,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock x:Name="Label_Header" Margin="2,0,0,5" Text="{TemplateBinding local:TextBoxHelper.HeaderText}" FontSize="{TemplateBinding local:TextBoxHelper.HeaderSize}" Foreground="{TemplateBinding local:TextBoxHelper.HeaderForegroundBrush}"/>
+                        <TextBlock x:Name="Label_Header" Margin="2,0,0,5" Text="{TemplateBinding local:Extensions.HeaderText}" FontSize="{TemplateBinding local:Extensions.HeaderSize}" Foreground="{TemplateBinding local:Extensions.HeaderForegroundBrush}"/>
 
 
                         <Border x:Name="border"
@@ -67,7 +67,7 @@
                                 Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
                                 Grid.Row="1">
                             <Grid>
-                                <TextBlock Name="TextBlock_PlaceHolder" Text="{TemplateBinding local:TextBoxHelper.PlaceHolderText}" Foreground="{TemplateBinding local:TextBoxHelper.PlaceHolderForegroundBrush}" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                                <TextBlock Name="TextBlock_PlaceHolder" Text="{TemplateBinding local:Extensions.PlaceHolderText}" Foreground="{TemplateBinding local:Extensions.PlaceHolderForegroundBrush}" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
                                 <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                             </Grid>
 
@@ -180,7 +180,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock x:Name="Label_Header" Margin="2,0,0,5" Text="{TemplateBinding local:TextBoxHelper.HeaderText}" FontSize="{TemplateBinding local:TextBoxHelper.HeaderSize}" Foreground="{TemplateBinding local:TextBoxHelper.HeaderForegroundBrush}"/>
+                        <TextBlock x:Name="Label_Header" Margin="2,0,0,5" Text="{TemplateBinding local:Extensions.HeaderText}" FontSize="{TemplateBinding local:Extensions.HeaderSize}" Foreground="{TemplateBinding local:Extensions.HeaderForegroundBrush}"/>
 
                         <!--
                         
@@ -192,7 +192,7 @@
                                 Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
                                 Grid.Row="1">
                             <Grid>
-                                <TextBlock Name="TextBlock_PlaceHolder" Text="{TemplateBinding local:TextBoxHelper.PlaceHolderText}" Foreground="{TemplateBinding local:TextBoxHelper.PlaceHolderForegroundBrush}" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                                <TextBlock Name="TextBlock_PlaceHolder" Text="{TemplateBinding local:Extensions.PlaceHolderText}" Foreground="{TemplateBinding local:Extensions.PlaceHolderForegroundBrush}" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
                                 <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                             </Grid>
 

@@ -22,11 +22,11 @@
 
             <TextBox HorizontalAlignment="Left" Margin="5" Width="200"
                      Style="{StaticResource TextBoxRevealStyle}"
-                     fw:TextBoxHelper.PlaceHolderText="Placeholder" fw:TextBoxHelper.HeaderText="Header"/>
+                     fw:Extensions.PlaceHolderText="Placeholder" fw:Extensions.HeaderText="Header"/>
 
             <PasswordBox HorizontalAlignment="Left" Margin="5" Width="200"
                          Style="{StaticResource PasswordBoxRevealStyle}"
-                         fw:TextBoxHelper.PlaceHolderText="Password" fw:TextBoxHelper.HeaderText="Password"/>
+                         fw:Extensions.PlaceHolderText="Password" fw:Extensions.HeaderText="Password"/>
         </StackPanel>
     </Grid>
 </fw:AcrylicWindow>

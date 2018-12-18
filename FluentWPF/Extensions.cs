@@ -9,11 +9,11 @@ using System.Windows.Media;
 
 namespace SourceChord.FluentWPF
 {
-    public class TextBoxHelper
+    public static class Extensions
     {
 
         //header text
-        public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.RegisterAttached("HeaderText", typeof(string), typeof(TextBoxHelper), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits));
+        public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.RegisterAttached("HeaderText", typeof(string), typeof(Extensions), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits));
 
         public static void SetHeaderText(UIElement element, string value)
         {
@@ -29,7 +29,7 @@ namespace SourceChord.FluentWPF
 
 
         //header size
-        public static readonly DependencyProperty HeaderSizeProperty = DependencyProperty.RegisterAttached("HeaderSize", typeof(double), typeof(TextBoxHelper), new FrameworkPropertyMetadata(14.0, FrameworkPropertyMetadataOptions.Inherits));
+        public static readonly DependencyProperty HeaderSizeProperty = DependencyProperty.RegisterAttached("HeaderSize", typeof(double), typeof(Extensions), new FrameworkPropertyMetadata(14.0, FrameworkPropertyMetadataOptions.Inherits));
 
         public static void SetHeaderSize(UIElement element, double value)
         {
@@ -43,7 +43,7 @@ namespace SourceChord.FluentWPF
 
 
         //Header ForegroundBrush
-        public static readonly DependencyProperty HeaderForegroundBrushProperty = DependencyProperty.RegisterAttached("HeaderForegroundBrush", typeof(Brush), typeof(TextBoxHelper), new FrameworkPropertyMetadata(Brushes.Black, FrameworkPropertyMetadataOptions.Inherits));
+        public static readonly DependencyProperty HeaderForegroundBrushProperty = DependencyProperty.RegisterAttached("HeaderForegroundBrush", typeof(Brush), typeof(Extensions), new FrameworkPropertyMetadata(Brushes.Black, FrameworkPropertyMetadataOptions.Inherits));
 
         public static void SetHeaderForegroundBrush(UIElement element, Brush value)
         {
@@ -57,7 +57,7 @@ namespace SourceChord.FluentWPF
 
 
         //Placeholder text
-        public static readonly DependencyProperty PlaceHolderTextProperty = DependencyProperty.RegisterAttached("PlaceHolderText", typeof(string), typeof(TextBoxHelper), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits));
+        public static readonly DependencyProperty PlaceHolderTextProperty = DependencyProperty.RegisterAttached("PlaceHolderText", typeof(string), typeof(Extensions), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits));
 
         public static void SetPlaceHolderText(UIElement element, string value)
         {
@@ -70,7 +70,7 @@ namespace SourceChord.FluentWPF
 
 
         //PlaceHolder ForegroundBrush
-        public static readonly DependencyProperty PlaceHolderForegroundBrushProperty = DependencyProperty.RegisterAttached("PlaceHolderForegroundBrush", typeof(Brush), typeof(TextBoxHelper), new FrameworkPropertyMetadata(Brushes.DimGray, FrameworkPropertyMetadataOptions.Inherits));
+        public static readonly DependencyProperty PlaceHolderForegroundBrushProperty = DependencyProperty.RegisterAttached("PlaceHolderForegroundBrush", typeof(Brush), typeof(Extensions), new FrameworkPropertyMetadata(Brushes.DimGray, FrameworkPropertyMetadataOptions.Inherits));
 
         public static void SetPlaceHolderForegroundBrush(UIElement element, Brush value)
         {

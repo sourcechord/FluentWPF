@@ -13,15 +13,15 @@ namespace SourceChord.FluentWPF
     {
 
         //header text
-        public static readonly DependencyProperty HeaderTextProperty = DependencyProperty.RegisterAttached("HeaderText", typeof(string), typeof(Extensions), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits));
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.RegisterAttached("Header", typeof(string), typeof(Extensions), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits));
 
-        public static void SetHeaderText(UIElement element, string value)
+        public static void SetHeader(UIElement element, string value)
         {
-            element.SetValue(HeaderTextProperty, value);
+            element.SetValue(HeaderProperty, value);
         }
-        public static string GetHeaderText(UIElement element)
+        public static string GetHeader(UIElement element)
         {
-            return (string)element.GetValue(HeaderTextProperty);
+            return (string)element.GetValue(HeaderProperty);
         }
 
 
@@ -57,28 +57,28 @@ namespace SourceChord.FluentWPF
 
 
         //Placeholder text
-        public static readonly DependencyProperty PlaceHolderTextProperty = DependencyProperty.RegisterAttached("PlaceHolderText", typeof(string), typeof(Extensions), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits));
+        public static readonly DependencyProperty PlaceholderTextProperty = DependencyProperty.RegisterAttached("PlaceholderText", typeof(string), typeof(Extensions), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.Inherits));
 
-        public static void SetPlaceHolderText(UIElement element, string value)
+        public static void SetPlaceholderText(UIElement element, string value)
         {
-            element.SetValue(PlaceHolderTextProperty, value);
+            element.SetValue(PlaceholderTextProperty, value);
         }
-        public static string GetPlaceHolderText(UIElement element)
+        public static string GetPlaceholderText(UIElement element)
         {
-            return (string)element.GetValue(PlaceHolderTextProperty);
+            return (string)element.GetValue(PlaceholderTextProperty);
         }
 
 
-        //PlaceHolder ForegroundBrush
-        public static readonly DependencyProperty PlaceHolderForegroundBrushProperty = DependencyProperty.RegisterAttached("PlaceHolderForegroundBrush", typeof(Brush), typeof(Extensions), new FrameworkPropertyMetadata(Brushes.DimGray, FrameworkPropertyMetadataOptions.Inherits));
+        //Placeholder ForegroundBrush
+        public static readonly DependencyProperty PlaceholderForegroundBrushProperty = DependencyProperty.RegisterAttached("PlaceholderForegroundBrush", typeof(Brush), typeof(Extensions), new FrameworkPropertyMetadata(Brushes.DimGray, FrameworkPropertyMetadataOptions.Inherits));
 
-        public static void SetPlaceHolderForegroundBrush(UIElement element, Brush value)
+        public static void SetPlaceholderForegroundBrush(UIElement element, Brush value)
         {
-            element.SetValue(PlaceHolderForegroundBrushProperty, value);
+            element.SetValue(PlaceholderForegroundBrushProperty, value);
         }
-        public static Brush GetPlaceHolderForegroundBrush(UIElement element)
+        public static Brush GetPlaceholderForegroundBrush(UIElement element)
         {
-            return (Brush)element.GetValue(PlaceHolderForegroundBrushProperty);
+            return (Brush)element.GetValue(PlaceholderForegroundBrushProperty);
         }
 
     }

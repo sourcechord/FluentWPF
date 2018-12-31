@@ -274,24 +274,61 @@ To use the reveal effect, set `fw:PointerTracker.Enabled="True"` on a parent con
 </StackPanel>
 ```
 
-#### Colors/Brushes
 
-* Colors
-  * ImmersiveSystemAccent
-  * ImmersiveSystemAccentLight1
-  * ImmersiveSystemAccentLight2
-  * ImmersiveSystemAccentLight3
-  * ImmersiveSystemAccentDark1
-  * ImmersiveSystemAccentDark2
-  * ImmersiveSystemAccentDark3
-* Brushes
-  * ImmersiveSystemAccentBrush
-  * ImmersiveSystemAccentLight1Brush
-  * ImmersiveSystemAccentLight2Brush
-  * ImmersiveSystemAccentLight3Brush
-  * ImmersiveSystemAccentDark1Brush
-  * ImmersiveSystemAccentDark2Brush
-  * ImmersiveSystemAccentDark3Brush
+#### Accent Color
+_Accent color depends on the accent color of the system._
+
+|Sample|Color|Brush|
+|-----|-----|-----|
+|![#a6d8ff](https://placehold.it/30/a6d8ff/000000?text=+)|ImmersiveSystemAccentLight3|ImmersiveSystemAccentLight3Brush|
+|![#76b9ed](https://placehold.it/30/76b9ed/000000?text=+)|ImmersiveSystemAccentLight2|ImmersiveSystemAccentLight2Brush|
+|![#429ce3](https://placehold.it/30/429ce3/000000?text=+)|ImmersiveSystemAccentLight1|ImmersiveSystemAccentLight1Brush|
+|![#0078d7](https://placehold.it/30/0078d7/000000?text=+)|ImmersiveSystemAccent|ImmersiveSystemAccentBrush|
+|![#005a9e](https://placehold.it/30/005a9e/000000?text=+)|ImmersiveSystemAccentDark1|ImmersiveSystemAccentDark1Brush|
+|![#004275](https://placehold.it/30/004275/000000?text=+)|ImmersiveSystemAccentDark2|ImmersiveSystemAccentDark2Brush|
+|![#002642](https://placehold.it/30/002642/000000?text=+)|ImmersiveSystemAccentDark3|ImmersiveSystemAccentDark3Brush|
+
+**Usage:**
+```xml
+ <Border Background="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}"/>
+ <Border Background="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentBrush)}"/>
+```
+
+
+
+#### Base Color
+
+|Light|Dark|Color|Brush|
+|-----|-----|-----|-----|
+|![#000000](https://placehold.it/30/000000/000000?text=+)|![#ffffff](https://placehold.it/30/ffffff/000000?text=+)|SystemBaseHighColor|SystemBaseHighColorBrush|
+|![#333333](https://placehold.it/30/333333/000000?text=+)|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|SystemBaseMediumHighColor|SystemBaseMediumHighColorBrush|
+|![#666666](https://placehold.it/30/666666/000000?text=+)|![#999999](https://placehold.it/30/999999/000000?text=+)|SytemBaseMediumColor|SytemBaseMediumColorBrush|
+|![#999999](https://placehold.it/30/999999/000000?text=+)|![#666666](https://placehold.it/30/666666/000000?text=+)|SystemBaseMediumLowColor|SystemBaseMediumLowColorBrush|
+|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|![#333333](https://placehold.it/30/333333/000000?text=+)|SystemBaseLowColor|SystemBaseLowColorBrush|
+
+**Usage:**
+```xml
+ <Border Background="{DynamicResource SystemBaseHighColorBrush}"/>
+```
+
+
+#### Alt Color
+
+|Light|Dark|Color|Brush|
+|-----|-----|-----|-----|
+|![#ffffff](https://placehold.it/30/ffffff/000000?text=+)|![#000000](https://placehold.it/30/000000/000000?text=+)|SystemAltHighColor|SystemAltHighColorBrush|
+|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|![#333333](https://placehold.it/30/333333/000000?text=+)|SystemAltMediumHighColor|SystemAltMediumHighColorBrush|
+|![#999999](https://placehold.it/30/999999/000000?text=+)|![#666666](https://placehold.it/30/666666/000000?text=+)|SytemAltMediumColor|SytemAltMediumColorBrush|
+|![#666666](https://placehold.it/30/666666/000000?text=+)|![#999999](https://placehold.it/30/999999/000000?text=+)|SystemAltMediumLowColor|SystemAltMediumLowColorBrush|
+|![#333333](https://placehold.it/30/333333/000000?text=+)|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|SystemAltLowColor|SystemAltLowColorBrush|
+
+**Usage:**
+```xml
+ <TextBlock Foreground="{DynamicResource SystemAltHighColorBrush}"/>
+```
+
+
+
 
 ## License
 

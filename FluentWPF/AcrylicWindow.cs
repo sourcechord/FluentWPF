@@ -97,6 +97,7 @@ namespace SourceChord.FluentWPF
             FallbackColorProperty = AcrylicElement.FallbackColorProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.Inherits));
             ShowTitleBarProperty = AcrylicElement.ShowTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
             ExtendViewIntoTitleBarProperty = AcrylicElement.ExtendViewIntoTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
+            TitleBarElementProperty = AcrylicElement.TitleBarElementProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits, OnTitleBarElementChanged));
         }
 
         public override void OnApplyTemplate()
@@ -148,6 +149,61 @@ namespace SourceChord.FluentWPF
             win.CommandBindings.Add(new CommandBinding(SystemCommands.MaximizeWindowCommand, (_, __) => { SystemCommands.MaximizeWindow(win); }));
             win.CommandBindings.Add(new CommandBinding(SystemCommands.RestoreWindowCommand, (_, __) => { SystemCommands.RestoreWindow(win); }));
         }
+
+
+        private static void OnTitleBarElementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var win = d as Window;
+            if (win == null) { return; }
+
+            var newValue = e.NewValue as FrameworkElement;
+            var oldValue = e.OldValue as FrameworkElement;
+            // 古い要素のイベントハンドラを解除
+            if (oldValue != null)
+            {
+                oldValue.MouseLeftButtonDown -= OnTitleBarMouseLeftButtonDown;
+                newValue.MouseRightButtonUp -= OnTitleBarMouseRightButtonUp;
+            }
+            // 新しい要素にイベントハンドラを設定
+            if (newValue != null)
+            {
+                newValue.MouseLeftButtonDown += OnTitleBarMouseLeftButtonDown;
+                newValue.MouseRightButtonUp += OnTitleBarMouseRightButtonUp;
+            }
+        }
+
+        private static void OnTitleBarMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var element = sender as FrameworkElement;
+            var win = Window.GetWindow(element);
+
+            if (e.ClickCount == 1)
+            {
+                win.DragMove();
+            }
+            else if (e.ClickCount == 2)
+            {
+                if(win.WindowState != WindowState.Maximized)
+                {
+                    SystemCommands.MaximizeWindow(win);
+                }
+                else
+                {
+                    SystemCommands.RestoreWindow(win);
+                }
+            }
+            
+        }
+
+        private static void OnTitleBarMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var element = sender as FrameworkElement;
+            var win = Window.GetWindow(element);
+
+            SystemCommands.ShowSystemMenu(win, win.PointToScreen(Mouse.GetPosition(win)));
+        }
+
+
         #region Dependency Property
 
         public Color TintColor
@@ -266,7 +322,23 @@ namespace SourceChord.FluentWPF
         }
 
 
+        public FrameworkElement TitleBarElement
+        {
+            get { return (FrameworkElement)GetValue(TitleBarElementProperty); }
+            set { SetValue(TitleBarElementProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for TitleBarElement.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleBarElementProperty;
+        public static FrameworkElement GetTitleBarElement(DependencyObject obj)
+        {
+            return (FrameworkElement)obj.GetValue(AcrylicElement.TitleBarElementProperty);
+        }
+
+        public static void SetTitleBarElement(DependencyObject obj, FrameworkElement value)
+        {
+            obj.SetValue(AcrylicElement.TitleBarElementProperty, value);
+        }
 
         #endregion
 
@@ -296,12 +368,26 @@ namespace SourceChord.FluentWPF
             var value = (bool)e.NewValue;
             if (value)
             {
-                var dic = new ResourceDictionary() { Source = new Uri("pack://application:,,,/FluentWPF;component/Styles/Window.xaml") };
-                var style = dic["AcrylicWindowStyle"] as Style;
-                win.Style = style;
+                win.Loaded += (_, __) => { InitWindow(); };
+                if (win.IsLoaded) { InitWindow(); }
 
-                win.Loaded += (_, __) => { EnableBlur(win); };
-                if(win.IsLoaded) EnableBlur(win);
+                // ウィンドウの初期化処理
+                void InitWindow()
+                {
+                    // ウィンドウのアクリル化処理
+                    var dic = new ResourceDictionary() { Source = new Uri("pack://application:,,,/FluentWPF;component/Styles/Window.xaml") };
+                    var style = dic["AcrylicWindowStyle"] as Style;
+                    win.Style = style;
+                    EnableBlur(win);
+
+                    // タイトルバー領域へのイベント設定
+                    var titleBar = GetTitleBarElement(win);
+                    if (titleBar != null)
+                    {
+                        win.MouseLeftButtonDown += OnTitleBarMouseLeftButtonDown;
+                        win.MouseRightButtonUp += OnTitleBarMouseRightButtonUp;
+                    }
+                };
             }
         }
         #endregion
@@ -410,6 +496,20 @@ namespace SourceChord.FluentWPF
         public static readonly DependencyProperty ExtendViewIntoTitleBarProperty =
             DependencyProperty.RegisterAttached("ExtendViewIntoTitleBar", typeof(bool), typeof(AcrylicElement), new PropertyMetadata(false));
 
+
+        public static FrameworkElement GetTitleBarElement(DependencyObject obj)
+        {
+            return (FrameworkElement)obj.GetValue(TitleBarElementProperty);
+        }
+
+        public static void SetTitleBarElement(DependencyObject obj, FrameworkElement value)
+        {
+            obj.SetValue(TitleBarElementProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for TitleBarElement.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleBarElementProperty =
+            DependencyProperty.RegisterAttached("TitleBarElement", typeof(FrameworkElement), typeof(AcrylicElement), new PropertyMetadata(null));
 
     }
 }

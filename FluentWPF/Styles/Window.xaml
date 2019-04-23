@@ -277,7 +277,7 @@
                             <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ExtendViewIntoTitleBar, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                        <DataTrigger Binding="{Binding (local:AcrylicWindow.ExtendViewIntoTitleBar), RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
                             <Setter TargetName="windowContent" Property="Grid.Row" Value="0" />
                             <Setter TargetName="windowContent" Property="Grid.RowSpan" Value="2" />
                             <Setter TargetName="captionText" Property="Visibility" Value="Collapsed" />
@@ -288,7 +288,7 @@
         </Setter>
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
-                <WindowChrome CaptionHeight="{x:Static SystemParameters.CaptionHeight}"
+                <WindowChrome CaptionHeight="0"
                       GlassFrameThickness="1" 
                       ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" UseAeroCaptionButtons="False" />
             </Setter.Value>
@@ -299,15 +299,21 @@
             <Trigger Property="IsActive" Value="False">
                 <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumLowColorBrush}" />
             </Trigger>
-            <Trigger Property="local:AcrylicWindow.ShowTitleBar" Value="False">
-                <Setter Property="WindowChrome.WindowChrome">
-                    <Setter.Value>
-                        <WindowChrome CaptionHeight="0"
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="local:AcrylicWindow.TitleBarElement" Value="{x:Null}" />
+                    <Condition Property="local:AcrylicWindow.ShowTitleBar" Value="True" />
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="WindowChrome.WindowChrome">
+                        <Setter.Value>
+                            <WindowChrome CaptionHeight="{x:Static SystemParameters.CaptionHeight}"
                                       GlassFrameThickness="1" 
                                       ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" UseAeroCaptionButtons="False" />
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
+                        </Setter.Value>
+                    </Setter>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

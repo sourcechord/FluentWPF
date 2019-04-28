@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SourceChord.FluentWPF"
-                    xmlns:animation="clr-namespace:SourceChord.FluentWPF.Animations">
+                    xmlns:animation="clr-namespace:SourceChord.FluentWPF.Animations"
+                    xmlns:util="clr-namespace:SourceChord.FluentWPF.Utility">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
     <Style x:Key="CaptionButtonStyleKey" TargetType="{x:Type Button}">
@@ -226,9 +227,16 @@
                                   Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window},
                                                        Path=(local:AcrylicWindow.ShowTitleBar),
                                                        Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <Image x:Name="appIcon"
+                                       Stretch="None"
+                                       Margin="8"
+                                       Visibility="Collapsed"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Source="{x:Static util:IconHelper.AppIcon}"/>
                                 <TextBlock x:Name="captionText"
                                            Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}"
-                                           Margin="8,0"
+                                           Margin="30,0,8,0"
                                            VerticalAlignment="Center"
                                            Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
                                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
@@ -282,6 +290,16 @@
                             <Setter TargetName="windowContent" Property="Grid.RowSpan" Value="2" />
                             <Setter TargetName="captionText" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding (local:AcrylicWindow.TitleBarElement), RelativeSource={RelativeSource AncestorType=Window}}" Value="{x:Null}" />
+                                <Condition Binding="{Binding (local:AcrylicWindow.ShowTitleBar), RelativeSource={RelativeSource AncestorType=Window}}" Value="True" />
+                                <Condition Binding="{Binding (local:AcrylicWindow.ExtendViewIntoTitleBar), RelativeSource={RelativeSource AncestorType=Window}}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" TargetName="appIcon" Value="Visible" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
             </Setter.Value>

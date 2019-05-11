@@ -11,7 +11,58 @@
     <local:BrushTranslationConverter x:Key="brushTranslationConverter" />
 
 
-    <Style TargetType="{x:Type local:AcrylicWindow}" BasedOn="{StaticResource AcrylicWindowStyle}" />
+    <Style TargetType="{x:Type local:AcrylicWindow}" BasedOn="{StaticResource AcrylicWindowStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}" >
+                    <Border x:Name="windowBorder"
+                            BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=BorderBrush}"
+                            BorderThickness="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path= BorderThickness}"
+                            Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Background}">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource Self}}" Value="False">
+                            <Setter TargetName="windowBorder" Property="Border.BorderBrush" Value="Gray" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource Self}}" Value="Maximized">
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="local:AcrylicWindow.AcrylicWindowStyle" Value="None"/>
+                    <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
+                    <Condition Property="WindowState" Value="Normal"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Window}" >
+                            <Border x:Name="windowBorder"
+                                    BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=BorderBrush}"
+                                    BorderThickness="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path= BorderThickness}"
+                                    Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Background}">
+                                <Grid>
+                                    <ContentPresenter />
+                                    <ResizeGrip HorizontalAlignment="Right" IsTabStop="False" VerticalAlignment="Bottom"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource Self}}" Value="False">
+                                    <Setter TargetName="windowBorder" Property="Border.BorderBrush" Value="Gray" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource Self}}" Value="Maximized">
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
 
     <Style TargetType="{x:Type local:ParallaxView}">
         <Setter Property="ClipToBounds" Value="True" />

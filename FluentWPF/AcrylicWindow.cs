@@ -19,6 +19,14 @@ using System.Windows.Shell;
 
 namespace SourceChord.FluentWPF
 {
+    public enum AcrylicWindowStyle
+    {
+        Normal,
+        NoIcon,
+        NoTitleBar,
+        None,
+    }
+
     [StructLayout(LayoutKind.Sequential)]
     internal struct WindowCompositionAttributeData
     {
@@ -97,6 +105,7 @@ namespace SourceChord.FluentWPF
             FallbackColorProperty = AcrylicElement.FallbackColorProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.Inherits));
             ShowTitleBarProperty = AcrylicElement.ShowTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
             ExtendViewIntoTitleBarProperty = AcrylicElement.ExtendViewIntoTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
+            AcrylicWindowStyleProperty = AcrylicElement.AcrylicWindowStyleProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(AcrylicWindowStyle.Normal, FrameworkPropertyMetadataOptions.Inherits));
         }
 
         public override void OnApplyTemplate()
@@ -266,7 +275,23 @@ namespace SourceChord.FluentWPF
         }
 
 
+        public AcrylicWindowStyle AcrylicWindowStyle
+        {
+            get { return (AcrylicWindowStyle)GetValue(AcrylicWindowStyleProperty); }
+            set { SetValue(AcrylicWindowStyleProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for AcrylicWindowStyle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AcrylicWindowStyleProperty;
+        public static AcrylicWindowStyle GetAcrylicWindowStyle(DependencyObject obj)
+        {
+            return (AcrylicWindowStyle)obj.GetValue(AcrylicElement.AcrylicWindowStyleProperty);
+        }
+
+        public static void SetAcrylicWindowStyle(DependencyObject obj, AcrylicWindowStyle value)
+        {
+            obj.SetValue(AcrylicElement.AcrylicWindowStyleProperty, value);
+        }
 
         #endregion
 
@@ -411,5 +436,18 @@ namespace SourceChord.FluentWPF
             DependencyProperty.RegisterAttached("ExtendViewIntoTitleBar", typeof(bool), typeof(AcrylicElement), new PropertyMetadata(false));
 
 
+        public static AcrylicWindowStyle GetAcrylicWindowStyle(DependencyObject obj)
+        {
+            return (AcrylicWindowStyle)obj.GetValue(AcrylicWindowStyleProperty);
+        }
+
+        public static void AcrylicWindowStyleBar(DependencyObject obj, AcrylicWindowStyle value)
+        {
+            obj.SetValue(AcrylicWindowStyleProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for AcrylicWindowStyle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AcrylicWindowStyleProperty =
+            DependencyProperty.RegisterAttached("AcrylicWindowStyle", typeof(AcrylicWindowStyle), typeof(AcrylicElement), new PropertyMetadata(AcrylicWindowStyle.Normal));
     }
 }

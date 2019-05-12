@@ -1,8 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SourceChord.FluentWPF"
-                    xmlns:animation="clr-namespace:SourceChord.FluentWPF.Animations">
+                    xmlns:animation="clr-namespace:SourceChord.FluentWPF.Animations"
+                    xmlns:util="clr-namespace:SourceChord.FluentWPF.Utility">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <local:IsNullConverter x:Key="IsNullConverter" />
 
     <Style x:Key="CaptionButtonStyleKey" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -187,17 +189,34 @@
                                   Grid.Row="0" Grid.RowSpan="2"/>
                 <ResizeGrip x:Name="resizeGrip" Grid.Row="1"
                             HorizontalAlignment="Right" IsTabStop="False" VerticalAlignment="Bottom" Visibility="Collapsed"/>
-                <Grid x:Name="captionGrid"
-                      Height="30"
-                      Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window},
-                                           Path=(local:AcrylicWindow.ShowTitleBar),
-                                           Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid x:Name="captionGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="appIcon"
+                           Stretch="None"
+                           Margin="8,0,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Source="{x:Static util:IconHelper.AppIcon}"/>
                     <TextBlock x:Name="captionText"
-                               Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}"
-                               Margin="8,0"
-                               VerticalAlignment="Center"
-                               Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                               Grid.Column="1"
+                               Margin="8,0,0,0"
+                               Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
+                               VerticalAlignment="Center" Visibility="Collapsed"
+                               Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+
+                    <ContentControl Grid.ColumnSpan="3"
+                                    Content="{Binding TitleBar, RelativeSource={RelativeSource AncestorType=Window}}"
+                                    WindowChrome.IsHitTestVisibleInChrome="True"/>
+                    
+                    <StackPanel Grid.Column="2"
+                                HorizontalAlignment="Right" VerticalAlignment="Top"
+                                Orientation="Horizontal"
+                                Height="30">
                         <Button x:Name="btnMinimizeButton" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}">
                             <Path Width="10" Height="10" Data="M0,4 L10,4 L10,5 L0,5 z"
                                   Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
@@ -248,7 +267,14 @@
             </Trigger>
             <Trigger Property="local:AcrylicWindow.ExtendViewIntoTitleBar" Value="True">
                 <Setter TargetName="captionText" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="appIcon" Property="Visibility" Value="Collapsed" />
             </Trigger>
+            <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoIcon">
+                <Setter TargetName="appIcon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <DataTrigger Binding="{Binding (local:AcrylicWindow.TitleBar), RelativeSource={RelativeSource Self}, Converter={StaticResource IsNullConverter}}" Value="False">
+                <Setter TargetName="appIcon" Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
@@ -329,7 +355,7 @@
             <Trigger Property="IsActive" Value="False">
                 <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumLowColorBrush}" />
             </Trigger>
-            <Trigger Property="local:AcrylicWindow.ShowTitleBar" Value="False">
+            <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="None">
                 <Setter Property="WindowChrome.WindowChrome">
                     <Setter.Value>
                         <WindowChrome CaptionHeight="0"
@@ -344,9 +370,9 @@
             <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoIcon">
                 <Setter Property="Template" Value="{StaticResource AcrylicWindowTemplate}"/>
             </Trigger>
-            <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoTitleBar">
+            <!--<Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoTitleBar">
                 <Setter Property="Template" Value="{StaticResource AcrylicWindowTemplate}"/>
-            </Trigger>
+            </Trigger>-->
             <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="None">
             </Trigger>
         </Style.Triggers>

@@ -1,6 +1,7 @@
 ﻿using SourceChord.FluentWPF.Utility;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -23,7 +24,6 @@ namespace SourceChord.FluentWPF
     {
         Normal,
         NoIcon,
-        NoTitleBar,
         None,
     }
 
@@ -106,12 +106,23 @@ namespace SourceChord.FluentWPF
             ShowTitleBarProperty = AcrylicElement.ShowTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
             ExtendViewIntoTitleBarProperty = AcrylicElement.ExtendViewIntoTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
             AcrylicWindowStyleProperty = AcrylicElement.AcrylicWindowStyleProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(AcrylicWindowStyle.Normal, FrameworkPropertyMetadataOptions.Inherits));
+            TitleBarProperty = AcrylicElement.TitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
         }
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             EnableBlur(this);
+
+            var caption = this.GetTemplateChild("captionGrid") as FrameworkElement;
+            if (caption != null)
+            {
+                caption.SizeChanged += (s, e) =>
+                {
+                    var chrome = WindowChrome.GetWindowChrome(this);
+                    chrome.CaptionHeight = e.NewSize.Height;
+                };
+            }
         }
 
         internal static void EnableBlur(Window win)
@@ -293,6 +304,24 @@ namespace SourceChord.FluentWPF
             obj.SetValue(AcrylicElement.AcrylicWindowStyleProperty, value);
         }
 
+        public FrameworkElement TitleBar
+        {
+            get { return (FrameworkElement)GetValue(TitleBarProperty); }
+            set { SetValue(TitleBarProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TitleBar.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleBarProperty;
+        public static FrameworkElement GetTitleBar(DependencyObject obj)
+        {
+            return (FrameworkElement)obj.GetValue(AcrylicElement.TitleBarProperty);
+        }
+
+        public static void SetTitleBar(DependencyObject obj, FrameworkElement value)
+        {
+            obj.SetValue(AcrylicElement.TitleBarProperty, value);
+        }
+
         #endregion
 
 
@@ -449,5 +478,36 @@ namespace SourceChord.FluentWPF
         // Using a DependencyProperty as the backing store for AcrylicWindowStyle.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AcrylicWindowStyleProperty =
             DependencyProperty.RegisterAttached("AcrylicWindowStyle", typeof(AcrylicWindowStyle), typeof(AcrylicElement), new PropertyMetadata(AcrylicWindowStyle.Normal));
+
+
+        public static FrameworkElement GetTitleBar(DependencyObject obj)
+        {
+            return (FrameworkElement)obj.GetValue(TitleBarProperty);
+        }
+
+        public static void SetTitleBar(DependencyObject obj, FrameworkElement value)
+        {
+            obj.SetValue(TitleBarProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for TitleBar.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleBarProperty =
+            DependencyProperty.RegisterAttached("TitleBar", typeof(FrameworkElement), typeof(AcrylicElement), new PropertyMetadata(null));
+
+
+    }
+
+
+    public class IsNullConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value == null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

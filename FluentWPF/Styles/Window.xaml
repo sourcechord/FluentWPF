@@ -196,22 +196,22 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Image x:Name="appIcon"
-                           Stretch="None"
+                           Stretch="UniformToFill"
                            Margin="8,0,0,0"
+                           Width="16" Height="16"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
-                           Source="{x:Static util:IconHelper.AppIcon}"/>
+                           Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=Window}, FallbackValue={x:Static util:IconHelper.AppIcon}}"/>
                     <TextBlock x:Name="captionText"
                                Grid.Column="1"
                                Margin="8,0,0,0"
                                Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
-                               VerticalAlignment="Center" Visibility="Collapsed"
+                               VerticalAlignment="Center"
                                Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
 
                     <ContentControl Grid.ColumnSpan="3"
-                                    Content="{Binding TitleBar, RelativeSource={RelativeSource AncestorType=Window}}"
-                                    WindowChrome.IsHitTestVisibleInChrome="True"/>
+                                    Content="{Binding TitleBar, RelativeSource={RelativeSource AncestorType=Window}}"/>
                     
                     <StackPanel Grid.Column="2"
                                 HorizontalAlignment="Right" VerticalAlignment="Top"
@@ -370,9 +370,6 @@
             <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoIcon">
                 <Setter Property="Template" Value="{StaticResource AcrylicWindowTemplate}"/>
             </Trigger>
-            <!--<Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoTitleBar">
-                <Setter Property="Template" Value="{StaticResource AcrylicWindowTemplate}"/>
-            </Trigger>-->
             <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="None">
             </Trigger>
         </Style.Triggers>

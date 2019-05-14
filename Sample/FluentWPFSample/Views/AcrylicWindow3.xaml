@@ -9,7 +9,8 @@
                   mc:Ignorable="d"
                   Title="AcrylicWindow3" Height="450" Width="800"
                   ResizeMode="CanResizeWithGrip"
-                  fw:AcrylicWindow.AcrylicWindowStyle="{Binding SelectedValue, ElementName=cmbStyle}">
+                  fw:AcrylicWindow.AcrylicWindowStyle="{Binding SelectedValue, ElementName=cmbStyle}"
+                  Icon="/Assets/Images/logo_icon.png">
     <Window.Style>
         <Style TargetType="{x:Type Window}">
             <Style.Triggers>

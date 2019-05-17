@@ -103,7 +103,6 @@ namespace SourceChord.FluentWPF
             TintOpacityProperty = AcrylicElement.TintOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.6, FrameworkPropertyMetadataOptions.Inherits));
             NoiseOpacityProperty = AcrylicElement.NoiseOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.03, FrameworkPropertyMetadataOptions.Inherits));
             FallbackColorProperty = AcrylicElement.FallbackColorProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.Inherits));
-            ShowTitleBarProperty = AcrylicElement.ShowTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
             ExtendViewIntoTitleBarProperty = AcrylicElement.ExtendViewIntoTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
             AcrylicWindowStyleProperty = AcrylicElement.AcrylicWindowStyleProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(AcrylicWindowStyle.Normal, FrameworkPropertyMetadataOptions.Inherits));
             TitleBarProperty = AcrylicElement.TitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
@@ -244,26 +243,6 @@ namespace SourceChord.FluentWPF
         public static void SetFallbackColor(DependencyObject obj, Color value)
         {
             obj.SetValue(AcrylicElement.FallbackColorProperty, value);
-        }
-
-
-
-        public bool ShowTitleBar
-        {
-            get { return (bool)GetValue(ShowTitleBarProperty); }
-            set { SetValue(ShowTitleBarProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for ShowTitleBar.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ShowTitleBarProperty;
-        public static bool GetShowTitleBar(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(AcrylicElement.ShowTitleBarProperty);
-        }
-
-        public static void SetShowTitleBar(DependencyObject obj, bool value)
-        {
-            obj.SetValue(AcrylicElement.ShowTitleBarProperty, value);
         }
 
 
@@ -429,25 +408,6 @@ namespace SourceChord.FluentWPF
         // Using a DependencyProperty as the backing store for FallbackColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FallbackColorProperty =
             DependencyProperty.RegisterAttached("FallbackColor", typeof(Color), typeof(AcrylicElement), new PropertyMetadata(Colors.LightGray));
-
-
-
-
-
-        public static bool GetShowTitleBar(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(ShowTitleBarProperty);
-        }
-
-        public static void SetShowTitleBar(DependencyObject obj, bool value)
-        {
-            obj.SetValue(ShowTitleBarProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for ShowTitleBar.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ShowTitleBarProperty =
-            DependencyProperty.RegisterAttached("ShowTitleBar", typeof(bool), typeof(AcrylicElement), new PropertyMetadata(true));
-
 
 
         public static bool GetExtendViewIntoTitleBar(DependencyObject obj)

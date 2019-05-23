@@ -27,6 +27,12 @@ namespace SourceChord.FluentWPF
         None,
     }
 
+    public enum TitleBarMode
+    {
+        Default,
+        Extend,
+    }
+
     [StructLayout(LayoutKind.Sequential)]
     internal struct WindowCompositionAttributeData
     {
@@ -106,6 +112,7 @@ namespace SourceChord.FluentWPF
             ExtendViewIntoTitleBarProperty = AcrylicElement.ExtendViewIntoTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
             AcrylicWindowStyleProperty = AcrylicElement.AcrylicWindowStyleProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(AcrylicWindowStyle.Normal, FrameworkPropertyMetadataOptions.Inherits));
             TitleBarProperty = AcrylicElement.TitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+            TitleBarModeProperty = AcrylicElement.TitleBarModeProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(TitleBarMode.Default, FrameworkPropertyMetadataOptions.Inherits));
         }
 
         public override void OnApplyTemplate()
@@ -301,6 +308,24 @@ namespace SourceChord.FluentWPF
             obj.SetValue(AcrylicElement.TitleBarProperty, value);
         }
 
+        public TitleBarMode TitleBarMode
+        {
+            get { return (TitleBarMode)GetValue(TitleBarModeProperty); }
+            set { SetValue(TitleBarModeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TitleBarMode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleBarModeProperty;
+        public static TitleBarMode GetTitleBarMode(DependencyObject obj)
+        {
+            return (TitleBarMode)obj.GetValue(AcrylicElement.TitleBarModeProperty);
+        }
+
+        public static void SetTitleBarMode(DependencyObject obj, TitleBarMode value)
+        {
+            obj.SetValue(AcrylicElement.TitleBarModeProperty, value);
+        }
+
         #endregion
 
 
@@ -455,6 +480,19 @@ namespace SourceChord.FluentWPF
             DependencyProperty.RegisterAttached("TitleBar", typeof(FrameworkElement), typeof(AcrylicElement), new PropertyMetadata(null));
 
 
+        public static TitleBarMode GetTitleBarMode(DependencyObject obj)
+        {
+            return (TitleBarMode)obj.GetValue(TitleBarModeProperty);
+        }
+
+        public static void SetTitleBarMode(DependencyObject obj, TitleBarMode value)
+        {
+            obj.SetValue(TitleBarModeProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for TitleBarMode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleBarModeProperty =
+            DependencyProperty.RegisterAttached("TitleBarMode", typeof(TitleBarMode), typeof(AcrylicElement), new PropertyMetadata(TitleBarMode.Default));
     }
 
 

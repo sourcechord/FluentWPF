@@ -210,7 +210,8 @@
                                Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
 
-                    <ContentControl Grid.ColumnSpan="3"
+                    <ContentControl x:Name="customTitleBar"
+                                    Grid.Column="1"
                                     Content="{Binding TitleBar, RelativeSource={RelativeSource AncestorType=Window}}"/>
                     
                     <StackPanel Grid.Column="2"
@@ -273,8 +274,12 @@
                 <Setter TargetName="appIcon" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <DataTrigger Binding="{Binding (local:AcrylicWindow.TitleBar), RelativeSource={RelativeSource Self}, Converter={StaticResource IsNullConverter}}" Value="False">
-                <Setter TargetName="appIcon" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="captionText" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
+            <Trigger Property="local:AcrylicWindow.TitleBarMode" Value="Extend">
+                <Setter TargetName="customTitleBar" Property="Grid.Column" Value="0" />
+                <Setter TargetName="customTitleBar" Property="Grid.ColumnSpan" Value="3" />
+            </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>

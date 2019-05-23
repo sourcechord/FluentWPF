@@ -34,6 +34,7 @@
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
+                    <Condition Property="local:AcrylicWindow.AcrylicWindowStyle" Value="None"/>
                     <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
                     <Condition Property="WindowState" Value="Normal"/>
                 </MultiTrigger.Conditions>

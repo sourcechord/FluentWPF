@@ -18,6 +18,8 @@
                 <WrapPanel Orientation="Horizontal">
                     <Button Content="AcrylicWindow" Click="OpenAcrylicWindow"/>
                     <Button Content="AcrylicWindow&#xa;(Attached Property)" Click="OpenAcrylicWindow2" />
+                    <Button Content="AcrylicWindow&#xa;(AcrylicWindowStyle)" Click="OpenAcrylicWindow3" />
+                    <Button Content="AcrylicWindow&#xa;(Custom TitleBar)" Click="OpenAcrylicWindow4" />
                     <Button Content="AcrylicPanel" Click="OpenAcrylicPanel" />
                     <Button Content="AcrylicPanel2" Click="OpenAcrylicPanel2" />
                     <Button Content="AcrylicBrush" Click="OpenAcrylicBrush" />

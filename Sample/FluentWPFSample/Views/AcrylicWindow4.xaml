@@ -1,0 +1,49 @@
+﻿<fw:AcrylicWindow x:Class="FluentWPFSample.Views.AcrylicWindow4"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+                  xmlns:local="clr-namespace:FluentWPFSample.Views"
+                  mc:Ignorable="d"
+                  Title="AcrylicWindow4" Height="450" Width="800" TitleBarMode="Extend">
+    <fw:AcrylicWindow.TitleBar>
+        <fw:DropShadowPanel ShadowMode="Outer" BlurRadius="8" ShadowOpacity="0.6">
+            <Grid WindowChrome.IsHitTestVisibleInChrome="True">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Menu Style="{StaticResource AcrylicMenuStyle}"
+                  HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <MenuItem Header="MenuItem1">
+                        <MenuItem Header="MenuItem3" />
+                        <MenuItem Header="MenuItem4" />
+                        <MenuItem Header="Sub">
+                            <MenuItem Header="MenuItem3" />
+                            <MenuItem Header="MenuItem4" />
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="MenuItem2">
+                        <MenuItem Header="MenuItem3" />
+                        <MenuItem Header="MenuItem4" />
+                        <MenuItem Header="Sub">
+                            <MenuItem Header="MenuItem3" />
+                            <MenuItem Header="MenuItem4" />
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+
+                <TextBox Grid.Column="1"
+                     HorizontalAlignment="Left" Margin="0,2,140,2" Width="200"
+                     Height="24" FontSize="12" Padding="2" BorderThickness="1"
+                     Style="{StaticResource TextBoxRevealStyle}"
+                     fw:Extensions.PlaceholderText="Placeholder"/>
+            </Grid>
+        </fw:DropShadowPanel>
+
+    </fw:AcrylicWindow.TitleBar>
+    <Grid>
+        
+    </Grid>
+</fw:AcrylicWindow>

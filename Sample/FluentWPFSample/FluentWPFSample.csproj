@@ -75,6 +75,12 @@
     <Compile Include="Views\AcrylicWindow2.xaml.cs">
       <DependentUpon>AcrylicWindow2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AcrylicWindow3.xaml.cs">
+      <DependentUpon>AcrylicWindow3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AcrylicWindow4.xaml.cs">
+      <DependentUpon>AcrylicWindow4.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls.xaml.cs">
       <DependentUpon>Controls.xaml</DependentUpon>
     </Compile>
@@ -130,6 +136,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AcrylicWindow2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AcrylicWindow3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AcrylicWindow4.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -192,6 +206,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\logo_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

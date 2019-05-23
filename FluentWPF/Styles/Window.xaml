@@ -1,8 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SourceChord.FluentWPF"
-                    xmlns:animation="clr-namespace:SourceChord.FluentWPF.Animations">
+                    xmlns:animation="clr-namespace:SourceChord.FluentWPF.Animations"
+                    xmlns:util="clr-namespace:SourceChord.FluentWPF.Utility">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <local:IsNullConverter x:Key="IsNullConverter" />
 
     <Style x:Key="CaptionButtonStyleKey" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -172,6 +174,122 @@
         </Setter>
     </Style>
 
+    <ControlTemplate TargetType="{x:Type Window}" x:Key="AcrylicWindowTemplate">
+        <Border x:Name="windowBorder"
+                BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=BorderBrush}"
+                BorderThickness="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path= BorderThickness}"
+                Background="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Background}">
+            <!-- Title bar area -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <ContentPresenter x:Name="windowContent"
+                                  Grid.Row="0" Grid.RowSpan="2"/>
+                <ResizeGrip x:Name="resizeGrip" Grid.Row="1"
+                            HorizontalAlignment="Right" IsTabStop="False" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                <Grid x:Name="captionGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="appIcon"
+                           Stretch="UniformToFill"
+                           Margin="8,0,0,0"
+                           Width="16" Height="16"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=Window}, FallbackValue={x:Static util:IconHelper.AppIcon}}"/>
+                    <TextBlock x:Name="captionText"
+                               Grid.Column="1"
+                               Margin="8,0,0,0"
+                               Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
+                               VerticalAlignment="Center"
+                               Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                               TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+
+                    <ContentControl x:Name="customTitleBar"
+                                    Grid.Column="1"
+                                    Content="{Binding TitleBar, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    
+                    <StackPanel Grid.Column="2"
+                                HorizontalAlignment="Right" VerticalAlignment="Top"
+                                Orientation="Horizontal"
+                                Height="30">
+                        <Button x:Name="btnMinimizeButton" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}">
+                            <Path Width="10" Height="10" Data="M0,4 L10,4 L10,5 L0,5 z"
+                                  Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
+                                  RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
+                        </Button>
+                        <Button x:Name="btnMaximizeButton" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}">
+                            <Path Width="10" Height="10" Data="M1,1 L1,9 L9,9 L9,1 z M0,0 L10,0 L10,10 L0,10 z"
+                                  Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
+                                  RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
+                        </Button>
+                        <Button x:Name="btnRestoreButton" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" Visibility="Collapsed">
+                            <Path Width="10" Height="10" Data="M1,3 L1,9 L7,9 L7,3 z M3,1 L3,2 L8,2 L8,7 L9,7 L9,1 z M2,0 L10,0 L10,8 L8,8 L8,10 L0,10 L0,2 L2,2 z"
+                                  Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
+                                  RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
+                        </Button>
+                        <Button x:Name="btnCloseButton" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}">
+                            <Path Width="10" Height="10" Data="M0.7,0 L5,4.3 L9.3,0 L10,0.7 L5.7,5 L10,9.3 L9.3,10 L5,5.7 L0.7,10 L0,9.3 L4.3,5 L0,0.7 z"
+                                  Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
+                                  RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsActive" Value="False">
+                <Setter TargetName="windowBorder" Property="Border.BorderBrush" Value="Gray" />
+            </Trigger>
+            <Trigger Property="WindowState" Value="Maximized">
+            </Trigger>
+
+            <Trigger Property="IsActive" Value="False">
+                <Setter TargetName="captionGrid" Property="TextBlock.Foreground" Value="Gray" />
+                <Setter TargetName="captionGrid" Property="IsEnabled" Value="False" />
+            </Trigger>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="ResizeMode" Value="CanMinimize">
+                <Setter TargetName="btnMaximizeButton" Property="IsEnabled" Value="False" />
+                <Setter TargetName="btnRestoreButton" Property="IsEnabled" Value="False" />
+            </Trigger>
+            <Trigger Property="ResizeMode" Value="NoResize">
+                <Setter TargetName="btnMinimizeButton" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="local:AcrylicWindow.ExtendViewIntoTitleBar" Value="True">
+                <Setter TargetName="captionText" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="appIcon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoIcon">
+                <Setter TargetName="appIcon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <DataTrigger Binding="{Binding (local:AcrylicWindow.TitleBar), RelativeSource={RelativeSource Self}, Converter={StaticResource IsNullConverter}}" Value="False">
+                <Setter TargetName="captionText" Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <Trigger Property="local:AcrylicWindow.TitleBarMode" Value="Extend">
+                <Setter TargetName="customTitleBar" Property="Grid.Column" Value="0" />
+                <Setter TargetName="customTitleBar" Property="Grid.ColumnSpan" Value="3" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
+                    <Condition Property="WindowState" Value="Normal"/>
+                </MultiTrigger.Conditions>
+                <Setter TargetName="resizeGrip" Property="Visibility" Value="Visible"/>
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
     <Style x:Key="AcrylicWindowStyle" TargetType="{x:Type Window}">
         <Setter Property="local:AcrylicWindow.TintColor" Value="{DynamicResource SystemControlAcrylicWindowTintColor}"/>
         <Setter Property="local:AcrylicWindow.FallbackColor" Value="{DynamicResource SystemControlAcrylicWindowFallbackColor}"/>
@@ -183,9 +301,6 @@
             <Setter.Value>
                 <DataTemplate>
                     <Grid >
-                        <Grid.CommandBindings>
-                            <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}"  />
-                        </Grid.CommandBindings>
                         <!-- Color tint overlay -->
                         <Rectangle x:Name="tintColorLayer"
                                        Opacity="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.TintOpacity)}">
@@ -209,51 +324,15 @@
                                 <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.FallbackColor)}" />
                             </Rectangle.Fill>
                         </Rectangle>
-
-                        <!-- Title bar area -->
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="{Binding ActualHeight, ElementName=captionGrid, FallbackValue=0}"/>
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <AdornerDecorator x:Name="windowContent"
+                            <AdornerDecorator x:Name="content"
                                               Grid.Row="1">
                                 <ContentControl Content="{Binding}" ClipToBounds="True"/>
                             </AdornerDecorator>
-
-                            <Grid x:Name="captionGrid"
-                                  Height="30"
-                                  Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window},
-                                                       Path=(local:AcrylicWindow.ShowTitleBar),
-                                                       Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock x:Name="captionText"
-                                           Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}"
-                                           Margin="8,0"
-                                           VerticalAlignment="Center"
-                                           Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
-                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                    <Button x:Name="btnMinimizeButton" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}">
-                                        <Path Width="10" Height="10" Data="M0,4 L10,4 L10,5 L0,5 z"
-                                              Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
-                                              RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
-                                    </Button>
-                                    <Button x:Name="btnMaximizeButton" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}">
-                                        <Path Width="10" Height="10" Data="M1,1 L1,9 L9,9 L9,1 z M0,0 L10,0 L10,10 L0,10 z"
-                                              Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
-                                              RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
-                                    </Button>
-                                    <Button x:Name="btnRestoreButton" Style="{StaticResource GrayCaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" Visibility="Collapsed">
-                                        <Path Width="10" Height="10" Data="M1,3 L1,9 L7,9 L7,3 z M3,1 L3,2 L8,2 L8,7 L9,7 L9,1 z M2,0 L10,0 L10,8 L8,8 L8,10 L0,10 L0,2 L2,2 z"
-                                              Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
-                                              RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
-                                    </Button>
-                                    <Button x:Name="btnCloseButton" Style="{StaticResource RedCaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}">
-                                        <Path Width="10" Height="10" Data="M0.7,0 L5,4.3 L9.3,0 L10,0.7 L5.7,5 L10,9.3 L9.3,10 L5,5.7 L0.7,10 L0,9.3 L4.3,5 L0,0.7 z"
-                                              Fill="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
-                                              RenderTransformOrigin="0.5,0.5" Stretch="Uniform" />
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
                         </Grid>
                     </Grid>
                     <DataTemplate.Triggers>
@@ -261,26 +340,10 @@
                             <Setter TargetName="tintColorLayer" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="fallbackLayer" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="captionGrid" Property="TextBlock.Foreground" Value="Gray" />
-                            <Setter TargetName="captionGrid" Property="IsEnabled" Value="False" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
-                            <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Visible" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="CanMinimize">
-                            <Setter TargetName="btnMaximizeButton" Property="IsEnabled" Value="False" />
-                            <Setter TargetName="btnRestoreButton" Property="IsEnabled" Value="False" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="NoResize">
-                            <Setter TargetName="btnMinimizeButton" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="btnMaximizeButton" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="btnRestoreButton" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ExtendViewIntoTitleBar, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
-                            <Setter TargetName="windowContent" Property="Grid.Row" Value="0" />
-                            <Setter TargetName="windowContent" Property="Grid.RowSpan" Value="2" />
-                            <Setter TargetName="captionText" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="content" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="content" Property="Grid.RowSpan" Value="2" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
@@ -294,12 +357,10 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
-            </Trigger>
             <Trigger Property="IsActive" Value="False">
                 <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumLowColorBrush}" />
             </Trigger>
-            <Trigger Property="local:AcrylicWindow.ShowTitleBar" Value="False">
+            <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="None">
                 <Setter Property="WindowChrome.WindowChrome">
                     <Setter.Value>
                         <WindowChrome CaptionHeight="0"
@@ -307,6 +368,14 @@
                                       ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" UseAeroCaptionButtons="False" />
                     </Setter.Value>
                 </Setter>
+            </Trigger>
+            <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="Normal">
+                <Setter Property="Template" Value="{StaticResource AcrylicWindowTemplate}"/>
+            </Trigger>
+            <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoIcon">
+                <Setter Property="Template" Value="{StaticResource AcrylicWindowTemplate}"/>
+            </Trigger>
+            <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="None">
             </Trigger>
         </Style.Triggers>
     </Style>

@@ -57,6 +57,7 @@
     <Compile Include="Resources\SystemTheme.cs" />
     <Compile Include="Resources\ThemeHandler.cs" />
     <Compile Include="Utility\AcrylicHelper.cs" />
+    <Compile Include="Utility\IconHelper.cs" />
     <Compile Include="Utility\SystemInfo.cs" />
     <Compile Include="Utility\VersionInfo.cs" />
     <Compile Include="Utility\VersionInfos.cs" />

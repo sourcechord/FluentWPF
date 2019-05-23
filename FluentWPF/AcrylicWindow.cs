@@ -1,6 +1,7 @@
 ﻿using SourceChord.FluentWPF.Utility;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -19,6 +20,19 @@ using System.Windows.Shell;
 
 namespace SourceChord.FluentWPF
 {
+    public enum AcrylicWindowStyle
+    {
+        Normal,
+        NoIcon,
+        None,
+    }
+
+    public enum TitleBarMode
+    {
+        Default,
+        Extend,
+    }
+
     [StructLayout(LayoutKind.Sequential)]
     internal struct WindowCompositionAttributeData
     {
@@ -95,14 +109,26 @@ namespace SourceChord.FluentWPF
             TintOpacityProperty = AcrylicElement.TintOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.6, FrameworkPropertyMetadataOptions.Inherits));
             NoiseOpacityProperty = AcrylicElement.NoiseOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.03, FrameworkPropertyMetadataOptions.Inherits));
             FallbackColorProperty = AcrylicElement.FallbackColorProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.Inherits));
-            ShowTitleBarProperty = AcrylicElement.ShowTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
             ExtendViewIntoTitleBarProperty = AcrylicElement.ExtendViewIntoTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
+            AcrylicWindowStyleProperty = AcrylicElement.AcrylicWindowStyleProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(AcrylicWindowStyle.Normal, FrameworkPropertyMetadataOptions.Inherits));
+            TitleBarProperty = AcrylicElement.TitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+            TitleBarModeProperty = AcrylicElement.TitleBarModeProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(TitleBarMode.Default, FrameworkPropertyMetadataOptions.Inherits));
         }
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             EnableBlur(this);
+
+            var caption = this.GetTemplateChild("captionGrid") as FrameworkElement;
+            if (caption != null)
+            {
+                caption.SizeChanged += (s, e) =>
+                {
+                    var chrome = WindowChrome.GetWindowChrome(this);
+                    chrome.CaptionHeight = e.NewSize.Height;
+                };
+            }
         }
 
         internal static void EnableBlur(Window win)
@@ -227,26 +253,6 @@ namespace SourceChord.FluentWPF
         }
 
 
-
-        public bool ShowTitleBar
-        {
-            get { return (bool)GetValue(ShowTitleBarProperty); }
-            set { SetValue(ShowTitleBarProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for ShowTitleBar.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ShowTitleBarProperty;
-        public static bool GetShowTitleBar(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(AcrylicElement.ShowTitleBarProperty);
-        }
-
-        public static void SetShowTitleBar(DependencyObject obj, bool value)
-        {
-            obj.SetValue(AcrylicElement.ShowTitleBarProperty, value);
-        }
-
-
         public bool ExtendViewIntoTitleBar
         {
             get { return (bool)GetValue(ExtendViewIntoTitleBarProperty); }
@@ -266,7 +272,59 @@ namespace SourceChord.FluentWPF
         }
 
 
+        public AcrylicWindowStyle AcrylicWindowStyle
+        {
+            get { return (AcrylicWindowStyle)GetValue(AcrylicWindowStyleProperty); }
+            set { SetValue(AcrylicWindowStyleProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for AcrylicWindowStyle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AcrylicWindowStyleProperty;
+        public static AcrylicWindowStyle GetAcrylicWindowStyle(DependencyObject obj)
+        {
+            return (AcrylicWindowStyle)obj.GetValue(AcrylicElement.AcrylicWindowStyleProperty);
+        }
+
+        public static void SetAcrylicWindowStyle(DependencyObject obj, AcrylicWindowStyle value)
+        {
+            obj.SetValue(AcrylicElement.AcrylicWindowStyleProperty, value);
+        }
+
+        public FrameworkElement TitleBar
+        {
+            get { return (FrameworkElement)GetValue(TitleBarProperty); }
+            set { SetValue(TitleBarProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TitleBar.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleBarProperty;
+        public static FrameworkElement GetTitleBar(DependencyObject obj)
+        {
+            return (FrameworkElement)obj.GetValue(AcrylicElement.TitleBarProperty);
+        }
+
+        public static void SetTitleBar(DependencyObject obj, FrameworkElement value)
+        {
+            obj.SetValue(AcrylicElement.TitleBarProperty, value);
+        }
+
+        public TitleBarMode TitleBarMode
+        {
+            get { return (TitleBarMode)GetValue(TitleBarModeProperty); }
+            set { SetValue(TitleBarModeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TitleBarMode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleBarModeProperty;
+        public static TitleBarMode GetTitleBarMode(DependencyObject obj)
+        {
+            return (TitleBarMode)obj.GetValue(AcrylicElement.TitleBarModeProperty);
+        }
+
+        public static void SetTitleBarMode(DependencyObject obj, TitleBarMode value)
+        {
+            obj.SetValue(AcrylicElement.TitleBarModeProperty, value);
+        }
 
         #endregion
 
@@ -377,25 +435,6 @@ namespace SourceChord.FluentWPF
             DependencyProperty.RegisterAttached("FallbackColor", typeof(Color), typeof(AcrylicElement), new PropertyMetadata(Colors.LightGray));
 
 
-
-
-
-        public static bool GetShowTitleBar(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(ShowTitleBarProperty);
-        }
-
-        public static void SetShowTitleBar(DependencyObject obj, bool value)
-        {
-            obj.SetValue(ShowTitleBarProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for ShowTitleBar.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ShowTitleBarProperty =
-            DependencyProperty.RegisterAttached("ShowTitleBar", typeof(bool), typeof(AcrylicElement), new PropertyMetadata(true));
-
-
-
         public static bool GetExtendViewIntoTitleBar(DependencyObject obj)
         {
             return (bool)obj.GetValue(ExtendViewIntoTitleBarProperty);
@@ -411,5 +450,62 @@ namespace SourceChord.FluentWPF
             DependencyProperty.RegisterAttached("ExtendViewIntoTitleBar", typeof(bool), typeof(AcrylicElement), new PropertyMetadata(false));
 
 
+        public static AcrylicWindowStyle GetAcrylicWindowStyle(DependencyObject obj)
+        {
+            return (AcrylicWindowStyle)obj.GetValue(AcrylicWindowStyleProperty);
+        }
+
+        public static void AcrylicWindowStyleBar(DependencyObject obj, AcrylicWindowStyle value)
+        {
+            obj.SetValue(AcrylicWindowStyleProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for AcrylicWindowStyle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AcrylicWindowStyleProperty =
+            DependencyProperty.RegisterAttached("AcrylicWindowStyle", typeof(AcrylicWindowStyle), typeof(AcrylicElement), new PropertyMetadata(AcrylicWindowStyle.Normal));
+
+
+        public static FrameworkElement GetTitleBar(DependencyObject obj)
+        {
+            return (FrameworkElement)obj.GetValue(TitleBarProperty);
+        }
+
+        public static void SetTitleBar(DependencyObject obj, FrameworkElement value)
+        {
+            obj.SetValue(TitleBarProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for TitleBar.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleBarProperty =
+            DependencyProperty.RegisterAttached("TitleBar", typeof(FrameworkElement), typeof(AcrylicElement), new PropertyMetadata(null));
+
+
+        public static TitleBarMode GetTitleBarMode(DependencyObject obj)
+        {
+            return (TitleBarMode)obj.GetValue(TitleBarModeProperty);
+        }
+
+        public static void SetTitleBarMode(DependencyObject obj, TitleBarMode value)
+        {
+            obj.SetValue(TitleBarModeProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for TitleBarMode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleBarModeProperty =
+            DependencyProperty.RegisterAttached("TitleBarMode", typeof(TitleBarMode), typeof(AcrylicElement), new PropertyMetadata(TitleBarMode.Default));
+    }
+
+
+    public class IsNullConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value == null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

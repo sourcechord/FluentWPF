@@ -6,10 +6,10 @@
                   xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
                   xmlns:local="clr-namespace:FluentWPFSample.Views"
                   mc:Ignorable="d"
-                  Title="AcrylicWindow4" Height="450" Width="800">
+                  Title="AcrylicWindow4" Height="450" Width="800" TitleBarMode="Extend">
     <fw:AcrylicWindow.TitleBar>
-        <fw:DropShadowPanel ShadowMode="Outer">
-            <Grid>
+        <fw:DropShadowPanel ShadowMode="Outer" BlurRadius="8" ShadowOpacity="0.6">
+            <Grid WindowChrome.IsHitTestVisibleInChrome="True">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -35,7 +35,7 @@
                 </Menu>
 
                 <TextBox Grid.Column="1"
-                     HorizontalAlignment="Left" Margin="0,4,140,4" Width="200"
+                     HorizontalAlignment="Left" Margin="0,2,140,2" Width="200"
                      Height="24" FontSize="12" Padding="2" BorderThickness="1"
                      Style="{StaticResource TextBoxRevealStyle}"
                      fw:Extensions.PlaceholderText="Placeholder"/>

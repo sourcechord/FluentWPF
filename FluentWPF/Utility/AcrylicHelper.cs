@@ -7,9 +7,52 @@ using System.Threading.Tasks;
 
 namespace SourceChord.FluentWPF.Utility
 {
-    static class AcrylicHelper
+    internal enum AccentFlagsType
     {
-        internal static void EnableBlur(IntPtr hwnd)
+        Window = 0,
+        Popup,
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct WindowCompositionAttributeData
+    {
+        public WindowCompositionAttribute Attribute;
+        public IntPtr Data;
+        public int SizeOfData;
+    }
+
+    internal enum WindowCompositionAttribute
+    {
+        // ...
+        WCA_ACCENT_POLICY = 19
+        // ...
+    }
+
+    internal enum AccentState
+    {
+        ACCENT_DISABLED = 0,
+        ACCENT_ENABLE_GRADIENT = 1,
+        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
+        ACCENT_ENABLE_BLURBEHIND = 3,
+        ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
+        ACCENT_INVALID_STATE = 5
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct AccentPolicy
+    {
+        public AccentState AccentState;
+        public int AccentFlags;
+        public uint GradientColor;
+        public int AnimationId;
+    }
+
+    internal static class AcrylicHelper
+    {
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+
+        internal static void EnableBlur(IntPtr hwnd, AccentFlagsType style = AccentFlagsType.Window)
         {
             var accent = new AccentPolicy();
             var accentStructSize = Marshal.SizeOf(accent);
@@ -18,7 +61,7 @@ namespace SourceChord.FluentWPF.Utility
             var currentVersion = SystemInfo.Version.Value;
             if (currentVersion >= VersionInfos.Windows10_1809)
             {
-                accent.AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND; //AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND;
+                accent.AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND;
             }
             else if (currentVersion >= VersionInfos.Windows10)
             {
@@ -29,7 +72,15 @@ namespace SourceChord.FluentWPF.Utility
                 accent.AccentState = AccentState.ACCENT_ENABLE_TRANSPARENTGRADIENT;
             }
 
-            accent.AccentFlags = 0x20 | 0x40 | 0x80 | 0x100;
+            if (style == AccentFlagsType.Window)
+            {
+                accent.AccentFlags = 2;
+            }
+            else
+            {
+                accent.AccentFlags = 0x20 | 0x40 | 0x80 | 0x100;
+            }
+            
             //accent.GradientColor = 0x99FFFFFF;  // 60%の透明度が基本
             accent.GradientColor = 0x00FFFFFF;  // Tint Colorはここでは設定せず、Bindingで外部から変えられるようにXAML側のレイヤーとして定義
 
@@ -41,7 +92,7 @@ namespace SourceChord.FluentWPF.Utility
             data.SizeOfData = accentStructSize;
             data.Data = accentPtr;
 
-            AcrylicWindow.SetWindowCompositionAttribute(hwnd, ref data);
+            SetWindowCompositionAttribute(hwnd, ref data);
 
             Marshal.FreeHGlobal(accentPtr);
         }

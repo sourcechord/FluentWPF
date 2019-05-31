@@ -33,40 +33,6 @@ namespace SourceChord.FluentWPF
         Extend,
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct WindowCompositionAttributeData
-    {
-        public WindowCompositionAttribute Attribute;
-        public IntPtr Data;
-        public int SizeOfData;
-    }
-
-    internal enum WindowCompositionAttribute
-    {
-        // ...
-        WCA_ACCENT_POLICY = 19
-        // ...
-    }
-
-    internal enum AccentState
-    {
-        ACCENT_DISABLED = 0,
-        ACCENT_ENABLE_GRADIENT = 1,
-        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-        ACCENT_ENABLE_BLURBEHIND = 3,
-        ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
-        ACCENT_INVALID_STATE = 5
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct AccentPolicy
-    {
-        public AccentState AccentState;
-        public int AccentFlags;
-        public uint GradientColor;
-        public int AnimationId;
-    }
-
     /// <summary>
     /// このカスタム コントロールを XAML ファイルで使用するには、手順 1a または 1b の後、手順 2 に従います。
     ///
@@ -98,9 +64,6 @@ namespace SourceChord.FluentWPF
     /// </summary>
     public class AcrylicWindow : Window
     {
-        [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-
         static AcrylicWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AcrylicWindow), new FrameworkPropertyMetadata(typeof(AcrylicWindow)));
@@ -135,40 +98,10 @@ namespace SourceChord.FluentWPF
         {
             var windowHelper = new WindowInteropHelper(win);
 
-            var accent = new AccentPolicy();
-            var accentStructSize = Marshal.SizeOf(accent);
-            // ウィンドウ背景のぼかしを行うのはWindows10の場合のみ
-            // OSのバージョンに従い、AccentStateを切り替える
-            var currentVersion = SystemInfo.Version.Value;
-            if (currentVersion >= VersionInfos.Windows10_1809)
-            {
-                accent.AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND;
-            }
-            else if (currentVersion >= VersionInfos.Windows10)
-            {
-                accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
-            }
-            else
-            {
-                accent.AccentState = AccentState.ACCENT_ENABLE_TRANSPARENTGRADIENT;
-            }
+            // ウィンドウに半透明のアクリル効果を適用する
+            AcrylicHelper.EnableBlur(windowHelper.Handle);
 
-            accent.AccentFlags = 2;
-            //accent.GradientColor = 0x99FFFFFF;  // 60%の透明度が基本
-            accent.GradientColor = 0x00FFFFFF;  // Tint Colorはここでは設定せず、Bindingで外部から変えられるようにXAML側のレイヤーとして定義
-
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
-
-            var data = new WindowCompositionAttributeData();
-            data.Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY;
-            data.SizeOfData = accentStructSize;
-            data.Data = accentPtr;
-
-            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-
-            Marshal.FreeHGlobal(accentPtr);
-
+            // タイトルバーの各種ボタンで利用するコマンドの設定
             win.CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, (_, __) => { SystemCommands.CloseWindow(win); }));
             win.CommandBindings.Add(new CommandBinding(SystemCommands.MinimizeWindowCommand, (_, __) => { SystemCommands.MinimizeWindow(win); }));
             win.CommandBindings.Add(new CommandBinding(SystemCommands.MaximizeWindowCommand, (_, __) => { SystemCommands.MaximizeWindow(win); }));

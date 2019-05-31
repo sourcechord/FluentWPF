@@ -59,7 +59,12 @@ namespace SourceChord.FluentWPF.Utility
             // ウィンドウ背景のぼかしを行うのはWindows10の場合のみ
             // OSのバージョンに従い、AccentStateを切り替える
             var currentVersion = SystemInfo.Version.Value;
-            if (currentVersion >= VersionInfos.Windows10_1809)
+            if (currentVersion == VersionInfos.Windows10_1903)
+            {
+                // Windows10 1903では、ACCENT_ENABLE_ACRYLICBLURBEHINDを用いると、ウィンドウのドラッグ移動などでマウス操作に追従しなくなる。
+                accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
+            }
+            else if (currentVersion >= VersionInfos.Windows10_1809)
             {
                 accent.AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND;
             }

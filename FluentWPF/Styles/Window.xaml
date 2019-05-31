@@ -201,7 +201,7 @@
                            Width="16" Height="16"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
-                           Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=Window}, FallbackValue={x:Static util:IconHelper.AppIcon}}"/>
+                           Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=Window}, TargetNullValue={x:Static util:IconHelper.AppIcon}}"/>
                     <TextBlock x:Name="captionText"
                                Grid.Column="1"
                                Margin="8,0,0,0"
@@ -271,6 +271,9 @@
                 <Setter TargetName="appIcon" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoIcon">
+                <Setter TargetName="appIcon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="local:AcrylicWindow.TitleBarMode" Value="Extend">
                 <Setter TargetName="appIcon" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <DataTrigger Binding="{Binding (local:AcrylicWindow.TitleBar), RelativeSource={RelativeSource Self}, Converter={StaticResource IsNullConverter}}" Value="False">

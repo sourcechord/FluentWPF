@@ -10,30 +10,30 @@ namespace SourceChord.FluentWPF.Utility
     {
         public static Lazy<VersionInfo> Version { get; private set; } = new Lazy<VersionInfo>(() => GetVersionInfo());
 
-
         internal static VersionInfo GetVersionInfo()
         {
-            using (var mc = new System.Management.ManagementClass("Win32_OperatingSystem"))
-            using (var moc = mc.GetInstances())
-            {
-                foreach (System.Management.ManagementObject mo in moc)
-                {
-                    // majar/minor/buildの番号を取得
-                    var version = mo["Version"] as string;
-                    var versionNumbers = version.Split('.')
-                                                .Select(o => int.Parse(o))
-                                                .ToList();
+            var regkey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\", false);
+            // キーが存在しないときはnullが返る
+            if (regkey == null) return default(VersionInfo);
 
-                    var info = new VersionInfo()
-                    {
-                        Major = versionNumbers[0],
-                        Minor = versionNumbers[1],
-                        Build = versionNumbers[2],
-                    };
-                    return info;
-                }
+            // Windows10以降は、以下のレジストリ値でOSバージョンを判断する
+            var majorValue = regkey.GetValue("CurrentMajorVersionNumber");
+            var minorValue = regkey.GetValue("CurrentMinorVersionNumber");
+            var buildValue = (string)regkey.GetValue("CurrentBuild", 7600);
+            var canReadBuild = int.TryParse(buildValue, out var build);
+
+            // Windows10用のレジストリ値が取れない場合は以下の値を使う
+            // ※この方法だと、Windows8/8.1の区別がつかない。
+            var defaultVersion = System.Environment.OSVersion.Version;
+
+            if (majorValue is int major && minorValue is int minor && canReadBuild)
+            {
+                return new VersionInfo(major, minor, build);
             }
-            return default(VersionInfo);
+            else
+            {
+                return new VersionInfo(defaultVersion.Major, defaultVersion.Minor, defaultVersion.Revision);
+            }
         }
 
         /// <summary>

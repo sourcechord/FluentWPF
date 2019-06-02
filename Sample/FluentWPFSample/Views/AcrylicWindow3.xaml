@@ -18,7 +18,21 @@
                     <Setter Property="fw:AcrylicWindow.TitleBar">
                         <Setter.Value>
                             <Grid>
-                                <Rectangle Fill="Red" />
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Custom TitleBar"
+                                           VerticalAlignment="Center"
+                                           Margin="8,0,0,0"/>
+
+                                <StackPanel Grid.Column="1"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Right"
+                                            WindowChrome.IsHitTestVisibleInChrome="True">
+                                    <Button Content="Button"  Width="60" Margin="5"/>
+                                    <Button Content="Button"  Width="60" Margin="5"/>
+                                </StackPanel>
                             </Grid>
                         </Setter.Value>
                     </Setter>
@@ -39,6 +53,5 @@
                   ItemsSource="{Binding Source={StaticResource styles}}"
                   SelectedIndex="0"/>
         <CheckBox x:Name="chkCustomTitleBar" Content="Custom TitleBar" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top"/>
-
     </Grid>
 </fw:AcrylicWindow>

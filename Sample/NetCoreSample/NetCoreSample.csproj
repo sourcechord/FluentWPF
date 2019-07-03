@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FluentWPF\FluentWPF.csproj" />
+    <ProjectReference Include="..\..\FluentWPF.Core\FluentWPF.Core.csproj" />
   </ItemGroup>
 
 </Project>

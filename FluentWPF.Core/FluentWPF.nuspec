@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/sourcechord/FluentWPF/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/sourcechord/FluentWPF</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/sourcechord/FluentWPF/master/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>Copyright 2017</copyright>
+    <tags>WPF XAML Fluent Design Theme Library</tags>
+  </metadata>
+</package>

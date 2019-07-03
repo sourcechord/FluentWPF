@@ -7,6 +7,15 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>FluentWPF</AssemblyName>
     <RootNamespace>SourceChord.FluentWPF</RootNamespace>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/sourcechord/FluentWPF</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/sourcechord/FluentWPF/master/logo.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/sourcechord/FluentWPF</RepositoryUrl>
+    <RepositoryType>Public</RepositoryType>
+    <PackageTags>netcore,fluent,wpf,win32,uwp</PackageTags>
+    <PackageReleaseNotes>added .netcore support</PackageReleaseNotes>
+    <Authors>SourceChord,Mohsens22</Authors>
+    <PackageId>FluentWPF.Core</PackageId>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\Images\noise.png" />
@@ -24,6 +33,10 @@
     <None Remove="Styles\TextBox.xaml" />
     <None Remove="Styles\Window.xaml" />
     <None Remove="Themes\Generic.xaml" />
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Styles\ListBox.xaml">

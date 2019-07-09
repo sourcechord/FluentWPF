@@ -93,7 +93,7 @@ public partial class MainWindow
 |TintOpacity|double|Gets or sets the degree of opacity of the color tint.|
 |NoiseOpacity|double|Gets or sets the degree of opacity of the noise layer.|
 |FallbackColor|Color|Gets or sets the color when window is inactive.|
-|ShowTitleBar|bool|Gets or sets a value that indicates whether TitleBar is visible.|
+|ExtendViewIntoTitleBar|bool|Gets or sets a value that indicates whether the view should be extended into title bar.|
 
 ##### Using as Attached Property
 

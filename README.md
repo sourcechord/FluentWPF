@@ -93,7 +93,13 @@ public partial class MainWindow
 |TintOpacity|double|Gets or sets the degree of opacity of the color tint.|
 |NoiseOpacity|double|Gets or sets the degree of opacity of the noise layer.|
 |FallbackColor|Color|Gets or sets the color when window is inactive.|
-|ShowTitleBar|bool|Gets or sets a value that indicates whether TitleBar is visible.|
+|AcrylicWindowStyle|Normal </br> NoIcon </br> None|Gets or sets a value that indicates the style of the Acrylic Window.|
+
+The difference between kind of AcrylicWindowStyle is demonstrated as follows,
+
+|AcrylicWindowStyle="Normal"|AcrylicWindowStyle="NoIcon"|AcrylicWindowStyle="None"|
+|-----|-----|-----|
+|<img src="https://user-images.githubusercontent.com/14825436/58757611-25d06800-854a-11e9-8661-b79d9e249036.png" height="90"/>|<img src="https://user-images.githubusercontent.com/14825436/58757615-37b20b00-854a-11e9-9512-966c912b15bb.png" height="90"/>|<img src="https://user-images.githubusercontent.com/14825436/58757616-4bf60800-854a-11e9-85b3-bff1518849ec.png" height="90"/>|
 
 ##### Using as Attached Property
 

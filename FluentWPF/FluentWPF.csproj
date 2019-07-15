@@ -7,7 +7,22 @@
     <RootNamespace>SourceChord.FluentWPF</RootNamespace>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyTrademarkAttribute>false</GenerateAssemblyTrademarkAttribute>
+    <GenerateAssemblyCultureAttribute>false</GenerateAssemblyCultureAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+
+    <PackageProjectUrl>https://github.com/sourcechord/FluentWPF</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/sourcechord/FluentWPF/master/logo.png</PackageIconUrl>
+    <PackageTags>WPF XAML Fluent Design Theme Library</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>0.8.0-alpha</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\Images\noise.png" />
@@ -25,6 +40,10 @@
     <None Remove="Styles\TextBox.xaml" />
     <None Remove="Styles\Window.xaml" />
     <None Remove="Themes\Generic.xaml" />
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

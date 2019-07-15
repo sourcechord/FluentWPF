@@ -199,16 +199,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\FluentWPF\FluentWPF.csproj">
-      <Project>{061b1dd9-815b-437f-8cd6-d20923bc0af4}</Project>
-      <Name>FluentWPF</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Images\1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\logo_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FluentWPF\FluentWPF.csproj">
+      <Project>{0efdc126-556c-431d-b0df-bacb8ab445b6}</Project>
+      <Name>FluentWPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

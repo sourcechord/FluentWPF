@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentWPF", "FluentWPF\FluentWPF.csproj", "{061B1DD9-815B-437F-8CD6-D20923BC0AF4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{6FD229DB-B096-4A05-A025-88D06AE274B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentWPFSample", "Sample\FluentWPFSample\FluentWPFSample.csproj", "{CCAC5625-C8EE-49C5-8407-ACC8289CCC81}"
@@ -14,7 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{76CF6319
 		Nuget\pack.bat = Nuget\pack.bat
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreSample", "Sample\NetCoreSample\NetCoreSample.csproj", "{4E60C7EA-CC99-4D22-AE70-4461015C10E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreSample", "Sample\NetCoreSample\NetCoreSample.csproj", "{4E60C7EA-CC99-4D22-AE70-4461015C10E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentWPF", "FluentWPF\FluentWPF.csproj", "{0EFDC126-556C-431D-B0DF-BACB8AB445B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{061B1DD9-815B-437F-8CD6-D20923BC0AF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{061B1DD9-815B-437F-8CD6-D20923BC0AF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{061B1DD9-815B-437F-8CD6-D20923BC0AF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{061B1DD9-815B-437F-8CD6-D20923BC0AF4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CCAC5625-C8EE-49C5-8407-ACC8289CCC81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CCAC5625-C8EE-49C5-8407-ACC8289CCC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCAC5625-C8EE-49C5-8407-ACC8289CCC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -34,6 +30,10 @@ Global
 		{4E60C7EA-CC99-4D22-AE70-4461015C10E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E60C7EA-CC99-4D22-AE70-4461015C10E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E60C7EA-CC99-4D22-AE70-4461015C10E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EFDC126-556C-431D-B0DF-BACB8AB445B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EFDC126-556C-431D-B0DF-BACB8AB445B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EFDC126-556C-431D-B0DF-BACB8AB445B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EFDC126-556C-431D-B0DF-BACB8AB445B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

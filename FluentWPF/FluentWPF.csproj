@@ -7,7 +7,7 @@
     <RootNamespace>SourceChord.FluentWPF</RootNamespace>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <!-- <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -16,13 +16,16 @@
     <GenerateAssemblyTrademarkAttribute>false</GenerateAssemblyTrademarkAttribute>
     <GenerateAssemblyCultureAttribute>false</GenerateAssemblyCultureAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute> -->
 
     <PackageProjectUrl>https://github.com/sourcechord/FluentWPF</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/sourcechord/FluentWPF/master/logo.png</PackageIconUrl>
     <PackageTags>WPF XAML Fluent Design Theme Library</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Version>0.8.0-alpha</Version>
+    <Description>Fluent Design System for WPF</Description>
+    <Copyright>Copyright ©  2017</Copyright>
+    <Company>SourceChord</Company>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\Images\noise.png" />

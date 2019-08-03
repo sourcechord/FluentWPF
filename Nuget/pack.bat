@@ -1,5 +1,5 @@
-set OutDir=%CD%
+set CurrentDirectory=%CD%
 pushd ..\FluentWPF
-dotnet pack -c Release -o %OutDir%
+dotnet pack -c Release -o %CurrentDirectory%
 popd
 pause

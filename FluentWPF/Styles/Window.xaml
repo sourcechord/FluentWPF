@@ -214,7 +214,7 @@
 
                     <ContentControl x:Name="customTitleBar"
                                     Grid.Column="1"
-                                    Content="{Binding TitleBar, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                    Content="{Binding (local:AcrylicWindow.TitleBar), RelativeSource={RelativeSource AncestorType=Window}}"/>
                     
                     <StackPanel Grid.Column="2"
                                 HorizontalAlignment="Right" VerticalAlignment="Top"

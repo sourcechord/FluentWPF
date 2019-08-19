@@ -365,7 +365,7 @@ namespace SourceChord.FluentWPF
 
         // Using a DependencyProperty as the backing store for FallbackColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FallbackColorProperty =
-            DependencyProperty.RegisterAttached("FallbackColor", typeof(Color), typeof(AcrylicElement), new PropertyMetadata(Colors.LightGray));
+            DependencyProperty.RegisterAttached("FallbackColor", typeof(Color), typeof(AcrylicElement), new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.Inherits));
 
 
         public static bool GetExtendViewIntoTitleBar(DependencyObject obj)

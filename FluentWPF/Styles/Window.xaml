@@ -103,7 +103,7 @@
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <animation:BrushAnimation Storyboard.TargetProperty="(TextBlock.Foreground)" Storyboard.TargetName="contentPresenter"
-                                                                  To="{Binding (TextBlock.Foreground), ElementName=contentPresenter}" Duration="0:0:0.150" AutoReverse="False">
+                                                                  Duration="0:0:0.150" AutoReverse="False">
                                             <animation:BrushAnimation.EasingFunction>
                                                 <SineEase EasingMode="EaseInOut"/>
                                             </animation:BrushAnimation.EasingFunction>
@@ -271,7 +271,7 @@
             <Trigger Property="local:AcrylicWindow.TitleBarMode" Value="Extend">
                 <Setter TargetName="appIcon" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <DataTrigger Binding="{Binding (local:AcrylicWindow.TitleBar), RelativeSource={RelativeSource Self}, Converter={StaticResource IsNullConverter}}" Value="False">
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(local:AcrylicWindow.TitleBar), Converter={StaticResource IsNullConverter}}" Value="False">
                 <Setter TargetName="captionText" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
             <Trigger Property="local:AcrylicWindow.TitleBarMode" Value="Extend">
@@ -319,7 +319,7 @@
                         <!-- Fallback color layer -->
                         <Rectangle x:Name="fallbackLayer" Visibility="Collapsed">
                             <Rectangle.Fill>
-                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.FallbackColor)}" />
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=Rectangle}, Path=(local:AcrylicWindow.FallbackColor)}" />
                             </Rectangle.Fill>
                         </Rectangle>
                         <Grid>
@@ -339,7 +339,7 @@
                             <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="fallbackLayer" Property="Visibility" Value="Visible" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ExtendViewIntoTitleBar, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                        <DataTrigger Binding="{Binding (local:AcrylicWindow.ExtendViewIntoTitleBar), RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
                             <Setter TargetName="content" Property="Grid.Row" Value="0" />
                             <Setter TargetName="content" Property="Grid.RowSpan" Value="2" />
                         </DataTrigger>

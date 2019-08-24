@@ -15,6 +15,12 @@ namespace SourceChord.FluentWPF
         Dark,
     }
 
+    public enum WindowsTheme
+    {
+        Light,
+        Dark,
+    }
+
     public class SystemTheme : ThemeHandler
     {
         private static readonly int WM_WININICHANGE = 0x001A;
@@ -24,6 +30,7 @@ namespace SourceChord.FluentWPF
         {
             SystemTheme.Instance = new SystemTheme();
             Theme = GetTheme();
+            WindowsTheme = GetWindowsTheme();
         }
 
         protected override IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -35,6 +42,7 @@ namespace SourceChord.FluentWPF
                 {
                     // 再度レジストリから Dark/Lightの設定を取得
                     Theme = GetTheme();
+                    WindowsTheme = GetWindowsTheme();
                     SystemTheme.ThemeChanged?.Invoke(null, null);
 
                     handled = true;
@@ -54,6 +62,16 @@ namespace SourceChord.FluentWPF
             return intValue == 0 ? ApplicationTheme.Dark : ApplicationTheme.Light;
         }
 
+        private static WindowsTheme GetWindowsTheme()
+        {
+            var regkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false);
+            // キーが存在しないときはnullが返る
+            if (regkey == null) return WindowsTheme.Light;
+            var intValue = (int)regkey.GetValue("SystemUsesLightTheme", 1);
+
+            return intValue == 0 ? WindowsTheme.Dark : WindowsTheme.Light;
+        }
+
         private static ApplicationTheme theme;
         public static ApplicationTheme Theme
         {
@@ -61,6 +79,12 @@ namespace SourceChord.FluentWPF
             private set { if (!object.Equals(theme, value)) { theme = value; OnStaticPropertyChanged(); } }
         }
 
+        private static WindowsTheme windowsTheme;
+        public static WindowsTheme WindowsTheme
+        {
+            get { return windowsTheme; }
+            private set { if (!object.Equals(windowsTheme, value)) { windowsTheme = value; OnStaticPropertyChanged(); } }
+        }
 
         public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
         protected static void OnStaticPropertyChanged([CallerMemberName]string propertyName = null)

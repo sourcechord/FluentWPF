@@ -47,6 +47,7 @@
                 </Border>
                 <Border Background="White">
                     <StackPanel>
+                        <TextBlock Text="Application Theme"/>
                         <RadioButton Content="Light"
                                      IsEnabled="False"
                                      IsChecked="{Binding Path=(fw:SystemTheme.Theme),
@@ -54,6 +55,19 @@
                         <RadioButton Content="Dark"
                                      IsEnabled="False"
                                      IsChecked="{Binding Path=(fw:SystemTheme.Theme),
+                                     Converter={StaticResource radioButtonConverter}, ConverterParameter=Dark, Mode=OneWay}"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="White">
+                    <StackPanel>
+                        <TextBlock Text="Windows Theme"/>
+                        <RadioButton Content="Light"
+                                     IsEnabled="False"
+                                     IsChecked="{Binding Path=(fw:SystemTheme.WindowsTheme),
+                                     Converter={StaticResource radioButtonConverter}, ConverterParameter=Light, Mode=OneWay}"/>
+                        <RadioButton Content="Dark"
+                                     IsEnabled="False"
+                                     IsChecked="{Binding Path=(fw:SystemTheme.WindowsTheme),
                                      Converter={StaticResource radioButtonConverter}, ConverterParameter=Dark, Mode=OneWay}"/>
                     </StackPanel>
                 </Border>

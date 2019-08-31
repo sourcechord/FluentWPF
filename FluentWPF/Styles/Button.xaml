@@ -8,6 +8,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="Background" Value="#80808080" />
+        <Setter Property="BorderBrush" Value="White" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -152,15 +153,16 @@
                         <Border BorderBrush="{x:Null}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter x:Name="contentPresenter" Focusable="False"
-                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                    Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"
-                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Border>
 
                         <!-- MouseOver border -->
                         <Border x:Name="border"
-                                BorderBrush="{local:RevealBrush Color=White,Size=120,Opacity=0.3}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                OpacityMask="{local:RevealBrush Color=White,Size=120,Opacity=0.3}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                         </Border>
                     </Grid>

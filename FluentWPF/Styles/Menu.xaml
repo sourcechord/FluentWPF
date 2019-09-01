@@ -1,6 +1,6 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:SourceChord.FluentWPF">
+                    xmlns:local="clr-namespace:FluentWPF">
     <ControlTemplate x:Key="AcrylicMenuHeaderTemplateStyle" TargetType="{x:Type MenuItem}">
         <Border x:Name="templateRoot"
                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -21,8 +21,11 @@
                                   Margin="3"
                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                 <Path x:Name="GlyphPanel"
-                      Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z"
-                      Fill="{DynamicResource SystemBaseHighColorBrush}"
+                       Data="M20 6 9 17 4 12"
+                          StrokeLineJoin="Round" 
+                          StrokeStartLineCap="Round"
+                          StrokeEndLineCap="Round" 
+                          Stroke="{DynamicResource SystemBaseHighColorBrush}"
                       FlowDirection="LeftToRight"
                       Margin="3"
                       Visibility="Collapsed"
@@ -64,10 +67,10 @@
                                 </Rectangle.Fill>
                             </Rectangle>
 
-                            <local:DropShadowPanel Margin="29,0,0,0" ShadowMode="Outer" ShadowOpacity="0.3"
+                            <!--<local:DropShadowPanel Margin="29,0,0,0" ShadowMode="Outer" ShadowOpacity="0.3"
                                                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BlurRadius="7">
                                 <Rectangle Fill="{DynamicResource SystemAltLowColorBrush}"/>
-                            </local:DropShadowPanel>
+                            </local:DropShadowPanel>-->
                             <ScrollViewer x:Name="SubMenuScrollViewer"
                                           Margin="2"
                                           Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
@@ -93,8 +96,8 @@
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
             </Trigger>
             <Trigger Property="IsHighlighted" Value="True">
-                <Setter Property="Background" TargetName="templateRoot" Value="Transparent"/>
-                <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF26A0DA"/>
+                <Setter Property="Background" TargetName="templateRoot" Value="{DynamicResource SystemBaseLowColorBrush}"/>
+                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{DynamicResource SystemBaseLowColorBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF707070"/>
@@ -124,8 +127,11 @@
                                   Margin="3"
                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                 <Path x:Name="GlyphPanel"
-                      Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z"
-                      Fill="{DynamicResource SystemBaseHighColorBrush}"
+                       Data="M20 6 9 17 4 12"
+                          StrokeLineJoin="Round" 
+                          StrokeStartLineCap="Round"
+                          StrokeEndLineCap="Round" 
+                          Stroke="{DynamicResource SystemBaseHighColorBrush}"
                       FlowDirection="LeftToRight"
                       Margin="3"
                       Visibility="Collapsed"
@@ -148,8 +154,8 @@
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
             </Trigger>
             <Trigger Property="IsHighlighted" Value="True">
-                <Setter Property="Background" TargetName="templateRoot" Value="#3D26A0DA"/>
-                <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF26A0DA"/>
+                <Setter Property="Background" TargetName="templateRoot" Value="{DynamicResource SystemBaseLowColorBrush}"/>
+                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{DynamicResource SystemBaseLowColorBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF707070"/>
@@ -181,18 +187,26 @@
                                   Width="16" Height="16" Margin="3"
                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                 <Border x:Name="GlyphPanel"
-                        BorderBrush="#FF26A0DA"
-                        BorderThickness="1"
-                        Background="#3D26A0DA"
-                        Width="22" Height="22" Margin="-1,0,0,0"
-                        Visibility="Hidden" VerticalAlignment="Center">
+                        BorderBrush="Transparent" 
+                        BorderThickness="0"
+                        Background="Transparent"  
+                        ClipToBounds="False"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="24"
+                        Height="24"
+                        Margin="-1,0,0,0"
+                        Visibility="Collapsed"  >
                     <Path x:Name="Glyph"
-                          Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z"
-                          Fill="{DynamicResource SystemBaseHighColorBrush}"
+                          Data="M20 6 9 17 4 12"
+                          StrokeLineJoin="Round" 
+                          StrokeStartLineCap="Round"
+                          StrokeEndLineCap="Round" 
+                          Stroke="{DynamicResource SystemBaseHighColorBrush}"
                           FlowDirection="LeftToRight"
-                          Width="9"
-                          Height="11"/>
-                </Border>
+                          Width="24"
+                          Height="24"/>
+                </Border>            
                 <ContentPresenter Grid.Column="2"
                                   ContentTemplate="{TemplateBinding HeaderTemplate}"
                                   Content="{TemplateBinding Header}"
@@ -210,8 +224,11 @@
                            VerticalAlignment="Center"/>
                 <Path x:Name="RightArrow"
                       Grid.Column="5"
-                      Data="M0,0L4,3.5 0,7z"
-                      Fill="{DynamicResource SystemBaseHighColorBrush}"
+                      Data="M 0,0 L 5,5 L 0,10 " 
+                      StrokeLineJoin="Round" 
+                      StrokeEndLineCap="Round" 
+                      StrokeStartLineCap="Round" 
+                      Stroke="{DynamicResource SystemBaseHighColorBrush}"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center"
                       Margin="10,0,0,0"/>
@@ -244,10 +261,10 @@
                                 </Rectangle.Fill>
                             </Rectangle>
 
-                            <local:DropShadowPanel Margin="29,0,0,0" ShadowMode="Outer" ShadowOpacity="0.3"
+                            <!--<local:DropShadowPanel Margin="29,0,0,0" ShadowMode="Outer" ShadowOpacity="0.3"
                                                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BlurRadius="7">
                                 <Rectangle Fill="{DynamicResource SystemAltLowColorBrush}"/>
-                            </local:DropShadowPanel>
+                            </local:DropShadowPanel>-->
                             <ScrollViewer x:Name="SubMenuScrollViewer"
                                           Margin="2"
                                           Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
@@ -273,8 +290,8 @@
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
             </Trigger>
             <Trigger Property="IsHighlighted" Value="True">
-                <Setter Property="Background" TargetName="templateRoot" Value="Transparent"/>
-                <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF26A0DA"/>
+                <Setter Property="Background" TargetName="templateRoot" Value="{DynamicResource SystemMenuHighLightColorBrush}"/>
+                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{DynamicResource SystemMenuHighLightColorBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF707070"/>
@@ -308,22 +325,25 @@
                                   VerticalAlignment="Center"
                                   Width="16"/>
                 <Border x:Name="GlyphPanel"
-                        BorderBrush="#FF26A0DA"
-                        BorderThickness="1"
-                        Background="#3D26A0DA"
+                        BorderBrush="Transparent" 
+                        BorderThickness="0"
+                        Background="Transparent"  
                         ClipToBounds="False"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Width="22"
-                        Height="22"
+                        Width="24"
+                        Height="24"
                         Margin="-1,0,0,0"
-                        Visibility="Hidden">
+                        Visibility="Collapsed"  >
                     <Path x:Name="Glyph"
-                          Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z"
-                          Fill="{DynamicResource SystemBaseHighColorBrush}"
+                          Data="M20 6 9 17 4 12"
+                          StrokeLineJoin="Round" 
+                          StrokeStartLineCap="Round"
+                          StrokeEndLineCap="Round" 
+                          Stroke="{DynamicResource SystemBaseHighColorBrush}"
                           FlowDirection="LeftToRight"
-                          Width="10"
-                          Height="11" />
+                          Width="24"
+                          Height="24"/>
                 </Border>
                 <ContentPresenter x:Name="menuHeaderContainer"
                                   Grid.Column="2"
@@ -352,8 +372,8 @@
                 <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
             </Trigger>
             <Trigger Property="IsHighlighted" Value="True">
-                <Setter Property="Background" TargetName="templateRoot" Value="#3D26A0DA"/>
-                <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF26A0DA"/>
+                <Setter Property="Background" TargetName="templateRoot" Value="{DynamicResource SystemBaseLowColorBrush}"/>
+                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{DynamicResource SystemBaseLowColorBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF707070"/>
@@ -364,6 +384,8 @@
 
     <!--  MenuItem Style  -->
     <Style x:Key="AcrylicMenuItemStyle" TargetType="{x:Type MenuItem}">
+        <Setter Property="Padding" Value="7"/>
+        <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBrush}"/>
         <Style.Triggers>
             <Trigger Property="Role" Value="TopLevelHeader">
                 <Setter Property="Template" Value="{StaticResource AcrylicMenuHeaderTemplateStyle}" />
@@ -384,6 +406,7 @@
     <Style x:Key="AcrylicMenuStyle" TargetType="{x:Type Menu}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding"  Value="12"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Menu}">

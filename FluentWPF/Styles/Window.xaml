@@ -88,7 +88,7 @@
     </Style>
 
     <Style x:Key="RedCaptionButtonStyleKey" TargetType="{x:Type Button}" BasedOn="{StaticResource CaptionButtonStyleKey}">
-        <Setter Property="Background" Value="Red" />
+        <Setter Property="Background" Value="#E81123" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -103,12 +103,6 @@
                                                 <CubicEase EasingMode="EaseIn"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
-                                        <animation:BrushAnimation Storyboard.TargetProperty="(TextBlock.Foreground)" Storyboard.TargetName="contentPresenter"
-                                                                  Duration="0:0:0.150" AutoReverse="False">
-                                            <animation:BrushAnimation.EasingFunction>
-                                                <SineEase EasingMode="EaseInOut"/>
-                                            </animation:BrushAnimation.EasingFunction>
-                                        </animation:BrushAnimation>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
@@ -136,7 +130,7 @@
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <animation:BrushAnimation Storyboard.TargetProperty="(TextBlock.Foreground)" Storyboard.TargetName="contentPresenter"
-                                                                  To="White" Duration="0:0:0.150" AutoReverse="False">
+                                                                  To="White" Duration="0:0:0.0" AutoReverse="False">
                                             <animation:BrushAnimation.EasingFunction>
                                                 <SineEase EasingMode="EaseInOut"/>
                                             </animation:BrushAnimation.EasingFunction>
@@ -165,8 +159,14 @@
                         <Border x:Name="border" Background="{TemplateBinding Background}" />
                         <ContentPresenter x:Name="contentPresenter" Focusable="False"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          TextBlock.Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
                     </Grid>
+                  <ControlTemplate.Triggers>
+                        <Trigger Property = "IsMouseOver" Value="False">
+                            <Setter Property="TextBlock.Foreground"  TargetName="contentPresenter" Value="{DynamicResource SystemBaseHighColorBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

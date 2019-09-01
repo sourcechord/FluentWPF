@@ -7,6 +7,8 @@
     <Color x:Key="SystemBaseMediumHighColor">#CCFFFFFF</Color>
     <Color x:Key="SystemBaseHighColor">#FFFFFFFF</Color>        <!-- for Primary text -->
 
+    <Color x:Key="SystemMenuHighLightColor">#002D4C</Color>  <!-- for Menu -->
+   
     <Color x:Key="SystemAltLowColor">#33000000</Color>
     <Color x:Key="SystemAltMediumLowColor">#66000000</Color>
     <Color x:Key="SystemAltMediumColor">#99000000</Color>

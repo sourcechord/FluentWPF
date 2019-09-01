@@ -7,6 +7,8 @@
     <SolidColorBrush x:Key="SystemBaseMediumHighColorBrush" Color="{DynamicResource SystemBaseMediumHighColor}" />
     <SolidColorBrush x:Key="SystemBaseHighColorBrush" Color="{DynamicResource SystemBaseHighColor}" />
 
+   <SolidColorBrush x:Key="SystemMenuHighLightColorBrush" Color="{DynamicResource SystemMenuHighLightColor}" /> <!-- for Menu -->
+
     <SolidColorBrush x:Key="SystemAltLowColorBrush" Color="{DynamicResource SystemAltLowColor}" />
     <SolidColorBrush x:Key="SystemAltMediumLowColorBrush" Color="{DynamicResource SystemAltMediumLowColor}" />
     <SolidColorBrush x:Key="SystemAltMediumColorBrush" Color="{DynamicResource SystemAltMediumColor}" />

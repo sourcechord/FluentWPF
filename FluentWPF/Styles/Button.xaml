@@ -8,24 +8,30 @@
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBrush}" />
         <Setter Property="Background" Value="#80808080" />
-        <Setter Property="BorderBrush" Value="White" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumColorBrush}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="UseLayoutRounding" Value="True" />
-        <Setter Property="local:RevealElement.HoverBrush" Value="#BB808080" />
+        <Setter Property="local:RevealElement.HoverBrush" Value="#80808080" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid x:Name="root" Background="{TemplateBinding Background}">
+                    <Border x:Name="root" Background="{TemplateBinding Background}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="backgroundBorder"
-                                                         To="0" Duration="0:0:0.600">
+                                                         To="0.0" Duration="0:0:0.600">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pressLight"
+                                                         To="0" Duration="0:0:0.100">
                                             <DoubleAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -40,6 +46,26 @@
                                                 <CubicEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pressLight"
+                                                         To="0" Duration="0:0:0.200">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusX)" Storyboard.TargetName="brush"
+                                                         To="200" Duration="0:0:0.200">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusY)" Storyboard.TargetName="brush"
+                                                         To="200" Duration="0:0:0.200">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
@@ -51,47 +77,58 @@
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
 
-                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="hoverLight"
-                                                         To="0" Duration="0:0:0.100">
-                                            <DoubleAnimation.EasingFunction>
-                                                <CubicEase EasingMode="EaseOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-
                                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pressLight"
                                                          To="1" Duration="0:0:0.100">
                                             <DoubleAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pressLight"
+                                                         To="0" BeginTime="0:0:0.150" Duration="0:0:1.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
 
                                         <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusX)" Storyboard.TargetName="brush"
-                                                         From="100" To="50" Duration="0:0:0.300">
+                                                         From="100" To="50" Duration="0:0:0.100">
                                             <DoubleAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusX)" Storyboard.TargetName="brush"
-                                                         To="500" BeginTime="0:0:0.500" Duration="0:0:4.000">
+                                                         To="200" BeginTime="0:0:0.150" Duration="0:0:1.500">
                                             <DoubleAnimation.EasingFunction>
                                                 <SineEase EasingMode="EaseInOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusY)" Storyboard.TargetName="brush"
-                                                         From="100" To="50" Duration="0:0:0.300">
+                                                         From="100" To="50" Duration="0:0:0.100">
                                             <DoubleAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusY)" Storyboard.TargetName="brush"
-                                                         To="500" BeginTime="0:0:0.500" Duration="0:0:4.000">
+                                                         To="200" BeginTime="0:0:0.150" Duration="0:0:1.500">
                                             <DoubleAnimation.EasingFunction>
                                                 <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="Offset" Storyboard.TargetName="offset"
+                                                         To="0" Duration="0:0:0.000">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="Offset" Storyboard.TargetName="offset"
+                                                         From="0" To="0.8" BeginTime="0:0:0.150" Duration="0:0:1.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseOut"/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
 
                                         <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="brush"
-                                                         To="0" BeginTime="0:0:0.500" Duration="0:0:4.000">
+                                                         To="0" BeginTime="0:0:0.200" Duration="0:0:2.000">
                                             <DoubleAnimation.EasingFunction>
                                                 <SineEase EasingMode="EaseInOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -119,58 +156,74 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="backgroundBorder"
+                        <Grid>
+                            <Border x:Name="backgroundBorder"
                                 Opacity="0">
-                            <Grid ClipToBounds="True">
-                                <Border x:Name="hoverLight" Background="{local:RevealBrush Color=White, Size = 200,Opacity=0.6}" />
-                                <Rectangle x:Name="pressLight" Opacity="0">
-                                    <Rectangle.Fill>
-                                        <RadialGradientBrush x:Name="brush" MappingMode="Absolute" RadiusY="5" RadiusX="5">
-                                            <RadialGradientBrush.Center>
-                                                <MultiBinding Converter="{StaticResource relativePositionConverter}">
-                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.RootObject)"/>
-                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}"/>
-                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.Position)" />
-                                                </MultiBinding>
-                                            </RadialGradientBrush.Center>
-                                            <RadialGradientBrush.GradientOrigin>
-                                                <MultiBinding Converter="{StaticResource relativePositionConverter}">
-                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.RootObject)"/>
-                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}"/>
-                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.Position)" />
-                                                </MultiBinding>
-                                            </RadialGradientBrush.GradientOrigin>
-                                            <GradientStop Color="Transparent" Offset="0"/>
-                                            <GradientStop Color="#88FFFFFF" Offset="0.5"/>
-                                            <GradientStop Color="Transparent" Offset="1"/>
-                                        </RadialGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Grid>
-                        </Border>
+                                <Grid ClipToBounds="True">
+                                    <Border x:Name="hoverLight" Background="{local:RevealBrush Color=White, Size = 300,Opacity=0.2}" />
+                                    <Rectangle x:Name="pressLight" >
+                                        <Rectangle.Fill>
+                                            <RadialGradientBrush x:Name="brush" MappingMode="Absolute" RadiusY="200" RadiusX="200">
+                                                <RadialGradientBrush.Center>
+                                                    <MultiBinding Converter="{StaticResource relativePositionConverter}">
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.RootObject)"/>
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}"/>
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.Position)" />
+                                                    </MultiBinding>
+                                                </RadialGradientBrush.Center>
+                                                <RadialGradientBrush.GradientOrigin>
+                                                    <MultiBinding Converter="{StaticResource relativePositionConverter}">
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.RootObject)"/>
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}"/>
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.Position)" />
+                                                    </MultiBinding>
+                                                </RadialGradientBrush.GradientOrigin>
+                                                <GradientStop Color="Transparent" Offset="0"/>
+                                                <GradientStop x:Name="offset" Color="#88FFFFFF" Offset="0.5"/>
+                                                <GradientStop Color="Transparent" Offset="1"/>
+                                            </RadialGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
+                            </Border>
 
-                        <!-- Content -->
-                        <Border BorderBrush="{x:Null}"
+                            <!-- Content -->
+                            <Border BorderBrush="{x:Null}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False"
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                               Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                        </Border>
+                            </Border>
 
-                        <!-- MouseOver border -->
-                        <Border x:Name="border"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                OpacityMask="{local:RevealBrush Color=White,Size=120,Opacity=0.3}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                        </Border>
-                    </Grid>
+                            <!-- MouseOver border -->
+                            <Grid x:Name="border">
+                                <Border x:Name="borderMouseOver"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Opacity="0.5"
+                                        Visibility="Hidden"/>
+                                
+                                <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                        OpacityMask="{local:RevealBrush Color=White,Size=120,Opacity=0.3}"
+                                        BorderThickness="{TemplateBinding BorderThickness}" />
+                            </Grid>
+
+                        </Grid>
+                    </Border>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="root" Property="Background"
                                     Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.HoverBrush)}"/>
+                            <Setter TargetName="borderMouseOver" Property="Visibility"
+                                    Value="Visible"/>
+                        </Trigger>
+                        <!-- Hide border when button is clicked -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="borderMouseOver" Property="Visibility"
+                                    Value="Hidden"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

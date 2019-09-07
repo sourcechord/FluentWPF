@@ -382,6 +382,7 @@
 
 
     <Style x:Key="AcrylicMenuStyle" TargetType="{x:Type Menu}">
+        <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBrush}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">

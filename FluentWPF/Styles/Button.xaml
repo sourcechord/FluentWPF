@@ -6,7 +6,7 @@
 
     <Style x:Key="ButtonRevealStyle" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBrush}" />
         <Setter Property="Background" Value="#80808080" />
         <Setter Property="BorderBrush" Value="White" />
         <Setter Property="BorderThickness" Value="2" />

@@ -11,6 +11,7 @@
         <Setter Property="Background" Value="#88FFFFFF"/>
         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="local:Extensions.HeaderForegroundBrush" Value="{DynamicResource SystemBaseHighColorBrush}" />
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -133,6 +134,7 @@
         <Setter Property="Background" Value="#88FFFFFF"/>
         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="local:Extensions.HeaderForegroundBrush" Value="{DynamicResource SystemBaseHighColorBrush}" />
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -181,10 +183,6 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock x:Name="Label_Header" Margin="2,0,0,5" Text="{TemplateBinding local:Extensions.Header}" FontSize="{TemplateBinding local:Extensions.HeaderSize}" Foreground="{TemplateBinding local:Extensions.HeaderForegroundBrush}"/>
-
-                        <!--
-                        
-                        -->
 
                         <Border x:Name="border"
                                 BorderBrush="{TemplateBinding BorderBrush}"

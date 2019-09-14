@@ -265,5 +265,20 @@ namespace SourceChord.FluentWPF
             DependencyProperty.RegisterAttached("HoverBackground", typeof(Brush), typeof(RevealElement), new FrameworkPropertyMetadata(Brushes.White, FrameworkPropertyMetadataOptions.Inherits));
 
 
+
+
+        public static double GetBorderRadius(DependencyObject obj)
+        {
+            return (double)obj.GetValue(BorderRadiusProperty);
+        }
+        public static void SetBorderRadius(DependencyObject obj, double value)
+        {
+            obj.SetValue(BorderRadiusProperty, value);
+        }
+        // Using a DependencyProperty as the backing store for BorderRadius.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BorderRadiusProperty =
+            DependencyProperty.RegisterAttached("BorderRadius", typeof(double), typeof(RevealElement), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.Inherits));
+
+
     }
 }

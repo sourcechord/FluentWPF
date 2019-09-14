@@ -239,16 +239,31 @@ namespace SourceChord.FluentWPF
 
     public class RevealElement
     {
-        public static Brush GetHoverBrush(DependencyObject obj)
+        public static Brush GetHoverForeground(DependencyObject obj)
         {
-            return (Brush)obj.GetValue(HoverBrushProperty);
+            return (Brush)obj.GetValue(HoverForegroundProperty);
         }
-        public static void SetHoverBrush(DependencyObject obj, Brush value)
+        public static void SetHoverForeground(DependencyObject obj, Brush value)
         {
-            obj.SetValue(HoverBrushProperty, value);
+            obj.SetValue(HoverForegroundProperty, value);
         }
-        // Using a DependencyProperty as the backing store for HoverBrush.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty HoverBrushProperty =
-            DependencyProperty.RegisterAttached("HoverBrush", typeof(Brush), typeof(RevealElement), new FrameworkPropertyMetadata(Brushes.Blue, FrameworkPropertyMetadataOptions.Inherits));
+        // Using a DependencyProperty as the backing store for HoverForeground.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HoverForegroundProperty =
+            DependencyProperty.RegisterAttached("HoverForeground", typeof(Brush), typeof(RevealElement), new FrameworkPropertyMetadata(Brushes.Black, FrameworkPropertyMetadataOptions.Inherits));
+
+
+        public static Brush GetHoverBackground(DependencyObject obj)
+        {
+            return (Brush)obj.GetValue(HoverBackgroundProperty);
+        }
+        public static void SetHoverBackground(DependencyObject obj, Brush value)
+        {
+            obj.SetValue(HoverBackgroundProperty, value);
+        }
+        // Using a DependencyProperty as the backing store for HoverBackground.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HoverBackgroundProperty =
+            DependencyProperty.RegisterAttached("HoverBackground", typeof(Brush), typeof(RevealElement), new FrameworkPropertyMetadata(Brushes.White, FrameworkPropertyMetadataOptions.Inherits));
+
+
     }
 }

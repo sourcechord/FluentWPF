@@ -223,8 +223,7 @@
                             <Border x:Name="borderMouseOver"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    Opacity="0.5"
-                                    Visibility="Hidden"
+                                    Opacity="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.BorderOpacity)}"
                                     CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.BorderRadius)}"/>
 
                             <Border BorderBrush="{TemplateBinding BorderBrush}"
@@ -240,12 +239,13 @@
                                     Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.HoverBackground)}"/>
                             <Setter TargetName="contentPresenter" Property="TextBlock.Foreground"
                                     Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.HoverForeground)}"/>
-                            <Setter TargetName="borderMouseOver" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="borderMouseOver" Property="Opacity"
+                                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.HoverBorderOpacity)}"/>
                         </Trigger>
-                        <!-- Hide border when button is clicked -->
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="root" Property="Opacity" Value="0.7"/>
-                            <Setter TargetName="borderMouseOver" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="borderMouseOver" Property="Opacity"
+                                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.PressBorderOpacity)}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

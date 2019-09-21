@@ -239,6 +239,7 @@ namespace SourceChord.FluentWPF
 
     public class RevealElement
     {
+
         public static Brush GetHoverForeground(DependencyObject obj)
         {
             return (Brush)obj.GetValue(HoverForegroundProperty);
@@ -279,6 +280,45 @@ namespace SourceChord.FluentWPF
         public static readonly DependencyProperty BorderRadiusProperty =
             DependencyProperty.RegisterAttached("BorderRadius", typeof(double), typeof(RevealElement), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.Inherits));
 
+
+
+        public static double GetBorderOpacity(DependencyObject obj)
+        {
+            return (double)obj.GetValue(BorderOpacityProperty);
+        }
+        public static void SetBorderOpacity(DependencyObject obj, double value)
+        {
+            obj.SetValue(BorderOpacityProperty, value);
+        }
+        // Using a DependencyProperty as the backing store for BorderOpacity.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BorderOpacityProperty =
+            DependencyProperty.RegisterAttached("BorderOpacity", typeof(double), typeof(RevealElement), new PropertyMetadata(0.0));
+
+
+        public static double GetHoverBorderOpacity(DependencyObject obj)
+        {
+            return (double)obj.GetValue(HoverBorderOpacityProperty);
+        }
+        public static void SetHoverBorderOpacity(DependencyObject obj, double value)
+        {
+            obj.SetValue(HoverBorderOpacityProperty, value);
+        }
+        // Using a DependencyProperty as the backing store for HoverBorderOpacity.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HoverBorderOpacityProperty =
+            DependencyProperty.RegisterAttached("HoverBorderOpacity", typeof(double), typeof(RevealElement), new PropertyMetadata(0.5));
+
+
+        public static double GetPressBorderOpacity(DependencyObject obj)
+        {
+            return (double)obj.GetValue(PressBorderOpacityProperty);
+        }
+        public static void SetPressBorderOpacity(DependencyObject obj, double value)
+        {
+            obj.SetValue(PressBorderOpacityProperty, value);
+        }
+        // Using a DependencyProperty as the backing store for PressBorderOpacity.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PressBorderOpacityProperty =
+            DependencyProperty.RegisterAttached("PressBorderOpacity", typeof(double), typeof(RevealElement), new PropertyMetadata(0.9));
 
     }
 }

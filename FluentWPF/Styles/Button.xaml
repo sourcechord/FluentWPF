@@ -20,6 +20,7 @@
         <Setter Property="local:RevealElement.HoverForeground" Value="{DynamicResource SystemBaseHighColorBrush}" />
         <Setter Property="local:RevealElement.HoverBackground" Value="#80808080" />
         <Setter Property="local:RevealElement.BorderRadius" Value="0" />
+        <Setter Property="local:RevealElement.PressTintBrush" Value="{DynamicResource SystemBaseLowColorBrush}" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -162,8 +163,12 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
-                        <Border x:Name="root" Background="{TemplateBinding Background}"
+                        <Border x:Name="background" Background="{TemplateBinding Background}"
                                 CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.BorderRadius)}"/>
+                        <Border x:Name="pressTintLayer"
+                                Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.PressTintBrush)}"
+                                CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.BorderRadius)}"
+                                Visibility="Hidden"/>
                         <Border x:Name="backgroundBorder"
                                 Opacity="0"
                                 CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.BorderRadius)}">
@@ -235,7 +240,7 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="root" Property="Background"
+                            <Setter TargetName="background" Property="Background"
                                     Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.HoverBackground)}"/>
                             <Setter TargetName="contentPresenter" Property="TextBlock.Foreground"
                                     Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.HoverForeground)}"/>
@@ -243,7 +248,7 @@
                                     Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.HoverBorderOpacity)}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="root" Property="Opacity" Value="0.7"/>
+                            <Setter TargetName="pressTintLayer" Property="Visibility" Value="Visible" />
                             <Setter TargetName="borderMouseOver" Property="Opacity"
                                     Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.PressBorderOpacity)}"/>
                         </Trigger>
@@ -256,6 +261,7 @@
     <Style x:Key="ButtonAccentRevealStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonRevealStyle}">
         <Setter Property="local:RevealElement.HoverForeground" Value="{DynamicResource SystemAltHighColorBrush}" />
         <Setter Property="local:RevealElement.HoverBackground" Value="{x:Static local:AccentColors.ImmersiveSystemAccentBrush}" />
+        <Setter Property="local:RevealElement.PressTintBrush" Value="{DynamicResource SystemAltLowColorBrush}" />
     </Style>
 
     <Style x:Key="ButtonRoundRevealStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonRevealStyle}">

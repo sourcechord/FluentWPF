@@ -29,7 +29,7 @@ namespace SourceChord.FluentWPF
         static SystemTheme()
         {
             SystemTheme.Instance = new SystemTheme();
-            Theme = GetTheme();
+            AppTheme = GetAppTheme();
             WindowsTheme = GetWindowsTheme();
         }
 
@@ -41,7 +41,7 @@ namespace SourceChord.FluentWPF
                 if (systemParmeter == "ImmersiveColorSet")
                 {
                     // 再度レジストリから Dark/Lightの設定を取得
-                    Theme = GetTheme();
+                    AppTheme = GetAppTheme();
                     WindowsTheme = GetWindowsTheme();
                     SystemTheme.ThemeChanged?.Invoke(null, null);
 
@@ -52,7 +52,7 @@ namespace SourceChord.FluentWPF
             return IntPtr.Zero;
         }
 
-        private static ApplicationTheme GetTheme()
+        private static ApplicationTheme GetAppTheme()
         {
             var regkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false);
             // キーが存在しないときはnullが返る
@@ -72,11 +72,11 @@ namespace SourceChord.FluentWPF
             return intValue == 0 ? WindowsTheme.Dark : WindowsTheme.Light;
         }
 
-        private static ApplicationTheme theme;
-        public static ApplicationTheme Theme
+        private static ApplicationTheme appTheme;
+        public static ApplicationTheme AppTheme
         {
-            get { return theme; }
-            private set { if (!object.Equals(theme, value)) { theme = value; OnStaticPropertyChanged(); } }
+            get { return appTheme; }
+            private set { if (!object.Equals(appTheme, value)) { appTheme = value; OnStaticPropertyChanged(); } }
         }
 
         private static WindowsTheme windowsTheme;

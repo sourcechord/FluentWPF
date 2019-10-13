@@ -50,11 +50,11 @@
                         <TextBlock Text="Application Theme"/>
                         <RadioButton Content="Light"
                                      IsEnabled="False"
-                                     IsChecked="{Binding Path=(fw:SystemTheme.Theme),
+                                     IsChecked="{Binding Path=(fw:SystemTheme.AppTheme),
                                      Converter={StaticResource radioButtonConverter}, ConverterParameter=Light, Mode=OneWay}"/>
                         <RadioButton Content="Dark"
                                      IsEnabled="False"
-                                     IsChecked="{Binding Path=(fw:SystemTheme.Theme),
+                                     IsChecked="{Binding Path=(fw:SystemTheme.AppTheme),
                                      Converter={StaticResource radioButtonConverter}, ConverterParameter=Dark, Mode=OneWay}"/>
                     </StackPanel>
                 </Border>

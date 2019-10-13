@@ -146,7 +146,7 @@ namespace SourceChord.FluentWPF
                     break;
                 case ElementTheme.Default:
                 default:
-                    this.ChangeTheme(SystemTheme.Theme.ToString());
+                    this.ChangeTheme(SystemTheme.AppTheme.ToString());
                     break;
             }
         }

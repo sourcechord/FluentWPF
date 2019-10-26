@@ -17,7 +17,7 @@ namespace FluentWPFSample.Views
     /// <summary>
     /// MusicPlayer.xaml の相互作用ロジック
     /// </summary>
-    public partial class MusicPlayer : Window
+    public partial class MusicPlayer
     {
         public MusicPlayer()
         {

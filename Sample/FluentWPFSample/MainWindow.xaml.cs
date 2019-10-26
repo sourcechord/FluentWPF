@@ -113,5 +113,11 @@ namespace FluentWPFSample
             var win = new Views.DropShadowPanelSample2();
             win.ShowDialog();
         }
+
+        private void OpenMusicPlayerSample(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.MusicPlayer();
+            win.ShowDialog();
+        }
     }
 }

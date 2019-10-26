@@ -93,6 +93,9 @@
     <Compile Include="Views\Logo.xaml.cs">
       <DependentUpon>Logo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MusicPlayer.xaml.cs">
+      <DependentUpon>MusicPlayer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ParallaxSample.xaml.cs">
       <DependentUpon>ParallaxSample.xaml</DependentUpon>
     </Compile>
@@ -160,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Logo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MusicPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

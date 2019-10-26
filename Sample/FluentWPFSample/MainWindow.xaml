@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FluentWPFSample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="400" Width="525">
     <Grid>
         <StackPanel Margin="5">
             <StackPanel.Resources>
@@ -42,12 +42,13 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Other">
-                <StackPanel Orientation="Horizontal">
+                <WrapPanel Orientation="Horizontal">
                     <Button Content="Logo" Click="OpenLogo" />
                     <Button Content="Controls" Click="OpenControls" />
                     <Button Content="DropShadowPanel" Click="OpenDropShadowPanel" />
                     <Button Content="DropShadowPanel2" Click="OpenDropShadowPanel2" />
-                </StackPanel>
+                    <Button Content="MusicPlayer" Click="OpenMusicPlayerSample" />
+                </WrapPanel>
             </GroupBox>
         </StackPanel>
     </Grid>

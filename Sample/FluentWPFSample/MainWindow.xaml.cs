@@ -114,6 +114,12 @@ namespace FluentWPFSample
             win.ShowDialog();
         }
 
+        private void OpenCalculatorSample(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.Calculator();
+            win.ShowDialog();
+        }
+
         private void OpenMusicPlayerSample(object sender, RoutedEventArgs e)
         {
             var win = new Views.MusicPlayer();

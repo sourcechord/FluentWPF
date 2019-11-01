@@ -17,8 +17,8 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="UseLayoutRounding" Value="True" />
-        <Setter Property="local:RevealElement.HoverForeground" Value="{DynamicResource SystemBaseHighColorBrush}" />
-        <Setter Property="local:RevealElement.HoverBackground" Value="#80808080" />
+        <Setter Property="local:RevealElement.MouseOverForeground" Value="{DynamicResource SystemBaseHighColorBrush}" />
+        <Setter Property="local:RevealElement.MouseOverBackground" Value="#80808080" />
         <Setter Property="local:RevealElement.BorderRadius" Value="0" />
         <Setter Property="local:RevealElement.PressTintBrush" Value="{DynamicResource SystemBaseLowColorBrush}" />
 
@@ -173,7 +173,7 @@
                                 Opacity="0"
                                 CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.BorderRadius)}">
                             <Grid ClipToBounds="True">
-                                <Border x:Name="hoverLight" Background="{local:RevealBrush Color=White, Size = 300,Opacity=0.2}"
+                                <Border x:Name="mouseoverLight" Background="{local:RevealBrush Color=White, Size = 300,Opacity=0.2}"
                                         CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.BorderRadius)}"/>
                                 <Rectangle x:Name="pressLight" >
                                     <Rectangle.Clip>
@@ -241,11 +241,11 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="background" Property="Background"
-                                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.HoverBackground)}"/>
+                                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.MouseOverBackground)}"/>
                             <Setter TargetName="contentPresenter" Property="TextBlock.Foreground"
-                                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.HoverForeground)}"/>
+                                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.MouseOverForeground)}"/>
                             <Setter TargetName="borderMouseOver" Property="Opacity"
-                                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.HoverBorderOpacity)}"/>
+                                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.MouseOverBorderOpacity)}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="pressTintLayer" Property="Visibility" Value="Visible" />
@@ -259,8 +259,8 @@
     </Style>
 
     <Style x:Key="ButtonAccentRevealStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonRevealStyle}">
-        <Setter Property="local:RevealElement.HoverForeground" Value="{DynamicResource SystemAltHighColorBrush}" />
-        <Setter Property="local:RevealElement.HoverBackground" Value="{x:Static local:AccentColors.ImmersiveSystemAccentBrush}" />
+        <Setter Property="local:RevealElement.MouseOverForeground" Value="{DynamicResource SystemAltHighColorBrush}" />
+        <Setter Property="local:RevealElement.MouseOverBackground" Value="{x:Static local:AccentColors.ImmersiveSystemAccentBrush}" />
         <Setter Property="local:RevealElement.PressTintBrush" Value="{DynamicResource SystemAltLowColorBrush}" />
     </Style>
 

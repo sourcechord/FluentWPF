@@ -240,30 +240,30 @@ namespace SourceChord.FluentWPF
     public class RevealElement
     {
 
-        public static Brush GetHoverForeground(DependencyObject obj)
+        public static Brush GetMouseOverForeground(DependencyObject obj)
         {
-            return (Brush)obj.GetValue(HoverForegroundProperty);
+            return (Brush)obj.GetValue(MouseOverForegroundProperty);
         }
-        public static void SetHoverForeground(DependencyObject obj, Brush value)
+        public static void SetMouseOverForeground(DependencyObject obj, Brush value)
         {
-            obj.SetValue(HoverForegroundProperty, value);
+            obj.SetValue(MouseOverForegroundProperty, value);
         }
-        // Using a DependencyProperty as the backing store for HoverForeground.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty HoverForegroundProperty =
-            DependencyProperty.RegisterAttached("HoverForeground", typeof(Brush), typeof(RevealElement), new FrameworkPropertyMetadata(Brushes.Black, FrameworkPropertyMetadataOptions.Inherits));
+        // Using a DependencyProperty as the backing store for MouseOverForeground.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MouseOverForegroundProperty =
+            DependencyProperty.RegisterAttached("MouseOverForeground", typeof(Brush), typeof(RevealElement), new FrameworkPropertyMetadata(Brushes.Black, FrameworkPropertyMetadataOptions.Inherits));
 
 
-        public static Brush GetHoverBackground(DependencyObject obj)
+        public static Brush GetMouseOverBackground(DependencyObject obj)
         {
-            return (Brush)obj.GetValue(HoverBackgroundProperty);
+            return (Brush)obj.GetValue(MouseOverBackgroundProperty);
         }
-        public static void SetHoverBackground(DependencyObject obj, Brush value)
+        public static void SetMouseOverBackground(DependencyObject obj, Brush value)
         {
-            obj.SetValue(HoverBackgroundProperty, value);
+            obj.SetValue(MouseOverBackgroundProperty, value);
         }
-        // Using a DependencyProperty as the backing store for HoverBackground.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty HoverBackgroundProperty =
-            DependencyProperty.RegisterAttached("HoverBackground", typeof(Brush), typeof(RevealElement), new FrameworkPropertyMetadata(Brushes.White, FrameworkPropertyMetadataOptions.Inherits));
+        // Using a DependencyProperty as the backing store for MouseOverBackground.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MouseOverBackgroundProperty =
+            DependencyProperty.RegisterAttached("MouseOverBackground", typeof(Brush), typeof(RevealElement), new FrameworkPropertyMetadata(Brushes.White, FrameworkPropertyMetadataOptions.Inherits));
 
 
 
@@ -295,17 +295,17 @@ namespace SourceChord.FluentWPF
             DependencyProperty.RegisterAttached("BorderOpacity", typeof(double), typeof(RevealElement), new PropertyMetadata(0.0));
 
 
-        public static double GetHoverBorderOpacity(DependencyObject obj)
+        public static double GetMouseOverBorderOpacity(DependencyObject obj)
         {
-            return (double)obj.GetValue(HoverBorderOpacityProperty);
+            return (double)obj.GetValue(MouseOverBorderOpacityProperty);
         }
-        public static void SetHoverBorderOpacity(DependencyObject obj, double value)
+        public static void SetMouseOverBorderOpacity(DependencyObject obj, double value)
         {
-            obj.SetValue(HoverBorderOpacityProperty, value);
+            obj.SetValue(MouseOverBorderOpacityProperty, value);
         }
-        // Using a DependencyProperty as the backing store for HoverBorderOpacity.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty HoverBorderOpacityProperty =
-            DependencyProperty.RegisterAttached("HoverBorderOpacity", typeof(double), typeof(RevealElement), new PropertyMetadata(0.5));
+        // Using a DependencyProperty as the backing store for MouseOverBorderOpacity.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MouseOverBorderOpacityProperty =
+            DependencyProperty.RegisterAttached("MouseOverBorderOpacity", typeof(double), typeof(RevealElement), new PropertyMetadata(0.5));
 
 
         public static double GetPressBorderOpacity(DependencyObject obj)

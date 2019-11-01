@@ -25,7 +25,7 @@
                         Background="Transparent"
                         Style="{StaticResource ButtonAccentRevealStyle}"/>
                 <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
-                        fw:RevealElement.HoverBackground="Coral"
+                        fw:RevealElement.MouseOverBackground="Coral"
                         Style="{StaticResource ButtonAccentRevealStyle}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
@@ -43,7 +43,7 @@
                         Background="Transparent"
                         Style="{StaticResource ButtonRoundAccentRevealStyle}"/>
                 <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
-                        fw:RevealElement.HoverBackground="Coral"
+                        fw:RevealElement.MouseOverBackground="Coral"
                         Style="{StaticResource ButtonRoundAccentRevealStyle}"/>
             </StackPanel>
 

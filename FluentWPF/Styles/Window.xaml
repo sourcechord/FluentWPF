@@ -334,7 +334,7 @@
                             <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="fallbackLayer" Property="Visibility" Value="Visible" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding (local:AcrylicWindow.ExtendViewIntoTitleBar), RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.ExtendViewIntoTitleBar)}" Value="True">
                             <Setter TargetName="content" Property="Grid.Row" Value="0" />
                             <Setter TargetName="content" Property="Grid.RowSpan" Value="2" />
                         </DataTrigger>

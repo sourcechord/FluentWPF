@@ -11,7 +11,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBrush}" />
         <Setter Property="Background" Value="#80808080" />
-        <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumColorBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumHighColorBrush}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -19,6 +19,8 @@
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="local:RevealElement.MouseOverForeground" Value="{DynamicResource SystemBaseHighColorBrush}" />
         <Setter Property="local:RevealElement.MouseOverBackground" Value="#80808080" />
+        <Setter Property="local:RevealElement.MouseOverBorderOpacity" Value="0.1" />
+        <Setter Property="local:RevealElement.PressBorderOpacity" Value="0.2" />
         <Setter Property="local:RevealElement.BorderRadius" Value="0" />
         <Setter Property="local:RevealElement.PressTintBrush" Value="{DynamicResource SystemBaseLowColorBrush}" />
 
@@ -232,7 +234,7 @@
                                     CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.BorderRadius)}"/>
 
                             <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                    OpacityMask="{local:RevealBrush Color=White,Size=120,Opacity=0.3}"
+                                    OpacityMask="{local:RevealBrush Color=White,Size=70,Opacity=0.3}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.BorderRadius)}"/>
                         </Grid>

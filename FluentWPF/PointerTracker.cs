@@ -318,7 +318,7 @@ namespace SourceChord.FluentWPF
         }
         // Using a DependencyProperty as the backing store for PressBorderOpacity.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PressBorderOpacityProperty =
-            DependencyProperty.RegisterAttached("PressBorderOpacity", typeof(double), typeof(RevealElement), new PropertyMetadata(0.9));
+            DependencyProperty.RegisterAttached("PressBorderOpacity", typeof(double), typeof(RevealElement), new PropertyMetadata(0.5));
 
 
         public static Brush GetPressTintBrush(DependencyObject obj)
@@ -331,7 +331,7 @@ namespace SourceChord.FluentWPF
         }
         // Using a DependencyProperty as the backing store for PressTintBrush.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PressTintBrushProperty =
-            DependencyProperty.RegisterAttached("PressTintBrush", typeof(Brush), typeof(RevealElement), new PropertyMetadata(Brushes.Red));
+            DependencyProperty.RegisterAttached("PressTintBrush", typeof(Brush), typeof(RevealElement), new PropertyMetadata(Brushes.Gray));
 
 
     }

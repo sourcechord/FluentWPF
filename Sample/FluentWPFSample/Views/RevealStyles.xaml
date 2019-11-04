@@ -14,7 +14,7 @@
                 <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
                         Style="{StaticResource ButtonRevealStyle}"/>
                 <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
-                        BorderBrush="Red" BorderThickness="1"
+                        BorderBrush="Red" BorderThickness="1" fw:RevealElement.MouseOverBorderOpacity="0.5" fw:RevealElement.PressBorderOpacity="0.5"
                         Style="{StaticResource ButtonRevealStyle}"/>
                 <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
                         Background="Transparent"
@@ -32,7 +32,7 @@
                 <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
                         Style="{StaticResource ButtonRoundRevealStyle}"/>
                 <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
-                        BorderBrush="Red" BorderThickness="1"
+                        BorderBrush="Red" BorderThickness="1" fw:RevealElement.MouseOverBorderOpacity="0.5" fw:RevealElement.PressBorderOpacity="0.5"
                         Style="{StaticResource ButtonRoundRevealStyle}"/>
                 <Button Content="Button" HorizontalAlignment="Left" Margin="5" Width="75" Height="32"
                         Background="Transparent"

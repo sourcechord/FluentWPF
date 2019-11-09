@@ -81,17 +81,21 @@ namespace SourceChord.FluentWPF
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            EnableBlur(this);
-
-            var caption = this.GetTemplateChild("captionGrid") as FrameworkElement;
-            if (caption != null)
+            
+            _ = Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
             {
-                caption.SizeChanged += (s, e) =>
+                EnableBlur(this);
+
+                var caption = this.GetTemplateChild("captionGrid") as FrameworkElement;
+                if (caption != null)
                 {
-                    var chrome = WindowChrome.GetWindowChrome(this);
-                    chrome.CaptionHeight = e.NewSize.Height;
-                };
-            }
+                    caption.SizeChanged += (s, e) =>
+                    {
+                        var chrome = WindowChrome.GetWindowChrome(this);
+                        chrome.CaptionHeight = e.NewSize.Height;
+                    };
+                }
+            }));
         }
 
         internal static void EnableBlur(Window win)

@@ -210,6 +210,19 @@ To use the reveal effect, set `fw:PointerTracker.Enabled="True"` on a parent con
 </Grid>
 ```
 
+
+#### Styles
+
+|Control|Style Name|
+|-----|-----|
+|Button|ButtonRevealStyle|
+|Button|ButtonAccentRevealStyle|
+|Button|ButtonRoundRevealStyle|
+|Button|ButtonRoundAccentRevealStyle|
+|TextBox|TextBoxRevealStyle|
+|PasswordBox|PasswordBoxRevealStyle|
+|ListBox|ListBoxRevealStyle|
+
 ### ParallaxView
 
 ![ParallaxView](./docs/Controls/ParallaxView.gif)

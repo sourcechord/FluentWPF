@@ -12,6 +12,26 @@
     <SolidColorBrush x:Key="SystemAltMediumColorBrush" Color="{DynamicResource SystemAltMediumColor}" />
     <SolidColorBrush x:Key="SystemAltMediumHighColorBrush" Color="{DynamicResource SystemAltMediumHighColor}" />
     <SolidColorBrush x:Key="SystemAltHighColorBrush" Color="{DynamicResource SystemAltHighColor}" />
+    
+    <SolidColorBrush x:Key="SystemChromeLowColorBrush" Color="{DynamicResource SystemChromeLowColor}" />
+    <SolidColorBrush x:Key="SystemChromeMediumLowColorBrush" Color="{DynamicResource SystemChromeMediumLowColor}" />
+    <SolidColorBrush x:Key="SystemChromeMediumColorBrush" Color="{DynamicResource SystemChromeMediumColor}" />
+    <SolidColorBrush x:Key="SystemChromeHighColorBrush" Color="{DynamicResource SystemChromeHighColor}" />
+
+    <SolidColorBrush x:Key="SystemChromeAltLowColorBrush" Color="{DynamicResource SystemChromeAltLowColor}" />
+
+    <SolidColorBrush x:Key="SystemChromeBlackLowColorBrush" Color="{DynamicResource SystemChromeBlackLowColor}" />
+    <SolidColorBrush x:Key="SystemChromeBlackMediumLowColorBrush" Color="{DynamicResource SystemChromeBlackMediumLowColor}" />
+    <SolidColorBrush x:Key="SystemChromeBlackMediumColorBrush" Color="{DynamicResource SystemChromeBlackMediumColor}" />
+    <SolidColorBrush x:Key="SystemChromeBlackHighColorBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+
+    <SolidColorBrush x:Key="SystemChromeDisabledLowColorBrush" Color="{DynamicResource SystemChromeDisabledLowColor}" />
+    <SolidColorBrush x:Key="SystemChromeDisabledHighColorBrush" Color="{DynamicResource SystemChromeDisabledHighColor}" />
+
+    <SolidColorBrush x:Key="SystemChromeWhiteColorBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+
+    <SolidColorBrush x:Key="SystemListLowColorBrush" Color="{DynamicResource SystemListLowColor}" />
+    <SolidColorBrush x:Key="SystemListMediumColorBrush" Color="{DynamicResource SystemListMediumColor}" />
 
 
     <SolidColorBrush x:Key="SystemControlWindowBrush" Color="{DynamicResource SystemAltHighColor}" />

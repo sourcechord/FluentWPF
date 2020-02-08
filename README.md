@@ -346,6 +346,42 @@ _Accent color depends on the accent color of the system._
  <TextBlock Foreground="{DynamicResource SystemAltHighColorBrush}"/>
 ```
 
+#### Chrome Color
+
+|Light|Dark|Color|Brush|
+|-----|-----|-----|-----|
+|![#CCCCCC](https://placehold.it/30/CCCCCC/000000?text=+)|![#767676](https://placehold.it/30/767676/000000?text=+)|SystemChromeHighColor|SystemChromeHighColorBrush|
+|![#E6E6E6](https://placehold.it/30/E6E6E6/000000?text=+)|![#1F1F1F](https://placehold.it/30/1F1F1F/000000?text=+)|SytemAltMediumColor|SytemAltMediumColorBrush|
+|![#F2F2F2](https://placehold.it/30/F2F2F2/000000?text=+)|![#2B2B2B](https://placehold.it/30/2B2B2B/000000?text=+)|SystemChromeMediumLowColor|SystemChromeMediumLowColorBrush|
+|![#F2F2F2](https://placehold.it/30/F2F2F2/000000?text=+)|![#171717](https://placehold.it/30/171717/000000?text=+)|SystemChromeLowColor|SystemChromeLowColorBrush|
+
+**Usage:**
+```xml
+ <Border Background="{DynamicResource SystemChromeMediumBrush}"/>
+```
+
+#### Opacity Color
+
+Windows includes a set of colors that differ only by their opacities:
+
+|Base Color|Opacity|Color|Brush|
+|-----|-----|-----|-----|
+|![#000000](https://placehold.it/30/000000/000000?text=+)|FF|SystemChromeBlackHighColor|SystemChromeBlackHighColorBrush|
+|![#000000](https://placehold.it/30/000000/000000?text=+)|CC|SystemChromeBlackMediumColor|SystemChromeBlackMediumColor|
+|![#000000](https://placehold.it/30/000000/000000?text=+)|66|SystemChromeBlackMediumLowColor|SystemChromeBlackMediumLowColorBrush|
+|![#000000](https://placehold.it/30/000000/000000?text=+)|33|SystemChromeBlackLowColor|SystemChromeBlackLowColorBrush|
+|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|33|SystemListMediumColor|SystemListMediumColorBrush|
+|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|19|SystemListLowColor|SystemListLowColorBrush|
+
+
+#### Other Colors
+
+|Light|Dark|Color|Brush|
+|-----|-----|-----|-----|
+|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|SystemChromeWhiteColor|SystemChromeWhiteColorBrush|
+|![#171717](https://placehold.it/30/171717/000000?text=+)|![#F2F2F2](https://placehold.it/30/F2F2F2/000000?text=+)|SystemChromeAltLowColor|SystemChromeAltLowColorBrush|
+|![#CCCCCC](https://placehold.it/30/CCCCCC/000000?text=+)|![#333333](https://placehold.it/30/333333/000000?text=+)|SystemChromeDisabledHighColor|SystemChromeDisabledHighColorBrush|
+|![#7A7A7A](https://placehold.it/30/7A7A7A/000000?text=+)|![#858585](https://placehold.it/30/858585/000000?text=+)|SystemChromeDisabledLowColor|SystemChromeDisabledLowColorBrush|
 
 
 

@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace FluentWPFSample.Views
 {
     /// <summary>
-    /// AcrylicMenuSample.xaml の相互作用ロジック
+    /// AcrylicControls.xaml の相互作用ロジック
     /// </summary>
-    public partial class AcrylicMenuSample
+    public partial class AcrylicControls
     {
-        public AcrylicMenuSample()
+        public AcrylicControls()
         {
             InitializeComponent();
         }

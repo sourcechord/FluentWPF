@@ -60,8 +60,8 @@
     <Compile Include="Views\AcrylicBrushSample.xaml.cs">
       <DependentUpon>AcrylicBrushSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AcrylicMenuSample.xaml.cs">
-      <DependentUpon>AcrylicMenuSample.xaml</DependentUpon>
+    <Compile Include="Views\AcrylicControls.xaml.cs">
+      <DependentUpon>AcrylicControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AcrylicPanelSample.xaml.cs">
       <DependentUpon>AcrylicPanelSample.xaml</DependentUpon>
@@ -125,7 +125,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AcrylicMenuSample.xaml">
+    <Page Include="Views\AcrylicControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

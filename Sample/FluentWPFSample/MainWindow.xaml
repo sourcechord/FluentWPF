@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FluentWPFSample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="525">
+        Title="MainWindow" Height="420" Width="525">
     <Grid>
         <StackPanel Margin="5">
             <StackPanel.Resources>
@@ -23,7 +23,7 @@
                     <Button Content="AcrylicPanel" Click="OpenAcrylicPanel" />
                     <Button Content="AcrylicPanel2" Click="OpenAcrylicPanel2" />
                     <Button Content="AcrylicBrush" Click="OpenAcrylicBrush" />
-                    <Button Content="Menu/ContextMenu" Click="OpenAcrylicMenuSample" />
+                    <Button Content="Controls&#xa;(Menu/Popup)" Click="OpenAcrylicControls" />
                 </WrapPanel>
             </GroupBox>
             <GroupBox Header="Reveal">

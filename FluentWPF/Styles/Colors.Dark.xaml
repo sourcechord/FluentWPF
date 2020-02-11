@@ -1,24 +1,24 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SourceChord.FluentWPF">
-    <--! Base is for text. -->
+    <!-- Base is for text. -->
     <Color x:Key="SystemBaseLowColor">#33FFFFFF</Color>
     <Color x:Key="SystemBaseMediumLowColor">#66FFFFFF</Color>
     <Color x:Key="SystemBaseMediumColor">#99FFFFFF</Color>
     <Color x:Key="SystemBaseMediumHighColor">#CCFFFFFF</Color>
     <Color x:Key="SystemBaseHighColor">#FFFFFFFF</Color> <!-- for Primary text -->
 
-    <--! Alt is the inverse of Base. -->
+    <!-- Alt is the inverse of Base. -->
     <Color x:Key="SystemAltLowColor">#33000000</Color>
     <Color x:Key="SystemAltMediumLowColor">#66000000</Color>
     <Color x:Key="SystemAltMediumColor">#99000000</Color>
     <Color x:Key="SystemAltMediumHighColor">#CC000000</Color>
     <Color x:Key="SystemAltHighColor">#FF000000</Color>
 
-    <--! Chrome is for top-level elements, such as navigation panes or command bars. -->
+    <!-- Chrome is for top-level elements, such as navigation panes or command bars. -->
     <Color x:Key="SystemChromeLowColor">#FF171717</Color>
     <Color x:Key="SystemChromeMediumLowColor">#FF2B2B2B</Color>
-    <Color x:Key="SystemChromeMediumColor">#FF1F1F1F</Color> <--! Panel background color (e.g., ComboBox Popup) -->
+    <Color x:Key="SystemChromeMediumColor">#FF1F1F1F</Color> <!-- Panel background color (e.g., ComboBox Popup) -->
     <Color x:Key="SystemChromeHighColor">#FF767676</Color>
 
     <Color x:Key="SystemChromeAltLowColor">#FFF2F2F2</Color>
@@ -26,15 +26,15 @@
     <Color x:Key="SystemChromeBlackLowColor">#33000000</Color>
     <Color x:Key="SystemChromeBlackMediumLowColor">#66000000</Color>
     <Color x:Key="SystemChromeBlackMediumColor">#CC000000</Color>
-    <Color x:Key="SystemChromeBlackHighColor">#FF000000</Color> <--! TextBox foreground focused color -->
+    <Color x:Key="SystemChromeBlackHighColor">#FF000000</Color> <!-- TextBox foreground focused color -->
 
     <Color x:Key="SystemChromeDisabledLowColor">#FF858585</Color>
     <Color x:Key="SystemChromeDisabledHighColor">#FF333333</Color>
 
-    <Color x:Key="SystemChromeWhiteColor">#FFFFFFFF</Color> <--! TextBox background focused color -->
+    <Color x:Key="SystemChromeWhiteColor">#FFFFFFFF</Color> <!-- TextBox background focused color -->
 
-    <Color x:Key="SystemListLowColor">#19FFFFFF</Color> <--! Hover list item -->
-    <Color x:Key="SystemListMediumColor">#33FFFFFF</Color> <--! Pressed list item -->
+    <Color x:Key="SystemListLowColor">#19FFFFFF</Color> <!-- Hover list item -->
+    <Color x:Key="SystemListMediumColor">#33FFFFFF</Color> <!-- Pressed list item -->
 
     <Color x:Key="SystemControlAcrylicWindowTintColor">#FF000000</Color>
     <Color x:Key="SystemControlAcrylicWindowFallbackColor">#FF1F1F1F</Color>

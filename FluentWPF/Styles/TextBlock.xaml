@@ -8,35 +8,30 @@
         <Setter Property="TextTrimming" Value="None"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="LineStackingStrategy" Value="MaxHeight"/>
-        <Setter Property="TextLineBounds" Value="Full"/>
     </Style>
 
     <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock"
            BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="FontSize" Value="46"/>
         <Setter Property="FontWeight" Value="Light"/>
-        <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
     </Style>
 
     <Style x:Key="SubheaderTextBlockStyle" TargetType="TextBlock" 
            BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="FontSize" Value="34"/>
         <Setter Property="FontWeight" Value="Light"/>
-        <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
     </Style>
 
     <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock" 
            BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="FontWeight" Value="SemiLight"/>
         <Setter Property="FontSize" Value="24"/>
-        <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
     </Style>
 
     <Style x:Key="SubtitleTextBlockStyle" TargetType="TextBlock" 
            BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="FontWeight" Value="Normal"/>
         <Setter Property="FontSize" Value="20"/>
-        <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
     </Style>
 
     <Style x:Key="BodyTextBlockStyle" TargetType="TextBlock" 

@@ -3,20 +3,36 @@
                     x:Class="SourceChord.FluentWPF.ComboBoxResourceDictionary"
                     xmlns:local="clr-namespace:SourceChord.FluentWPF" >
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="TransparentBrush" Color="Transparent" />
+            <Thickness x:Key="FocusThickness">2</Thickness>
+        </ResourceDictionary>
+        <local:ResourceDictionaryEx>
+            <local:ResourceDictionaryEx.ThemeDictionaries>
+                <local:ThemeDictionary ThemeName="Light">
+                    <local:ThemeDictionary.MergedDictionaries>
+                        <ResourceDictionary>
+                            <SolidColorBrush x:Key="SystemControlHighlightListAccentHighBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.7" />
+                            <SolidColorBrush x:Key="SystemControlHighlightListAccentMediumBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.6" />
+                            <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.4" />
+                        </ResourceDictionary>
+                    </local:ThemeDictionary.MergedDictionaries>
+                </local:ThemeDictionary>
+                <local:ThemeDictionary ThemeName="Dark">
+                    <local:ThemeDictionary.MergedDictionaries>
+                        <ResourceDictionary>
+                            <SolidColorBrush x:Key="SystemControlHighlightListAccentHighBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.9" />
+                            <SolidColorBrush x:Key="SystemControlHighlightListAccentMediumBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.8" />
+                            <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.6" />
+                        </ResourceDictionary>
+                    </local:ThemeDictionary.MergedDictionaries>
+                </local:ThemeDictionary>
+            </local:ResourceDictionaryEx.ThemeDictionaries>
+        </local:ResourceDictionaryEx>
+    </ResourceDictionary.MergedDictionaries>
+
     <local:ComboBoxItemVisualStateManager x:Key="ComboBoxItemVisualStateManager" />
-
-    <!--0.4 is for light theme-->
-    <!--<SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.4" />-->
-    <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.6" />
-    <!--0.6 is for light theme-->
-    <!--<SolidColorBrush x:Key="SystemControlHighlightListAccentMediumBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.6" />-->
-    <SolidColorBrush x:Key="SystemControlHighlightListAccentMediumBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.8" />
-    <!--0.7 is for light theme-->
-    <!--<SolidColorBrush x:Key="SystemControlHighlightListAccentHighBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.7" />-->
-    <SolidColorBrush x:Key="SystemControlHighlightListAccentHighBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" Opacity="0.9" />
-
-    <SolidColorBrush x:Key="TransparentBrush" Color="Transparent" />
-    <Thickness x:Key="FocusThickness">2</Thickness>
 
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Grid>

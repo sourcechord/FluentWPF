@@ -71,7 +71,7 @@ namespace SourceChord.FluentWPF
         private void ComboBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Prevent Pressed visual state with touch devices
-            if (e.StylusDevice != null)
+            if (e.StylusDevice == null)
             {
                 VisualStateManager.GoToState((ComboBoxItem)sender, ComboBoxItemVisualStateManager.Pressed, false);
             }

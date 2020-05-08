@@ -8,6 +8,7 @@
             <SolidColorBrush x:Key="TransparentBrush" Color="Transparent" />
             <Thickness x:Key="FocusThickness">2</Thickness>
         </ResourceDictionary>
+        <ResourceDictionary Source="TextBox.xaml" />
         <local:ResourceDictionaryEx>
             <local:ResourceDictionaryEx.ThemeDictionaries>
                 <local:ThemeDictionary ThemeName="Light">

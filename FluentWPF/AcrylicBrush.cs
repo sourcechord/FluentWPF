@@ -68,7 +68,7 @@ namespace SourceChord.FluentWPF
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Any(o => o == DependencyProperty.UnsetValue || o == null)) return new Point(0, 0);
+            if (values.Any(o => o == DependencyProperty.UnsetValue || o == null)) return new TranslateTransform(0, 0);
 
             var parent = values[0] as UIElement;
             var ctrl = values[1] as UIElement;

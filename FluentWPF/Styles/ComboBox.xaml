@@ -172,10 +172,12 @@
                         </VisualStateManager.VisualStateGroups>
                         <ToggleButton x:Name="ToggleButton"                        
                                       Template="{StaticResource ComboBoxToggleButton}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, FallbackValue=1}"
                                       Grid.Column="2"
                                       Focusable="True"
                                       ClickMode="Release"
-                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
                         <TextBox x:Name="PART_EditableTextBox"
                                  Style="{StaticResource TextBoxRevealStyle}"
                                  BorderThickness="0"

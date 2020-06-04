@@ -208,7 +208,7 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Border BorderThickness="2" BorderBrush="Black" />
+                    <Border BorderThickness="2" BorderBrush="{DynamicResource SystemBaseHighColorBrush" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

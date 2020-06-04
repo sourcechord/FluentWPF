@@ -96,15 +96,17 @@
         <Setter Property="Background" Value="{DynamicResource SystemAltMediumLowColorBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumLowColorBrush}" />
         <Setter Property="BorderThickness" Value="{StaticResource ComboBoxBorderThemeThickness}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="Once" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
         <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="VerticalAlignment" Value="Stretch" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
         <Setter Property="local:RevealElement.MouseOverForeground" Value="{DynamicResource SystemBaseHighColorBrush}" />
@@ -208,7 +210,7 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Border BorderThickness="2" BorderBrush="{DynamicResource SystemBaseHighColorBrush" />
+                    <Border BorderThickness="2" BorderBrush="{DynamicResource SystemBaseHighColorBrush}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -228,8 +230,6 @@
         <Setter Property="KeyboardNavigation.ControlTabNavigation" Value="None" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxItemFocusVisualStyle}" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="UseLayoutRounding" Value="True" />
         <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ComboBoxItem_PreviewMouseLeftButtonDown" />
         <Setter Property="Template">
             <Setter.Value>
@@ -352,6 +352,22 @@
 
                                         <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="brush"
                                                          To="0" BeginTime="0:0:0.200" Duration="0:0:2.000">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="border"
+                                                         To="0" Duration="0:0:0.000"/>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" Storyboard.TargetName="itemRoot"
+                                                         To="0.975" Duration="0:0:0.100">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" Storyboard.TargetName="itemRoot"
+                                                         To="0.975" Duration="0:0:0.100">
                                             <DoubleAnimation.EasingFunction>
                                                 <SineEase EasingMode="EaseInOut"/>
                                             </DoubleAnimation.EasingFunction>
@@ -485,7 +501,14 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
-                        <Grid>
+                        <Grid x:Name="itemRoot">
+                            <Grid.RenderTransformOrigin>
+                                <Point X="0.5" Y="0.5"/>
+                            </Grid.RenderTransformOrigin>
+                            <Grid.RenderTransform>
+                                <ScaleTransform ScaleX="1.0" ScaleY="1.0"/>
+                            </Grid.RenderTransform>
+
                             <!-- MouseOver border -->
                             <Grid x:Name="border" Visibility="Hidden">
                                 <Border x:Name="borderMouseOver"

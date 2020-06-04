@@ -5,6 +5,7 @@
                     xmlns:converters="clr-namespace:SourceChord.FluentWPF.Converters">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
+            <Thickness x:Key="ComboBoxBorderThemeThickness">2.5</Thickness>
             <SolidColorBrush x:Key="TransparentBrush" Color="Transparent" />
         </ResourceDictionary>
         <ResourceDictionary Source="TextBox.xaml" />
@@ -595,7 +596,7 @@
                             <Border BorderBrush="{x:Null}"
                                     Margin="{TemplateBinding BorderThickness}"
                                     Padding="{TemplateBinding Padding}"
-                                    CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=(local:RevealElement.BorderRadius)}">
+                                    CornerRadius="{Binding  RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.BorderRadius)}">
                                 <ContentPresenter x:Name="ContentPresenter"
                                                   Content="{TemplateBinding Content}"
                                                   ContentTemplate="{TemplateBinding ContentTemplate}"

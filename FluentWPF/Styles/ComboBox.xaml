@@ -9,6 +9,7 @@
             <SolidColorBrush x:Key="TransparentBrush" Color="Transparent" />
         </ResourceDictionary>
         <ResourceDictionary Source="TextBox.xaml" />
+        <ResourceDictionary Source="ScrollBar.xaml" />
         <!-- TODO: Changing system theme while running doesn't change brush -->
         <local:ResourceDictionaryEx>
             <local:ResourceDictionaryEx.ThemeDictionaries>
@@ -102,6 +103,44 @@
                 Focusable="False"
                 Background="{TemplateBinding Background}" />
     </ControlTemplate>
+    
+    <Style x:Key="ComboboxScrollViewer" TargetType="{x:Type ScrollViewer}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Border>
+                            <ScrollContentPresenter />
+                        </Border>
+                        <ScrollBar x:Name="PART_VerticalScrollBar"
+                                   Grid.Column="1" 
+                                   Value="{TemplateBinding VerticalOffset}"
+                                   Maximum="{TemplateBinding ScrollableHeight}"
+                                   ViewportSize="{TemplateBinding ViewportHeight}"
+                                   Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                   Style="{StaticResource ScrollBarStyle1}" />
+                        <ScrollBar x:Name="PART_HorizontalScrollBar"
+                                   Orientation="Horizontal"
+                                   Grid.Row="1"
+                                   Value="{TemplateBinding HorizontalOffset}"
+                                   Maximum="{TemplateBinding ScrollableWidth}"
+                                   ViewportSize="{TemplateBinding ViewportWidth}"
+                                   Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                   Style="{StaticResource ScrollBarStyle1}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="ComboBoxRevealStyle" TargetType="{x:Type ComboBox}">
         <Setter Property="Padding" Value="12,5,0,7" />
@@ -185,6 +224,7 @@
                                Placement="Relative"
                                PlacementRectangle="0,-5,0,0"
                                Focusable="False"
+                               MaxHeight="300"
                                AllowsTransparency="True"
                                PopupAnimation="Fade">
                             <Border x:Name="PopupBorder"
@@ -202,12 +242,13 @@
                                         </Rectangle.Fill>
                                     </Rectangle>
                                     <ScrollViewer x:Name="ScrollViewer"
-                                                    Margin="0,4,0,4"
-                                                    Foreground="{DynamicResource SystemBaseHighColorBrush}"
-                                                    HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                                    VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
-                                                    CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
-                                                    IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}">
+                                                  Margin="0,4,0,4"
+                                                  Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                                  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                                  CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
+                                                  IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                                  Style="{StaticResource ComboboxScrollViewer}">
                                         <StackPanel IsItemsHost="True"
                                                     KeyboardNavigation.DirectionalNavigation="Contained"/>
                                     </ScrollViewer>

@@ -1,4 +1,4 @@
-﻿using SourceChord.FluentWPF.Utility;
+using SourceChord.FluentWPF.Utility;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -31,6 +31,12 @@ namespace SourceChord.FluentWPF
     {
         Default,
         Extend,
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct RECT
+    {
+        public int Left, Top, Right, Bottom;
     }
 
     /// <summary>
@@ -76,6 +82,34 @@ namespace SourceChord.FluentWPF
             AcrylicWindowStyleProperty = AcrylicElement.AcrylicWindowStyleProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(AcrylicWindowStyle.Normal, FrameworkPropertyMetadataOptions.Inherits));
             TitleBarProperty = AcrylicElement.TitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
             TitleBarModeProperty = AcrylicElement.TitleBarModeProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(TitleBarMode.Default, FrameworkPropertyMetadataOptions.Inherits));
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            var hWndSource = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
+            hWndSource.AddHook(WndProc);
+        }
+
+        public IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            switch (msg)
+            {
+                case 0x0083:
+                    if (wParam != IntPtr.Zero)
+                    {
+                        handled = true;
+                        var client = (RECT)Marshal.PtrToStructure(lParam, typeof(RECT));
+                        client.Bottom -= -1;
+                        client.Top -= 0;
+                        client.Left -= 0;
+                        client.Right -= 0;
+                        Marshal.StructureToPtr(client, lParam, false);
+                    }
+                    return IntPtr.Zero;
+                default:
+                    return IntPtr.Zero;
+            }
         }
 
         public override void OnApplyTemplate()

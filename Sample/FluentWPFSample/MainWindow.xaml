@@ -49,7 +49,6 @@
                     <Button Content="DropShadowPanel2" Click="OpenDropShadowPanel2" />
                     <Button Content="Calculator" Click="OpenCalculatorSample" />
                     <Button Content="MusicPlayer" Click="OpenMusicPlayerSample" />
-                    <Button Content="MessageBox" Click="OpenMessageBoxSample"/>
                 </WrapPanel>
             </GroupBox>
         </StackPanel>

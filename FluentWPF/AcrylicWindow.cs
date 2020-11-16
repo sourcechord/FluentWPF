@@ -86,11 +86,11 @@ namespace SourceChord.FluentWPF
             var caption = this.GetTemplateChild("captionGrid") as FrameworkElement;
             if (caption != null)
             {
-                //caption.SizeChanged += (s, e) =>
-                //{
-                //    var chrome = WindowChrome.GetWindowChrome(this);
-                //    chrome.CaptionHeight = e.NewSize.Height;
-                //};
+                caption.SizeChanged += (s, e) =>
+                {
+                    var chrome = WindowChrome.GetWindowChrome(this);
+                    chrome.CaptionHeight = e.NewSize.Height;
+                };
             }
         }
 

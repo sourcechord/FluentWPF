@@ -1,5 +1,4 @@
-﻿using FluentWPFSample.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -124,12 +123,6 @@ namespace FluentWPFSample
         private void OpenMusicPlayerSample(object sender, RoutedEventArgs e)
         {
             var win = new Views.MusicPlayer();
-            win.ShowDialog();
-        }
-
-        private void OpenMessageBoxSample(object sender, RoutedEventArgs e)
-        {
-            var win = new MessageBoxSample();
             win.ShowDialog();
         }
     }

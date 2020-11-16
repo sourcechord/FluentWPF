@@ -106,22 +106,7 @@ namespace SourceChord.FluentWPF
             win.CommandBindings.Add(new CommandBinding(SystemCommands.MinimizeWindowCommand, (_, __) => { SystemCommands.MinimizeWindow(win); }));
             win.CommandBindings.Add(new CommandBinding(SystemCommands.MaximizeWindowCommand, (_, __) => { SystemCommands.MaximizeWindow(win); }));
             win.CommandBindings.Add(new CommandBinding(SystemCommands.RestoreWindowCommand, (_, __) => { SystemCommands.RestoreWindow(win); }));
-
-
-            // WPFのSizeToContentのバグ対策
-            // (WindowChrome使用時に、SizeToContentのウィンドウサイズ計算が正しく行われない)
-            void onContentRendered(object sender, EventArgs e)
-            {
-                if (win.SizeToContent != SizeToContent.Manual)
-                {
-                    win.InvalidateMeasure();
-                }
-
-                win.ContentRendered -= onContentRendered;
-            }
-            win.ContentRendered += onContentRendered;
         }
-
         #region Dependency Property
 
         public Color TintColor

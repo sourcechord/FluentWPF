@@ -125,5 +125,11 @@ namespace FluentWPFSample
             var win = new Views.MusicPlayer();
             win.ShowDialog();
         }
+
+        private void OpenMessageBoxSample(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.MessageBoxSample();
+            win.ShowDialog();
+        }
     }
 }

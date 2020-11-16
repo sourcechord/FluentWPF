@@ -5,6 +5,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Window.xaml" />
         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Menu.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Button.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <local:AddValueConverter x:Key="addValueConverter" />
@@ -238,5 +239,31 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>-->
+    </Style>
+    <Style TargetType="{x:Type local:AcrylicMessageBoxWindow}" BasedOn="{StaticResource AcrylicWindowStyle}">
+        <Setter Property="ResizeMode" Value="NoResize"/>
+        <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+        <Setter Property="Height" Value="120"/>
+        <Setter Property="MinWidth" Value="240"/>
+        <Setter Property="Content">
+            <Setter.Value>
+                <StackPanel Margin="16,32,16,0">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource ButtonRevealStyle}">
+                            <Setter Property="Margin" Value="16,0"/>
+                            <Setter Property="MinWidth" Value="75"/>
+                            <Setter Property="MinHeight" Value="32"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock HorizontalAlignment="Center" x:Name="messageText"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24" >
+                        <Button x:Name="yesButton"/>
+                        <Button x:Name="noButton"/>
+                        <Button x:Name="okButton"/>
+                        <Button x:Name="cancelButton"/>
+                    </StackPanel>
+                </StackPanel>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

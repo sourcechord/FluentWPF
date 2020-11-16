@@ -1,0 +1,29 @@
+﻿<Window x:Class="FluentWPFSample.Views.MessageBoxSample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FluentWPFSample.Views"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        mc:Ignorable="d"
+        Title="MessageBox" Height="450" Width="800">
+    <DockPanel >
+        <StackPanel DockPanel.Dock="Top" >
+            <StackPanel.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource ButtonRevealStyle}">
+                    <Setter Property="Margin" Value="0,3"/>
+                    <Setter Property="MinHeight" Value="32"/>
+                </Style>
+            </StackPanel.Resources>
+            <Button Click="OnOkClick" >OK</Button>
+            <Button Click="OnYesNoClick">YesNo</Button>
+            <Button Click="OnOkCancelClick">OkCancel</Button>
+            <Button Click="OnYesNoCancelClick">YesNoCancel</Button>
+            <Button Click="OnOkWithIconClick">OkWithIcon</Button>
+            <Button Click="OnCustomYesNoCancelTextClick">CustomYesNoCancelText</Button>
+            <Button Click="OnOkWithOwnerClick">OkWithOwnerClick</Button>
+        </StackPanel>
+        <TextBox x:Name="outputTextBox" IsReadOnly="True" FontSize="18"/>
+    </DockPanel>
+
+</Window>

@@ -24,7 +24,7 @@
 
     <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock" 
            BasedOn="{StaticResource BaseTextBlockStyle}">
-        <Setter Property="FontWeight" Value="SemiLight"/>
+        <Setter Property="FontWeight" Value="Normal"/>
         <Setter Property="FontSize" Value="24"/>
     </Style>
 

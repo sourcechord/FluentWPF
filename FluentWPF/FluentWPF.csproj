@@ -5,6 +5,8 @@
     <TargetFrameworks>net45;netcoreapp3.0</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <RootNamespace>SourceChord.FluentWPF</RootNamespace>
+    
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <!-- <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>

@@ -1,0 +1,668 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Class="SourceChord.FluentWPF.ComboBoxResourceDictionary"
+                    xmlns:local="clr-namespace:SourceChord.FluentWPF"
+                    xmlns:converters="clr-namespace:SourceChord.FluentWPF.Converters">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <Thickness x:Key="ComboBoxBorderThemeThickness">2.5</Thickness>
+            <SolidColorBrush x:Key="TransparentBrush" Color="Transparent" />
+        </ResourceDictionary>
+        <ResourceDictionary Source="TextBox.xaml" />
+        <ResourceDictionary Source="ScrollBar.xaml" />
+        <!-- TODO: Changing system theme while running doesn't change brush -->
+        <local:ResourceDictionaryEx>
+            <local:ResourceDictionaryEx.ThemeDictionaries>
+                <local:ThemeDictionary ThemeName="Light">
+                    <local:ThemeDictionary.MergedDictionaries>
+                        <ResourceDictionary>
+                            <SolidColorBrush x:Key="ImmersiveSystemAccent3Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentLight3)}"/>
+                            <SolidColorBrush x:Key="ImmersiveSystemAccent2Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentLight2)}"/>
+                            <SolidColorBrush x:Key="DropdownBorderBrush" Color="{DynamicResource SystemChromeHighColor}"/>
+                        </ResourceDictionary>
+                    </local:ThemeDictionary.MergedDictionaries>
+                </local:ThemeDictionary>
+                <local:ThemeDictionary ThemeName="Dark">
+                    <local:ThemeDictionary.MergedDictionaries>
+                        <ResourceDictionary>
+                            <SolidColorBrush x:Key="ImmersiveSystemAccent3Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentDark3)}"/>
+                            <SolidColorBrush x:Key="ImmersiveSystemAccent2Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentDark2)}"/>
+                            <SolidColorBrush x:Key="DropdownBorderBrush" Color="{DynamicResource SystemChromeLowColor}"/>
+                        </ResourceDictionary>
+                    </local:ThemeDictionary.MergedDictionaries>
+                </local:ThemeDictionary>
+            </local:ResourceDictionaryEx.ThemeDictionaries>
+        </local:ResourceDictionaryEx>
+    </ResourceDictionary.MergedDictionaries>
+
+    <local:ComboBoxItemVisualStateManager x:Key="ComboBoxItemVisualStateManager" />
+    <local:RelativePositionConverter x:Key="relativePositionConverter" />
+    <converters:HeightToRadiusConverter x:Key="HeightToRadiusConverter" />
+    <converters:RectConverter x:Key="RectConverter" />
+
+    <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="32" />
+            </Grid.ColumnDefinitions>
+            <Border x:Name="Background"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Background="{DynamicResource SystemAltMediumColorBrush}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}" />
+            <TextBlock x:Name="DropDownGlyph"
+                       Grid.Column="1"
+                       IsHitTestVisible="False"
+                       Margin="0,10,10,10"
+                       Foreground="{DynamicResource SystemBaseMediumHighColorBrush}"
+                       FontFamily="Segoe MDL2 Assets"
+                       FontSize="12"
+                       Text="&#xE0E5;"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"/>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Pressed">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Background">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource SystemBaseLowColorBrush}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="BorderBrush">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource SystemBaseMediumLowColorBrush}" />
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+                <VisualStateGroup x:Name="CheckStates">
+                    <VisualState x:Name="Checked">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Background">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource SystemListMediumColorBrush}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="BorderBrush">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource SystemBaseMediumLowColorBrush}" />
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="Unchecked" />
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="Background" Property="BorderBrush" Value="{DynamicResource SystemBaseMediumColorBrush}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+        <Border x:Name="PART_ContentHost"
+                Focusable="False"
+                Background="{TemplateBinding Background}" />
+    </ControlTemplate>
+    
+    <Style x:Key="ComboboxScrollViewer" TargetType="{x:Type ScrollViewer}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Border>
+                            <ScrollContentPresenter />
+                        </Border>
+                        <ScrollBar x:Name="PART_VerticalScrollBar"
+                                   Grid.Column="1" 
+                                   Value="{TemplateBinding VerticalOffset}"
+                                   Maximum="{TemplateBinding ScrollableHeight}"
+                                   ViewportSize="{TemplateBinding ViewportHeight}"
+                                   Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                   Style="{StaticResource ScrollBarStyle1}" />
+                        <ScrollBar x:Name="PART_HorizontalScrollBar"
+                                   Orientation="Horizontal"
+                                   Grid.Row="1"
+                                   Value="{TemplateBinding HorizontalOffset}"
+                                   Maximum="{TemplateBinding ScrollableWidth}"
+                                   ViewportSize="{TemplateBinding ViewportWidth}"
+                                   Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                   Style="{StaticResource ScrollBarStyle1}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ComboBoxRevealStyle" TargetType="{x:Type ComboBox}">
+        <Setter Property="Padding" Value="12,5,0,7" />
+        <Setter Property="MinWidth" Value="64" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SystemAltMediumLowColorBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumLowColorBrush}" />
+        <Setter Property="BorderThickness" Value="{StaticResource ComboBoxBorderThemeThickness}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="Once" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+        <Setter Property="local:RevealElement.MouseOverForeground" Value="{DynamicResource SystemBaseHighColorBrush}" />
+        <Setter Property="local:RevealElement.BorderOpacity" Value="0"/>
+        <Setter Property="local:RevealElement.MouseOverBorderOpacity" Value="0.1" />
+        <Setter Property="local:RevealElement.PressBorderOpacity" Value="0.2" />
+        <Setter Property="local:RevealElement.BorderRadius" Value="0" />
+        <Setter Property="local:RevealElement.PressTintBrush" Value="{DynamicResource SystemBaseLowColorBrush}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid x:Name="LayoutRoot">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="EditStates">
+                                <VisualState x:Name="Editable">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="PART_EditableTextBox">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ContentSite">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Uneditable" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <TextBox x:Name="PART_EditableTextBox"
+                                 Style="{StaticResource TextBoxRevealStyle}"
+                                 BorderThickness="0"
+                                 Width="{TemplateBinding Width}"
+                                 Margin="0 0 32 0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 TextAlignment="Center"
+                                 Focusable="True"
+                                 Visibility="Hidden"
+                                 IsReadOnly="{TemplateBinding IsReadOnly}" />
+                        <ToggleButton x:Name="ToggleButton"
+                                      Template="{StaticResource ComboBoxToggleButton}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, FallbackValue=1}"
+                                      Grid.Column="2"
+                                      Focusable="True"
+                                      ClickMode="Release"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                        <ContentPresenter x:Name="ContentSite"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          TextBlock.Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+                        <!-- TODO: Popup offset according to SelectedIndex, PlacementRectangle=0,x,0,0 / x=-5-(ComboBox.SelectedIndex)*(ComboBoxItem.Height) -->
+                        <Popup x:Name="Popup"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               Width="{TemplateBinding Width}"
+                               Placement="Relative"
+                               PlacementRectangle="0,-5,0,0"
+                               Focusable="False"
+                               MaxHeight="300"
+                               AllowsTransparency="True"
+                               PopupAnimation="Fade">
+                            <Border x:Name="PopupBorder"
+                                    Background="{DynamicResource SystemChromeMediumColorBrush}"
+                                    BorderBrush="{DynamicResource DropdownBorderBrush}"
+                                    BorderThickness="1"
+                                    HorizontalAlignment="Stretch">
+                                <Grid>
+                                    <!-- Tiled noise texture -->
+                                    <Rectangle Margin="-1" x:Name="noiseLayer" Opacity="0.01">
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
+                                                        TileMode="Tile" Stretch="None"
+                                                        ViewportUnits="Absolute" Viewport="0,0,128,128"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <ScrollViewer x:Name="ScrollViewer"
+                                                  Margin="0,4,0,4"
+                                                  Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                                  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                                  CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
+                                                  IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                                  Style="{StaticResource ComboboxScrollViewer}">
+                                        <StackPanel IsItemsHost="True"
+                                                    KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ComboBoxItemFocusVisualStyle">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderThickness="2" BorderBrush="{DynamicResource SystemBaseHighColorBrush}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Height" Value="32"/><!-- absolute or relative? -->
+        <Setter Property="Padding" Value="10,0,10,0"/>
+        <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumHighColorBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10,5,10,6" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="KeyboardNavigation.ControlTabNavigation" Value="None" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxItemFocusVisualStyle}" />
+        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ComboBoxItem_PreviewMouseLeftButtonDown" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border x:Name="LayoutRoot"
+                            Height="{TemplateBinding Height}"
+                            MouseEnter="LayoutRoot_MouseEnter">
+                        <VisualStateManager.CustomVisualStateManager>
+                            <local:ComboBoxItemVisualStateManager />
+                        </VisualStateManager.CustomVisualStateManager>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="FluentCommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="backgroundBorder"
+                                                         To="0.0" Duration="0:0:0.000">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pressLight"
+                                                         To="0" Duration="0:0:0.100">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="backgroundBorder"
+                                                         To="0.5" Duration="0:0:0.000">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusX)" Storyboard.TargetName="brush"
+                                                         To="200" Duration="0:0:0.200">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusY)" Storyboard.TargetName="brush"
+                                                         To="200" Duration="0:0:0.200">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="background" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TransparentBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(TextBlock.Foreground)">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource SystemBaseMediumLowColorBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="backgroundBorder"
+                                                         To="0.5" Duration="0:0:0.000">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pressLight"
+                                                         To="1" Duration="0:0:0.100">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pressLight"
+                                                         To="0" BeginTime="0:0:0.150" Duration="0:0:1.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusX)" Storyboard.TargetName="brush"
+                                                         From="100" To="50" Duration="0:0:0.100">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusX)" Storyboard.TargetName="brush"
+                                                         To="200" BeginTime="0:0:0.150" Duration="0:0:1.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusY)" Storyboard.TargetName="brush"
+                                                         From="100" To="50" Duration="0:0:0.100">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusY)" Storyboard.TargetName="brush"
+                                                         To="200" BeginTime="0:0:0.150" Duration="0:0:1.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="Offset" Storyboard.TargetName="offset"
+                                                         To="0" Duration="0:0:0.000">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="Offset" Storyboard.TargetName="offset"
+                                                         From="0" To="0.8" BeginTime="0:0:0.150" Duration="0:0:1.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="brush"
+                                                         To="0" BeginTime="0:0:0.200" Duration="0:0:2.000">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="border"
+                                                         To="0" Duration="0:0:0.000"/>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" Storyboard.TargetName="itemRoot"
+                                                         To="0.975" Duration="0:0:0.100">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" Storyboard.TargetName="itemRoot"
+                                                         To="0.975" Duration="0:0:0.100">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pressTintLayer" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="background" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ImmersiveSystemAccent3Brush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedDisabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="background" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TransparentBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource SystemBaseMediumLowColorBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedPointerOver">
+                                    <Storyboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="backgroundBorder"
+                                                         To="0.5" Duration="0:0:0.000">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+
+                                            <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusX)" Storyboard.TargetName="brush"
+                                                         To="200" Duration="0:0:0.200">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <SineEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusY)" Storyboard.TargetName="brush"
+                                                         To="200" Duration="0:0:0.200">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <SineEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="background" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ImmersiveSystemAccent2Brush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedPressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="backgroundBorder"
+                                                         To="0.5" Duration="0:0:0.000">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pressLight"
+                                                         To="1" Duration="0:0:0.100">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="pressLight"
+                                                         To="0" BeginTime="0:0:0.150" Duration="0:0:1.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusX)" Storyboard.TargetName="brush"
+                                                         From="100" To="50" Duration="0:0:0.100">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusX)" Storyboard.TargetName="brush"
+                                                         To="200" BeginTime="0:0:0.150" Duration="0:0:1.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusY)" Storyboard.TargetName="brush"
+                                                         From="100" To="50" Duration="0:0:0.100">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="(RadialGradientBrush.RadiusY)" Storyboard.TargetName="brush"
+                                                         To="200" BeginTime="0:0:0.150" Duration="0:0:1.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="Offset" Storyboard.TargetName="offset"
+                                                         To="0" Duration="0:0:0.000">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="Offset" Storyboard.TargetName="offset"
+                                                         From="0" To="0.8" BeginTime="0:0:0.150" Duration="0:0:1.500">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="brush"
+                                                         To="0" BeginTime="0:0:0.200" Duration="0:0:2.000">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pressTintLayer" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="background" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ImmersiveSystemAccent2Brush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid x:Name="itemRoot">
+                            <Grid.RenderTransformOrigin>
+                                <Point X="0.5" Y="0.5"/>
+                            </Grid.RenderTransformOrigin>
+                            <Grid.RenderTransform>
+                                <ScaleTransform ScaleX="1.0" ScaleY="1.0"/>
+                            </Grid.RenderTransform>
+
+                            <!-- MouseOver border -->
+                            <Grid x:Name="border" Visibility="Hidden">
+                                <Border x:Name="borderMouseOver"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Visibility="Hidden"
+                                        Opacity="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.BorderOpacity)}"
+                                        CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.BorderRadius)}"/>
+
+                                <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                        OpacityMask="{local:RevealBrush Color=White,Size=70,Opacity=0.3}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.BorderRadius)}"/>
+                            </Grid>
+
+                            <!-- Background -->
+                            <Border x:Name="background"
+                                    Background="{TemplateBinding Background}"
+                                    Margin="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.BorderRadius)}"/>
+                            <Border x:Name="pressTintLayer"
+                                    Background="Transparent"
+                                    Margin="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.BorderRadius)}"
+                                    Visibility="Visible"/>
+                            <Border x:Name="backgroundBorder"
+                                    Opacity="0"
+                                    Margin="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.BorderRadius)}">
+                                <Grid ClipToBounds="True">
+                                    <Border x:Name="mouseoverLight" Background="{local:RevealBrush Color=White, Size = 300,Opacity=0.2}" Visibility="Hidden"
+                                            CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.BorderRadius)}"/>
+                                    <Rectangle x:Name="pressLight" Opacity="0">
+                                        <Rectangle.Clip>
+                                            <RectangleGeometry RadiusX="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.BorderRadius)}"
+                                                               RadiusY="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.BorderRadius)}">
+                                                <RectangleGeometry.Rect>
+                                                    <MultiBinding Converter="{StaticResource RectConverter}">
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="ActualWidth"/>
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="ActualHeight"/>
+                                                    </MultiBinding>
+                                                </RectangleGeometry.Rect>
+                                            </RectangleGeometry>
+                                        </Rectangle.Clip>
+                                        <Rectangle.Fill>
+                                            <RadialGradientBrush x:Name="brush" MappingMode="Absolute" RadiusY="200" RadiusX="200">
+                                                <RadialGradientBrush.Center>
+                                                    <MultiBinding Converter="{StaticResource relativePositionConverter}">
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.RootObject)"/>
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}"/>
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.Position)" />
+                                                    </MultiBinding>
+                                                </RadialGradientBrush.Center>
+                                                <RadialGradientBrush.GradientOrigin>
+                                                    <MultiBinding Converter="{StaticResource relativePositionConverter}">
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.RootObject)"/>
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}"/>
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Rectangle}}" Path="(local:PointerTracker.Position)" />
+                                                    </MultiBinding>
+                                                </RadialGradientBrush.GradientOrigin>
+                                                <GradientStop Color="Transparent" Offset="0"/>
+                                                <GradientStop x:Name="offset" Color="#88FFFFFF" Offset="0.5"/>
+                                                <GradientStop Color="Transparent" Offset="1"/>
+                                            </RadialGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
+                            </Border>
+
+                            <!-- Content -->
+                            <Border BorderBrush="{x:Null}"
+                                    Margin="{TemplateBinding BorderThickness}"
+                                    Padding="{TemplateBinding Padding}"
+                                    CornerRadius="{Binding  RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.BorderRadius)}">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  TextBlock.Foreground="{TemplateBinding Foreground}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Focusable="False" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="background" Property="Background"
+                                    Value="{DynamicResource SystemListLowColorBrush}"/>
+                            <Setter TargetName="ContentPresenter" Property="TextBlock.Foreground"
+                                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.MouseOverForeground)}"/>
+                            <Setter TargetName="borderMouseOver" Property="Opacity"
+                                    Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Path=(local:RevealElement.MouseOverBorderOpacity)}"/>
+                            <Setter TargetName="mouseoverLight" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="border" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

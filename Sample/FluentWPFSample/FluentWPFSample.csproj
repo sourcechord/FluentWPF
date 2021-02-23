@@ -105,6 +105,9 @@
     <Compile Include="Views\RevealStyles.xaml.cs">
       <DependentUpon>RevealStyles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TextStyles.xaml.cs">
+      <DependentUpon>TextStyles.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -182,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RevealStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TextStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

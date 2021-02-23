@@ -1,0 +1,21 @@
+﻿<fw:AcrylicWindow x:Class="FluentWPFSample.Views.TextStyles"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:local="clr-namespace:FluentWPFSample.Views"
+                  xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        mc:Ignorable="d"
+        Title="TextStyles" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="TextBlock" Style="{StaticResource BaseTextBlockStyle}"/>
+            <TextBlock Text="TextBlock" Style="{StaticResource HeaderTextBlockStyle}"/>
+            <TextBlock Text="TextBlock" Style="{StaticResource SubheaderTextBlockStyle}"/>
+            <TextBlock Text="TextBlock" Style="{StaticResource TitleTextBlockStyle}"/>
+            <TextBlock Text="TextBlock" Style="{StaticResource SubtitleTextBlockStyle}"/>
+            <TextBlock Text="TextBlock" Style="{StaticResource BodyTextBlockStyle}"/>
+
+        </StackPanel>
+    </Grid>
+</fw:AcrylicWindow>

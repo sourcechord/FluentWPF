@@ -36,9 +36,10 @@
                     <Button Content="ParallaxView" Click="OpenParallax" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="AccentColors">
+            <GroupBox Header="Resources">
                 <StackPanel Orientation="Horizontal">
                     <Button Content="AccentColors" Click="OpenAccentColors" />
+                    <Button Content="Text Styles" Click="OpenTextStyles" />
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Other">

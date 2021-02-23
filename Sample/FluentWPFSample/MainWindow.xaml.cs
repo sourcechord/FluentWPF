@@ -90,6 +90,12 @@ namespace FluentWPFSample
             win.ShowDialog();
         }
 
+        private void OpenTextStyles(object sender, RoutedEventArgs e)
+        {
+            var win = new Views.TextStyles();
+            win.ShowDialog();
+        }
+
         private void OpenLogo(object sender, RoutedEventArgs e)
         {
             var win = new Views.Logo();

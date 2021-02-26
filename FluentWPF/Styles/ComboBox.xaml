@@ -18,7 +18,7 @@
                         <ResourceDictionary>
                             <SolidColorBrush x:Key="ImmersiveSystemAccent3Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentLight3)}"/>
                             <SolidColorBrush x:Key="ImmersiveSystemAccent2Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentLight2)}"/>
-                            <SolidColorBrush x:Key="DropdownBorderBrush" Color="{DynamicResource SystemChromeHighColor}"/>
+                            <!--<SolidColorBrush x:Key="DropdownBorderBrush" Color="{DynamicResource SystemChromeHighColor}"/>-->
                         </ResourceDictionary>
                     </local:ThemeDictionary.MergedDictionaries>
                 </local:ThemeDictionary>
@@ -27,7 +27,7 @@
                         <ResourceDictionary>
                             <SolidColorBrush x:Key="ImmersiveSystemAccent3Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentDark3)}"/>
                             <SolidColorBrush x:Key="ImmersiveSystemAccent2Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentDark2)}"/>
-                            <SolidColorBrush x:Key="DropdownBorderBrush" Color="{DynamicResource SystemChromeLowColor}"/>
+                            <!--<SolidColorBrush x:Key="DropdownBorderBrush" Color="{DynamicResource SystemChromeLowColor}"/>-->
                         </ResourceDictionary>
                     </local:ThemeDictionary.MergedDictionaries>
                 </local:ThemeDictionary>
@@ -218,7 +218,7 @@
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
 
                         <!-- TODO: Popup offset according to SelectedIndex, PlacementRectangle=0,x,0,0 / x=-5-(ComboBox.SelectedIndex)*(ComboBoxItem.Height) -->
-                        <Popup x:Name="Popup"
+                        <local:AcrylicPopup x:Name="PART_Popup"
                                IsOpen="{TemplateBinding IsDropDownOpen}"
                                Width="{TemplateBinding Width}"
                                Placement="Relative"
@@ -227,34 +227,23 @@
                                MaxHeight="300"
                                AllowsTransparency="True"
                                PopupAnimation="Fade">
-                            <Border x:Name="PopupBorder"
-                                    Background="{DynamicResource SystemChromeMediumColorBrush}"
-                                    BorderBrush="{DynamicResource DropdownBorderBrush}"
+                            <Border Background="#01FFFFFF" 
+                                    BorderBrush="{DynamicResource SystemChromeHighColorBrush}"
                                     BorderThickness="1"
                                     HorizontalAlignment="Stretch">
-                                <Grid>
-                                    <!-- Tiled noise texture -->
-                                    <Rectangle Margin="-1" x:Name="noiseLayer" Opacity="0.01">
-                                        <Rectangle.Fill>
-                                            <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
-                                                        TileMode="Tile" Stretch="None"
-                                                        ViewportUnits="Absolute" Viewport="0,0,128,128"/>
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                    <ScrollViewer x:Name="ScrollViewer"
-                                                  Margin="0,4,0,4"
-                                                  Foreground="{DynamicResource SystemBaseHighColorBrush}"
-                                                  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
-                                                  CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
-                                                  IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
-                                                  Style="{StaticResource ComboboxScrollViewer}">
-                                        <StackPanel IsItemsHost="True"
-                                                    KeyboardNavigation.DirectionalNavigation="Contained"/>
-                                    </ScrollViewer>
-                                </Grid>
+                                <ScrollViewer Margin="0,4,0,4"
+                                              Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                              CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
+                                              IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                              SnapsToDevicePixels="True"
+                                              Style="{StaticResource ComboboxScrollViewer}">
+                                    <StackPanel IsItemsHost="True"
+                                                KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                </ScrollViewer>
                             </Border>
-                        </Popup>
+                        </local:AcrylicPopup>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

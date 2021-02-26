@@ -217,16 +217,15 @@
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
 
-                        <!-- TODO: Popup offset according to SelectedIndex, PlacementRectangle=0,x,0,0 / x=-5-(ComboBox.SelectedIndex)*(ComboBoxItem.Height) -->
                         <local:AcrylicPopup x:Name="PART_Popup"
-                               IsOpen="{TemplateBinding IsDropDownOpen}"
-                               Width="{TemplateBinding Width}"
-                               Placement="Relative"
-                               PlacementRectangle="0,-5,0,0"
-                               Focusable="False"
-                               MaxHeight="300"
-                               AllowsTransparency="True"
-                               PopupAnimation="Fade">
+                                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                                            Width="{TemplateBinding Width}"
+                                            Placement="Bottom"
+                                            PlacementTarget="{Binding ElementName=ToggleButton}"
+                                            Focusable="False"
+                                            MaxHeight="300"
+                                            AllowsTransparency="True"
+                                            PopupAnimation="Fade">
                             <Border Background="#01FFFFFF" 
                                     BorderBrush="{DynamicResource SystemChromeHighColorBrush}"
                                     BorderThickness="1"

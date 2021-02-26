@@ -57,6 +57,15 @@
             <PasswordBox HorizontalAlignment="Left" Margin="5" Width="200"
                          Style="{StaticResource PasswordBoxRevealStyle}"
                          fw:Extensions.PlaceholderText="Password" fw:Extensions.Header="Password"/>
+
+            <ComboBox HorizontalAlignment="Left" Width="200" Margin="5"
+                      Style="{StaticResource ComboBoxRevealStyle}">
+                <ComboBoxItem>Item1</ComboBoxItem>
+                <ComboBoxItem>Item2</ComboBoxItem>
+                <ComboBoxItem>Item3</ComboBoxItem>
+                <ComboBoxItem>Item4</ComboBoxItem>
+                <ComboBoxItem>Item5</ComboBoxItem>
+            </ComboBox>
         </StackPanel>
     </Grid>
 </fw:AcrylicWindow>

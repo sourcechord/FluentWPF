@@ -9,6 +9,7 @@
         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Menu.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
     <local:AddValueConverter x:Key="addValueConverter" />
     <local:BrushTranslationConverter x:Key="brushTranslationConverter" />
 
@@ -407,6 +408,7 @@
                                 Visibility="Hidden"/>
                         <Border x:Name="backgroundBorder"
                                 Opacity="0"
+                                Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:RevealPanel}, Path=(local:RevealElement.IsHoverLightEnabled), Converter={StaticResource booleanToVisibilityConverter}}"
                                 CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:RevealPanel}, Path=(local:RevealElement.BorderRadius)}">
                             <Grid ClipToBounds="True">
                                 <Border x:Name="mouseoverLight" Background="{local:RevealBrush Color=White, Size = 300,Opacity=0.2}"

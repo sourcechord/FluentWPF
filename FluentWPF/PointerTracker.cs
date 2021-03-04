@@ -333,6 +333,16 @@ namespace SourceChord.FluentWPF
         public static readonly DependencyProperty PressTintBrushProperty =
             DependencyProperty.RegisterAttached("PressTintBrush", typeof(Brush), typeof(RevealElement), new PropertyMetadata(Brushes.Gray));
 
-
+        public static bool GetIsHoverLightEnabled(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(IsHoverLightEnabledProperty);
+        }
+        public static void SetIsHoverLightEnabled(DependencyObject obj, bool value)
+        {
+            obj.SetValue(IsHoverLightEnabledProperty, value);
+        }
+        // Using a DependencyProperty as the backing store for IsHoverLightEnabled.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsHoverLightEnabledProperty =
+            DependencyProperty.RegisterAttached("IsHoverLightEnabled", typeof(bool), typeof(RevealElement), new PropertyMetadata(true));
     }
 }

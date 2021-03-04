@@ -9,12 +9,26 @@
                     <local:ThemeDictionary.MergedDictionaries>
                         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Colors.Light.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Brushes.xaml" />
+                        <!-- Accent colors-->
+                        <ResourceDictionary>
+                            <SolidColorBrush x:Key="ImmersiveSystemAccentBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" />
+                            <SolidColorBrush x:Key="ImmersiveSystemAccent1Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentLight1)}" />
+                            <SolidColorBrush x:Key="ImmersiveSystemAccent2Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentLight2)}" />
+                            <SolidColorBrush x:Key="ImmersiveSystemAccent3Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentLight3)}" />
+                        </ResourceDictionary>
                     </local:ThemeDictionary.MergedDictionaries>
                 </local:ThemeDictionary>
                 <local:ThemeDictionary ThemeName="Dark">
                     <local:ThemeDictionary.MergedDictionaries>
                         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Colors.Dark.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Brushes.xaml" />
+                        <!-- Accent colors-->
+                        <ResourceDictionary>
+                            <SolidColorBrush x:Key="ImmersiveSystemAccentBrush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccent)}" />
+                            <SolidColorBrush x:Key="ImmersiveSystemAccent1Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentDark1)}" />
+                            <SolidColorBrush x:Key="ImmersiveSystemAccent2Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentDark2)}" />
+                            <SolidColorBrush x:Key="ImmersiveSystemAccent3Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentDark3)}" />
+                        </ResourceDictionary>
                     </local:ThemeDictionary.MergedDictionaries>
                 </local:ThemeDictionary>
             </local:ResourceDictionaryEx.ThemeDictionaries>

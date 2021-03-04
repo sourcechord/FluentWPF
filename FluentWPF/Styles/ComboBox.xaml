@@ -3,36 +3,9 @@
                     xmlns:local="clr-namespace:SourceChord.FluentWPF"
                     xmlns:converters="clr-namespace:SourceChord.FluentWPF.Converters">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary>
-            <Thickness x:Key="ComboBoxBorderThemeThickness">2.5</Thickness>
-            <SolidColorBrush x:Key="TransparentBrush" Color="Transparent" />
-        </ResourceDictionary>
         <ResourceDictionary Source="Button.xaml" />
         <ResourceDictionary Source="TextBox.xaml" />
         <ResourceDictionary Source="ScrollBar.xaml" />
-        <!-- TODO: Changing system theme while running doesn't change brush -->
-        <local:ResourceDictionaryEx>
-            <local:ResourceDictionaryEx.ThemeDictionaries>
-                <local:ThemeDictionary ThemeName="Light">
-                    <local:ThemeDictionary.MergedDictionaries>
-                        <ResourceDictionary>
-                            <SolidColorBrush x:Key="ImmersiveSystemAccent3Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentLight3)}"/>
-                            <SolidColorBrush x:Key="ImmersiveSystemAccent2Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentLight2)}"/>
-                            <!--<SolidColorBrush x:Key="DropdownBorderBrush" Color="{DynamicResource SystemChromeHighColor}"/>-->
-                        </ResourceDictionary>
-                    </local:ThemeDictionary.MergedDictionaries>
-                </local:ThemeDictionary>
-                <local:ThemeDictionary ThemeName="Dark">
-                    <local:ThemeDictionary.MergedDictionaries>
-                        <ResourceDictionary>
-                            <SolidColorBrush x:Key="ImmersiveSystemAccent3Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentDark3)}"/>
-                            <SolidColorBrush x:Key="ImmersiveSystemAccent2Brush" Color="{Binding Path=(local:AccentColors.ImmersiveSystemAccentDark2)}"/>
-                            <!--<SolidColorBrush x:Key="DropdownBorderBrush" Color="{DynamicResource SystemChromeLowColor}"/>-->
-                        </ResourceDictionary>
-                    </local:ThemeDictionary.MergedDictionaries>
-                </local:ThemeDictionary>
-            </local:ResourceDictionaryEx.ThemeDictionaries>
-        </local:ResourceDictionaryEx>
     </ResourceDictionary.MergedDictionaries>
 
     <local:RelativePositionConverter x:Key="relativePositionConverter" />
@@ -150,14 +123,15 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0,1" />
         <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumHighColorBrush}" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBoxItem">
                     <local:RevealPanel x:Name="revealPanel"
                                        Background="{TemplateBinding Background}"
                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                       BorderBrush="{TemplateBinding BorderBrush}">
+                                       BorderBrush="{TemplateBinding BorderBrush}"
+                                       HorizontalContentAlignment="Stretch"
+                                       Padding="{TemplateBinding Padding}">
                         <ContentPresenter x:Name="ContentPresenter"
                                                   Content="{TemplateBinding Content}"
                                                   ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -172,7 +146,7 @@
                             <Setter TargetName="revealPanel" Property="local:RevealElement.IsHoverLightEnabled" Value="False"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="revealPanel" Property="Background" Value="{x:Static local:AccentColors.ImmersiveSystemAccentBrush}"/>
+                            <Setter TargetName="revealPanel" Property="Background" Value="{DynamicResource ImmersiveSystemAccent3Brush}"/>
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -180,7 +154,7 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter TargetName="revealPanel" Property="local:RevealElement.MouseOverBackground" Value="{x:Static local:AccentColors.ImmersiveSystemAccentBrush}"/>
+                                <Setter TargetName="revealPanel" Property="local:RevealElement.MouseOverBackground" Value="{DynamicResource ImmersiveSystemAccent2Brush}"/>
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
@@ -188,17 +162,17 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="ComboBoxRevealStyle" TargetType="{x:Type ComboBox}">
         <Setter Property="Padding" Value="12,5,0,7" />
         <Setter Property="MinWidth" Value="64" />
         <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBrush}" />
         <Setter Property="Background" Value="{DynamicResource SystemAltMediumLowColorBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumLowColorBrush}" />
-        <Setter Property="BorderThickness" Value="{StaticResource ComboBoxBorderThemeThickness}" />
+        <Setter Property="BorderThickness" Value="2.5" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="UseLayoutRounding" Value="True" />
@@ -274,7 +248,7 @@
                                             MaxHeight="300"
                                             AllowsTransparency="True"
                                             PopupAnimation="Fade">
-                            <Border Background="{DynamicResource SystemChromeWhiteColorBrush}"
+                            <Border Background="{DynamicResource SystemAltHighColorBrush}"
                                     BorderBrush="{DynamicResource SystemChromeHighColorBrush}"
                                     BorderThickness="1"
                                     HorizontalAlignment="Stretch">
@@ -292,16 +266,6 @@
                             </Border>
                         </local:AcrylicPopup>
                     </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="ComboBoxItemFocusVisualStyle">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Border BorderThickness="2" BorderBrush="{DynamicResource SystemBaseHighColorBrush}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

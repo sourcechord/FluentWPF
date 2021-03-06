@@ -3,9 +3,10 @@
                     xmlns:local="clr-namespace:SourceChord.FluentWPF"
                     xmlns:converters="clr-namespace:SourceChord.FluentWPF.Converters">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Button.xaml" />
-        <ResourceDictionary Source="TextBox.xaml" />
-        <ResourceDictionary Source="ScrollBar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Window.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Button.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/TextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/ScrollBar.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <local:RelativePositionConverter x:Key="relativePositionConverter" />
@@ -248,10 +249,10 @@
                                             MaxHeight="300"
                                             AllowsTransparency="True"
                                             PopupAnimation="Fade">
-                            <Border Background="{DynamicResource SystemAltHighColorBrush}"
-                                    BorderBrush="{DynamicResource SystemChromeHighColorBrush}"
-                                    BorderThickness="1"
-                                    HorizontalAlignment="Stretch">
+                            <ContentControl Style="{StaticResource AcrylicContentControlStyle}"
+                                            BorderBrush="{DynamicResource SystemChromeHighColorBrush}"
+                                            BorderThickness="1"
+                                            HorizontalAlignment="Stretch">
                                 <ScrollViewer Margin="0,4,0,4"
                                               Foreground="{DynamicResource SystemBaseHighColorBrush}"
                                               HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
@@ -263,7 +264,7 @@
                                     <StackPanel IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Contained"/>
                                 </ScrollViewer>
-                            </Border>
+                            </ContentControl>
                         </local:AcrylicPopup>
                     </Grid>
                 </ControlTemplate>

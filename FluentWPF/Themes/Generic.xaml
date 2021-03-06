@@ -95,6 +95,9 @@
     </Style>
 
     <Style TargetType="{x:Type local:AcrylicPanel}">
+        <Setter Property="TintColor" Value="White" />
+        <Setter Property="TintOpacity" Value="0.0" />
+        <Setter Property="NoiseOpacity" Value="0.03" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="ClipToBounds" Value="False" />
@@ -140,30 +143,16 @@
                                 </Rectangle>
                             </ContentControl>
                         </Canvas>
-                        <!-- tint layer -->
-                        <Rectangle Opacity="{Binding TintOpacity, RelativeSource={RelativeSource AncestorType={x:Type local:AcrylicPanel}}}">
-                            <Rectangle.Fill>
-                                <SolidColorBrush Color="{Binding TintColor, RelativeSource={RelativeSource AncestorType={x:Type local:AcrylicPanel}}}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
 
-                        <!-- noise layer -->
-                        <Rectangle Opacity="{Binding NoiseOpacity, RelativeSource={RelativeSource AncestorType={x:Type local:AcrylicPanel}}}">
-                            <Rectangle.Fill>
-                                <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
-                                                TileMode="Tile" Stretch="None"
-                                                ViewportUnits="Absolute" Viewport="0,0,128,128"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        <ContentControl Style="{StaticResource AcrylicContentControlStyle}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </ContentControl>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
 
     <Style TargetType="{x:Type local:AcrylicContextMenu}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -175,27 +164,9 @@
                     <ControlTemplate.Resources>
                         <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource AcrylicMenuItemStyle}" />
                     </ControlTemplate.Resources>
-                    <Border x:Name="ContextMenuBorder"
-                            BorderBrush="{DynamicResource SystemAltMediumColorBrush}"
-                            Background="Transparent">
-                        <Grid >
-                            <!-- Color tint overlay -->
-                            <Rectangle x:Name="tintColorLayer"
-                                       Opacity="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=(local:AcrylicWindow.TintOpacity)}">
-                                <Rectangle.Fill>
-                                    <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=Rectangle}, Path=(local:AcrylicWindow.TintColor)}" />
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <!-- Tiled noise texture -->
-                            <Rectangle x:Name="noiseLayer"
-                                       Opacity="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=(local:AcrylicWindow.NoiseOpacity)}">
-                                <Rectangle.Fill>
-                                    <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
-                                                TileMode="Tile" Stretch="None"
-                                                ViewportUnits="Absolute" Viewport="0,0,128,128"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-
+                    <ContentControl Style="{StaticResource AcrylicContentControlStyle}"
+                                    BorderBrush="{DynamicResource SystemAltMediumColorBrush}">
+                        <Grid>
                             <local:DropShadowPanel Margin="29,0,0,0" ShadowMode="Outer" ShadowOpacity="0.3"
                                                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BlurRadius="7">
                                 <Rectangle Fill="{DynamicResource SystemAltLowColorBrush}"/>
@@ -209,7 +180,7 @@
                                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.TabNavigation="Cycle"/>
                             </ScrollViewer>
                         </Grid>
-                    </Border>
+                    </ContentControl>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

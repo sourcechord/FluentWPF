@@ -172,6 +172,35 @@
         </Setter>
     </Style>
 
+    <Style x:Key="AcrylicContentControlStyle" TargetType="{x:Type ContentControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContentControl}">
+                    <Border x:Name="ContextMenuBorder"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <!-- Color tint overlay -->
+                            <Rectangle x:Name="tintColorLayer"
+                                       Fill="{TemplateBinding local:AcrylicElement.TintColor, Converter={StaticResource ColorToSolidColorBrushConverter}}"
+                                       Opacity="{TemplateBinding local:AcrylicElement.TintOpacity}" />
+                            <!-- Tiled noise texture -->
+                            <Rectangle x:Name="noiseLayer"
+                                       Opacity="{TemplateBinding local:AcrylicElement.NoiseOpacity}">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
+                                                TileMode="Tile" Stretch="None"
+                                                ViewportUnits="Absolute" Viewport="0,0,128,128"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <ContentPresenter />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <ControlTemplate TargetType="{x:Type Window}" x:Key="AcrylicWindowTemplate">
         <Border x:Name="windowBorder"
                 BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=BorderBrush}"
@@ -299,24 +328,13 @@
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Grid >
-                        <!-- Color tint overlay -->
-                        <Rectangle x:Name="tintColorLayer"
-                                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.TintColor), Converter={StaticResource ColorToSolidColorBrushConverter}}"
-                                   Opacity="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.TintOpacity)}" />
-                        <!-- Tiled noise texture -->
-                        <Rectangle x:Name="noiseLayer"
-                                       Opacity="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.NoiseOpacity)}">
-                            <Rectangle.Fill>
-                                <ImageBrush ImageSource="/FluentWPF;component/Assets/Images/noise.png"
-                                                TileMode="Tile" Stretch="None"
-                                                ViewportUnits="Absolute" Viewport="0,0,128,128"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-
+                    <Grid>
+                        <!-- Acrylic overlay layer -->
+                        <ContentControl x:Name="acrylicLayer"
+                                        Style="{StaticResource AcrylicContentControlStyle}" />
                         <!-- Fallback color layer -->
                         <Rectangle x:Name="fallbackLayer" Visibility="Collapsed"
-                                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.FallbackColor), Converter={StaticResource ColorToSolidColorBrushConverter}}"/>
+                                   Fill="{TemplateBinding local:AcrylicWindow.FallbackColor, Converter={StaticResource ColorToSolidColorBrushConverter}}"/>
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="{Binding ActualHeight, ElementName=captionGrid, FallbackValue=0}"/>
@@ -330,8 +348,7 @@
                     </Grid>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
-                            <Setter TargetName="tintColorLayer" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="noiseLayer" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="acrylicLayer" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="fallbackLayer" Property="Visibility" Value="Visible" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(local:AcrylicWindow.ExtendViewIntoTitleBar)}" Value="True">

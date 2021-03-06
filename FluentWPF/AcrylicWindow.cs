@@ -346,7 +346,7 @@ namespace SourceChord.FluentWPF
 
         // Using a DependencyProperty as the backing store for TintOpacity.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TintOpacityProperty =
-            DependencyProperty.RegisterAttached("TintOpacity", typeof(double), typeof(AcrylicElement), new PropertyMetadata(0.6));
+            DependencyProperty.RegisterAttached("TintOpacity", typeof(double), typeof(AcrylicElement), new FrameworkPropertyMetadata(0.6, FrameworkPropertyMetadataOptions.Inherits));
 
 
 
@@ -363,7 +363,7 @@ namespace SourceChord.FluentWPF
 
         // Using a DependencyProperty as the backing store for NoiseOpacity.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty NoiseOpacityProperty =
-            DependencyProperty.RegisterAttached("NoiseOpacity", typeof(double), typeof(AcrylicElement), new PropertyMetadata(0.03));
+            DependencyProperty.RegisterAttached("NoiseOpacity", typeof(double), typeof(AcrylicElement), new FrameworkPropertyMetadata(0.03, FrameworkPropertyMetadataOptions.Inherits));
 
 
 
@@ -395,7 +395,7 @@ namespace SourceChord.FluentWPF
 
         // Using a DependencyProperty as the backing store for ExtendViewIntoTitleBar.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ExtendViewIntoTitleBarProperty =
-            DependencyProperty.RegisterAttached("ExtendViewIntoTitleBar", typeof(bool), typeof(AcrylicElement), new PropertyMetadata(false));
+            DependencyProperty.RegisterAttached("ExtendViewIntoTitleBar", typeof(bool), typeof(AcrylicElement), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
 
 
         public static AcrylicWindowStyle GetAcrylicWindowStyle(DependencyObject obj)
@@ -410,7 +410,7 @@ namespace SourceChord.FluentWPF
 
         // Using a DependencyProperty as the backing store for AcrylicWindowStyle.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AcrylicWindowStyleProperty =
-            DependencyProperty.RegisterAttached("AcrylicWindowStyle", typeof(AcrylicWindowStyle), typeof(AcrylicElement), new PropertyMetadata(AcrylicWindowStyle.Normal));
+            DependencyProperty.RegisterAttached("AcrylicWindowStyle", typeof(AcrylicWindowStyle), typeof(AcrylicElement), new FrameworkPropertyMetadata(AcrylicWindowStyle.Normal, FrameworkPropertyMetadataOptions.Inherits));
 
 
         public static FrameworkElement GetTitleBar(DependencyObject obj)
@@ -425,7 +425,7 @@ namespace SourceChord.FluentWPF
 
         // Using a DependencyProperty as the backing store for TitleBar.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TitleBarProperty =
-            DependencyProperty.RegisterAttached("TitleBar", typeof(FrameworkElement), typeof(AcrylicElement), new PropertyMetadata(null));
+            DependencyProperty.RegisterAttached("TitleBar", typeof(FrameworkElement), typeof(AcrylicElement), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
 
         public static TitleBarMode GetTitleBarMode(DependencyObject obj)
@@ -440,7 +440,7 @@ namespace SourceChord.FluentWPF
 
         // Using a DependencyProperty as the backing store for TitleBarMode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TitleBarModeProperty =
-            DependencyProperty.RegisterAttached("TitleBarMode", typeof(TitleBarMode), typeof(AcrylicElement), new PropertyMetadata(TitleBarMode.Default));
+            DependencyProperty.RegisterAttached("TitleBarMode", typeof(TitleBarMode), typeof(AcrylicElement), new FrameworkPropertyMetadata(TitleBarMode.Default, FrameworkPropertyMetadataOptions.Inherits));
     }
 
 

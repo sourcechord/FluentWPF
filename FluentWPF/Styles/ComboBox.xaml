@@ -71,12 +71,6 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
-        <Border x:Name="PART_ContentHost"
-                Focusable="False"
-                Background="{TemplateBinding Background}" />
-    </ControlTemplate>
-    
     <Style x:Key="ComboboxScrollViewer" TargetType="{x:Type ScrollViewer}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Template">
@@ -133,13 +127,13 @@
                                        BorderBrush="{TemplateBinding BorderBrush}"
                                        HorizontalContentAlignment="Stretch"
                                        Padding="{TemplateBinding Padding}">
-                        <ContentPresenter x:Name="ContentPresenter"
-                                                  Content="{TemplateBinding Content}"
-                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                  TextBlock.Foreground="{TemplateBinding Foreground}"
-                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                  Focusable="False" />
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          TextBlock.Foreground="{TemplateBinding Foreground}"
+                                          TextBlock.FontSize="14"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Focusable="False" />
                     </local:RevealPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="False">
@@ -164,8 +158,118 @@
         </Setter>
     </Style>
 
+    <ControlTemplate x:Key="ComboBoxRevealTemplate" TargetType="{x:Type ComboBox}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" MinWidth="32" />
+            </Grid.ColumnDefinitions>
+            <ToggleButton x:Name="ToggleButton"
+                          Template="{StaticResource ComboBoxToggleButton}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, FallbackValue=1}"
+                          Grid.ColumnSpan="2"
+                          Focusable="True"
+                          ClickMode="Release"
+                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+            <ContentPresenter x:Name="contentPresenter"
+                              IsHitTestVisible="False"
+                              Content="{TemplateBinding SelectionBoxItem}"
+                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                              TextBlock.Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                              TextBlock.FontSize="14"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+            <local:AcrylicPopup x:Name="PART_Popup"
+                                IsOpen="{TemplateBinding IsDropDownOpen}"
+                                Width="{TemplateBinding Width}"
+                                Placement="Bottom"
+                                PlacementTarget="{Binding ElementName=ToggleButton}"
+                                Focusable="False"
+                                MaxHeight="300"
+                                AllowsTransparency="True"
+                                PopupAnimation="Fade">
+                <ContentControl Style="{StaticResource AcrylicContentControlStyle}"
+                                BorderBrush="{DynamicResource SystemChromeHighColorBrush}"
+                                BorderThickness="1"
+                                HorizontalAlignment="Stretch">
+                    <ScrollViewer Margin="0,4,0,4"
+                                  Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                  CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
+                                  IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                  SnapsToDevicePixels="True"
+                                  Style="{StaticResource ComboboxScrollViewer}">
+                        <StackPanel IsItemsHost="True"
+                                    TextBlock.Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                    TextBlock.FontSize="14"
+                                    KeyboardNavigation.DirectionalNavigation="Contained"/>
+                    </ScrollViewer>
+                </ContentControl>
+            </local:AcrylicPopup>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ComboBoxRevealEditableTemplate" TargetType="{x:Type ComboBox}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" MinWidth="32" />
+            </Grid.ColumnDefinitions>
+            <ToggleButton x:Name="ToggleButton"
+                          Template="{StaticResource ComboBoxToggleButton}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, FallbackValue=1}"
+                          Grid.ColumnSpan="2"
+                          Focusable="True"
+                          ClickMode="Release"
+                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+            <Border Margin="{TemplateBinding BorderThickness}">
+                <TextBox x:Name="PART_EditableTextBox"
+                         BorderThickness="0"
+                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                         IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
+                         Margin="{TemplateBinding Padding}"
+                         Padding="0"
+                        Style="{StaticResource TextBoxRevealStyle}"/>
+            </Border>
+
+            <local:AcrylicPopup x:Name="PART_Popup"
+                                IsOpen="{TemplateBinding IsDropDownOpen}"
+                                Width="{TemplateBinding Width}"
+                                Placement="Bottom"
+                                PlacementTarget="{Binding ElementName=ToggleButton}"
+                                Focusable="False"
+                                MaxHeight="300"
+                                AllowsTransparency="True"
+                                PopupAnimation="Fade">
+                <ContentControl Style="{StaticResource AcrylicContentControlStyle}"
+                                BorderBrush="{DynamicResource SystemChromeHighColorBrush}"
+                                BorderThickness="1"
+                                HorizontalAlignment="Stretch">
+                    <ScrollViewer Margin="0,4,0,4"
+                                  Foreground="{DynamicResource SystemBaseHighColorBrush}"
+                                  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                  CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
+                                  IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                  SnapsToDevicePixels="True"
+                                  Style="{StaticResource ComboboxScrollViewer}">
+                        <StackPanel IsItemsHost="True"
+                                    KeyboardNavigation.DirectionalNavigation="Contained"/>
+                    </ScrollViewer>
+                </ContentControl>
+            </local:AcrylicPopup>
+        </Grid>
+    </ControlTemplate>
+
     <Style x:Key="ComboBoxRevealStyle" TargetType="{x:Type ComboBox}">
-        <Setter Property="Padding" Value="12,5,0,7" />
+        <Setter Property="Padding" Value="5" />
         <Setter Property="MinWidth" Value="64" />
         <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBrush}" />
         <Setter Property="Background" Value="{DynamicResource SystemAltMediumLowColorBrush}" />
@@ -192,83 +296,13 @@
         <Setter Property="local:RevealElement.PressTintBrush" Value="{DynamicResource SystemBaseLowColorBrush}" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxRevealItemContainerStyle}" />
 
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ComboBox}">
-                    <Grid x:Name="LayoutRoot">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="EditStates">
-                                <VisualState x:Name="Editable">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="PART_EditableTextBox">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ContentSite">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Uneditable" />
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <TextBox x:Name="PART_EditableTextBox"
-                                 Style="{StaticResource TextBoxRevealStyle}"
-                                 BorderThickness="0"
-                                 Width="{TemplateBinding Width}"
-                                 Margin="0 0 32 0"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 TextAlignment="Center"
-                                 Focusable="True"
-                                 Visibility="Hidden"
-                                 IsReadOnly="{TemplateBinding IsReadOnly}" />
-                        <ToggleButton x:Name="ToggleButton"
-                                      Template="{StaticResource ComboBoxToggleButton}"
-                                      BorderBrush="{TemplateBinding BorderBrush}"
-                                      BorderThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, FallbackValue=1}"
-                                      Grid.Column="2"
-                                      Focusable="True"
-                                      ClickMode="Release"
-                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
-                        <ContentPresenter x:Name="ContentSite"
-                                          IsHitTestVisible="False"
-                                          Content="{TemplateBinding SelectionBoxItem}"
-                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                          TextBlock.Foreground="{DynamicResource SystemBaseHighColorBrush}"
-                                          Margin="{TemplateBinding Padding}"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-
-                        <local:AcrylicPopup x:Name="PART_Popup"
-                                            IsOpen="{TemplateBinding IsDropDownOpen}"
-                                            Width="{TemplateBinding Width}"
-                                            Placement="Bottom"
-                                            PlacementTarget="{Binding ElementName=ToggleButton}"
-                                            Focusable="False"
-                                            MaxHeight="300"
-                                            AllowsTransparency="True"
-                                            PopupAnimation="Fade">
-                            <ContentControl Style="{StaticResource AcrylicContentControlStyle}"
-                                            BorderBrush="{DynamicResource SystemChromeHighColorBrush}"
-                                            BorderThickness="1"
-                                            HorizontalAlignment="Stretch">
-                                <ScrollViewer Margin="0,4,0,4"
-                                              Foreground="{DynamicResource SystemBaseHighColorBrush}"
-                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
-                                              CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
-                                              IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
-                                              SnapsToDevicePixels="True"
-                                              Style="{StaticResource ComboboxScrollViewer}">
-                                    <StackPanel IsItemsHost="True"
-                                                KeyboardNavigation.DirectionalNavigation="Contained"/>
-                                </ScrollViewer>
-                            </ContentControl>
-                        </local:AcrylicPopup>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Template" Value="{StaticResource ComboBoxRevealTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEditable" Value="True">
+                <Setter Property="IsTabStop" Value="False"/>
+                <Setter Property="Padding" Value="2"/>
+                <Setter Property="Template" Value="{StaticResource ComboBoxRevealEditableTemplate}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

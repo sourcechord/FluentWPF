@@ -66,6 +66,16 @@
                 <ComboBoxItem>Item4</ComboBoxItem>
                 <ComboBoxItem>Item5</ComboBoxItem>
             </ComboBox>
+
+            <ComboBox HorizontalAlignment="Left" Width="200" Margin="5"
+                      IsEditable="True"
+                      Style="{StaticResource ComboBoxRevealStyle}">
+                <ComboBoxItem>Item1</ComboBoxItem>
+                <ComboBoxItem>Item2</ComboBoxItem>
+                <ComboBoxItem>Item3</ComboBoxItem>
+                <ComboBoxItem>Item4</ComboBoxItem>
+                <ComboBoxItem>Item5</ComboBoxItem>
+            </ComboBox>
         </StackPanel>
     </Grid>
 </fw:AcrylicWindow>

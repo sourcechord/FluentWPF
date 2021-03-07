@@ -234,8 +234,8 @@
                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                          IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
-                         Margin="{TemplateBinding Padding}"
-                         Padding="0"
+                         Margin="0"
+                         Padding="{TemplateBinding Padding}"
                         Style="{StaticResource TextBoxRevealStyle}"/>
             </Border>
 
@@ -302,6 +302,9 @@
                 <Setter Property="IsTabStop" Value="False"/>
                 <Setter Property="Padding" Value="2"/>
                 <Setter Property="Template" Value="{StaticResource ComboBoxRevealEditableTemplate}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5" />
             </Trigger>
         </Style.Triggers>
     </Style>

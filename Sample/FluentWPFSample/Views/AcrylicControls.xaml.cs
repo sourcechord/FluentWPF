@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SourceChord.FluentWPF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,43 @@ namespace FluentWPFSample.Views
         public AcrylicControls()
         {
             InitializeComponent();
+        }
+
+
+        private void ShowMessageBox_OK(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show(this, "This is MessageBox\nTest", "Title", MessageBoxButton.OK);
+        }
+        private void ShowMessageBox_OKCancel(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show(this, "This is MessageBox\nTest", "Title", MessageBoxButton.OKCancel);
+        }
+        private void ShowMessageBox_YesNoCancel(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show(this, "This is MessageBox\nTest", "Title", MessageBoxButton.YesNoCancel);
+        }
+        private void ShowMessageBox_YesNo(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show(this, "This is MessageBox\nTest", "Title", MessageBoxButton.YesNo);
+        }
+
+
+
+        private void ShowAcrylicMessageBox_OK(object sender, RoutedEventArgs e)
+        {
+            var result = AcrylicMessageBox.Show(this, "This is AcrylicMessageBox\nTest", "Title", MessageBoxButton.OK);
+        }
+        private void ShowAcrylicMessageBox_OKCancel(object sender, RoutedEventArgs e)
+        {
+            var result = AcrylicMessageBox.Show(this, "This is AcrylicMessageBox\nTest", "Title", MessageBoxButton.OKCancel);
+        }
+        private void ShowAcrylicMessageBox_YesNoCancel(object sender, RoutedEventArgs e)
+        {
+            var result = AcrylicMessageBox.Show(this, "This is AcrylicMessageBox\nTest", "Title", MessageBoxButton.YesNoCancel);
+        }
+        private void ShowAcrylicMessageBox_YesNo(object sender, RoutedEventArgs e)
+        {
+            var result = AcrylicMessageBox.Show(this, "This is AcrylicMessageBox\nTest", "Title", MessageBoxButton.YesNo);
         }
     }
 }

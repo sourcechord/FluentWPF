@@ -63,7 +63,7 @@
                     </Border>
                 </Popup>
 
-                <Grid Grid.Row="1" Grid.ColumnSpan="2"
+                <Grid Grid.Row="1"
                       Background="{StaticResource SystemAltMediumColorBrush}">
                     <TextBlock Text="Normal ContextMenu"
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -96,6 +96,21 @@
                         </ContextMenu>
                     </Grid.ContextMenu>
                 </Grid>
+
+                <GroupBox Grid.Row="1" Grid.Column="1"
+                          Margin="5" Padding="5"
+                          Header="MessageBox">
+                    <StackPanel>
+                        <Button Content="OK" Margin="5" Width="100"
+                                HorizontalAlignment="Center" Click="ShowMessageBox_OK" />
+                        <Button Content="OKCancel" Margin="5" Width="100"
+                                HorizontalAlignment="Center" Click="ShowMessageBox_OKCancel" />
+                        <Button Content="YesNoCancel" Margin="5" Width="100"
+                                HorizontalAlignment="Center" Click="ShowMessageBox_YesNoCancel" />
+                        <Button Content="YesNo" Margin="5" Width="100"
+                                HorizontalAlignment="Center" Click="ShowMessageBox_YesNo" />
+                    </StackPanel>
+                </GroupBox>
             </Grid>
         </DockPanel>
 
@@ -149,12 +164,14 @@
                     </Border>
                 </fw:AcrylicPopup>
 
-                <Grid Grid.Row="1" Grid.ColumnSpan="2"
+                <Grid Grid.Row="1"
                       Background="{StaticResource SystemAltMediumLowColorBrush}">
                     <TextBlock Text="AcrylicContextMenu"
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <Grid.ContextMenu>
-                        <fw:AcrylicContextMenu>
+                        <fw:AcrylicContextMenu
+                            fw:AcrylicWindow.NoiseOpacity="0.7"
+                            fw:AcrylicWindow.TintColor="Red">
                             <MenuItem Header="MenuItem1"/>
                             <MenuItem Header="MenuItem2"/>
                             <MenuItem Header="MenuItem3" IsEnabled="False"/>
@@ -182,6 +199,21 @@
                         </fw:AcrylicContextMenu>
                     </Grid.ContextMenu>
                 </Grid>
+
+                <GroupBox Grid.Row="1" Grid.Column="1"
+                          Margin="5" Padding="5"
+                          Header="AcrylicMessageBox">
+                    <StackPanel>
+                        <Button Content="OK" Margin="5" Width="100"
+                                HorizontalAlignment="Center" Click="ShowAcrylicMessageBox_OK" />
+                        <Button Content="OKCancel" Margin="5" Width="100"
+                                HorizontalAlignment="Center" Click="ShowAcrylicMessageBox_OKCancel" />
+                        <Button Content="YesNoCancel" Margin="5" Width="100"
+                                HorizontalAlignment="Center" Click="ShowAcrylicMessageBox_YesNoCancel" />
+                        <Button Content="YesNo" Margin="5" Width="100"
+                                HorizontalAlignment="Center" Click="ShowAcrylicMessageBox_YesNo" />
+                    </StackPanel>
+                </GroupBox>
             </Grid>
         </DockPanel>
     </Grid>

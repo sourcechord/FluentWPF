@@ -88,7 +88,7 @@ namespace SourceChord.FluentWPF
                 Title = caption,
                 Message = messageBoxText,
                 ButtonType = button,
-                WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
             };
             msg.ShowDialog();
 

@@ -7,6 +7,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Window.xaml" />
         <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Menu.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Button.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
@@ -466,11 +467,12 @@
         </Setter>
     </Style>
 
-    <Style x:Key="MessageBoxButtonBaseStyle" TargetType="{x:Type Button}">
+    <Style x:Key="MessageBoxButtonBaseStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonRevealStyle}">
         <Setter Property="MinWidth" Value="88" />
         <Setter Property="Margin" Value="4" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="3" />
+        <Setter Property="BorderThickness" Value="1" />
     </Style>
 
     <Style TargetType="{x:Type local:AcrylicMessageBox}" BasedOn="{StaticResource {x:Type local:AcrylicWindow}}">
@@ -480,6 +482,7 @@
         <Setter Property="ResizeMode" Value="NoResize" />
         <Setter Property="ShowInTaskbar" Value="False" />
         <Setter Property="SizeToContent" Value="WidthAndHeight" />
+        <Setter Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoIcon" />
 
         <Setter Property="Content">
             <Setter.Value>
@@ -510,7 +513,12 @@
                     </TextBlock>
 
                     <!--  メッセージボックス下部のボタン領域  -->
-                    <Border Grid.Row="1" Background="#F0F0F0">
+                    <local:DropShadowPanel Grid.Row="1"
+                                           ShadowMode="Outer"
+                                           ShadowOpacity="0.3"
+                                           BlurRadius="10"
+                                           Background="#20F0F0F0"
+                                           local:PointerTracker.Enabled="True">
                         <Grid x:Name="PART_ButtonsArea" Margin="38,0,5,0" HorizontalAlignment="Right">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -537,7 +545,7 @@
                                     Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=CancelButtonContent}"
                                     Visibility="Collapsed" />
                         </Grid>
-                    </Border>
+                    </local:DropShadowPanel>
                 </Grid>
             </Setter.Value>
         </Setter>

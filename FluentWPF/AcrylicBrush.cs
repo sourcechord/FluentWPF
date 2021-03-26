@@ -46,11 +46,11 @@ namespace SourceChord.FluentWPF
                 TintColor = this.TintColor,
                 TintOpacity = this.TintOpacity,
                 NoiseOpacity = this.NoiseOpacity,
-                Width = target.Width,
-                Height = target.Height
             };
             BindingOperations.SetBinding(acrylicPanel, AcrylicPanel.TargetProperty, new Binding() { ElementName = this.TargetName });
             BindingOperations.SetBinding(acrylicPanel, AcrylicPanel.SourceProperty, new Binding() { Source = target });
+            BindingOperations.SetBinding(acrylicPanel, AcrylicPanel.WidthProperty, new Binding("ActualWidth") { Source = target });
+            BindingOperations.SetBinding(acrylicPanel, AcrylicPanel.HeightProperty, new Binding("ActualHeight") { Source = target });
 
             var brush = new VisualBrush(acrylicPanel)
             {

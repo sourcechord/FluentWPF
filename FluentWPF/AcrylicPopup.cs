@@ -60,7 +60,7 @@ namespace SourceChord.FluentWPF
             base.OnOpened(e);
 
             var hwnd = (HwndSource)HwndSource.FromVisual(this.Child);
-            AcrylicHelper.EnableBlur(hwnd.Handle, AccentFlagsType.Popup);
+            AcrylicHelper.SetBlur(hwnd.Handle, AccentFlagsType.Popup);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace SourceChord.FluentWPF
     [TemplateVisualState(Name = "MouseOver", GroupName = "CommonStates")]
     [TemplateVisualState(Name = "Pressed", GroupName = "CommonStates")]
     [TemplateVisualState(Name = "Disabled", GroupName = "CommonStates")]
-    public class RevealPanel : ContentControl//Control
+    public class RevealPanel : ContentControl
     {
         public bool IsPressed
         {

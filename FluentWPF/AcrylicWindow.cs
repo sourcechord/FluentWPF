@@ -20,6 +20,16 @@ using System.Windows.Shell;
 
 namespace SourceChord.FluentWPF
 {
+    public enum AcrylicAccentState
+    {
+        Default             = -1,
+        Disabled            = 0,
+        Gradient            = 1,
+        TransparentGradient = 2,
+        BlurBehind          = 3,
+        AcrylicBlurBehind   = 4,
+    }
+
     public enum AcrylicWindowStyle
     {
         Normal,
@@ -72,6 +82,7 @@ namespace SourceChord.FluentWPF
             TintOpacityProperty = AcrylicElement.TintOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.6, FrameworkPropertyMetadataOptions.Inherits));
             NoiseOpacityProperty = AcrylicElement.NoiseOpacityProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(0.03, FrameworkPropertyMetadataOptions.Inherits));
             FallbackColorProperty = AcrylicElement.FallbackColorProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.Inherits));
+            AcrylicAccentStateProperty = AcrylicElement.AcrylicAccentStateProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(AcrylicAccentState.Default, FrameworkPropertyMetadataOptions.Inherits));
             ExtendViewIntoTitleBarProperty = AcrylicElement.ExtendViewIntoTitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
             AcrylicWindowStyleProperty = AcrylicElement.AcrylicWindowStyleProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(AcrylicWindowStyle.Normal, FrameworkPropertyMetadataOptions.Inherits));
             TitleBarProperty = AcrylicElement.TitleBarProperty.AddOwner(typeof(AcrylicWindow), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
@@ -94,18 +105,33 @@ namespace SourceChord.FluentWPF
             }
         }
 
+        internal static System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding> _closeCommandTable = new System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding>();
+        internal static System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding> _minimizeCommandTable = new System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding>();
+        internal static System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding> _maximizeCommandTable = new System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding>();
+        internal static System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding> _restoreCommandTable = new System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding>();
+
         internal static void EnableBlur(Window win)
         {
             var windowHelper = new WindowInteropHelper(win);
 
             // ウィンドウに半透明のアクリル効果を適用する
-            AcrylicHelper.EnableBlur(windowHelper.Handle);
+            var state = AcrylicWindow.GetAcrylicAccentState(win);
+            SetBlur(win, state);
 
             // タイトルバーの各種ボタンで利用するコマンドの設定
-            win.CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, (_, __) => { SystemCommands.CloseWindow(win); }));
-            win.CommandBindings.Add(new CommandBinding(SystemCommands.MinimizeWindowCommand, (_, __) => { SystemCommands.MinimizeWindow(win); }));
-            win.CommandBindings.Add(new CommandBinding(SystemCommands.MaximizeWindowCommand, (_, __) => { SystemCommands.MaximizeWindow(win); }));
-            win.CommandBindings.Add(new CommandBinding(SystemCommands.RestoreWindowCommand, (_, __) => { SystemCommands.RestoreWindow(win); }));
+            var closeBinding = new CommandBinding(SystemCommands.CloseWindowCommand, (_, __) => { SystemCommands.CloseWindow(win); });
+            var minimizeBinding = new CommandBinding(SystemCommands.MinimizeWindowCommand, (_, __) => { SystemCommands.MinimizeWindow(win); });
+            var maximizeBinding = new CommandBinding(SystemCommands.MaximizeWindowCommand, (_, __) => { SystemCommands.MaximizeWindow(win); });
+            var restoreBinding = new CommandBinding(SystemCommands.RestoreWindowCommand, (_, __) => { SystemCommands.RestoreWindow(win); });
+            win.CommandBindings.Add(closeBinding);
+            win.CommandBindings.Add(minimizeBinding);
+            win.CommandBindings.Add(maximizeBinding);
+            win.CommandBindings.Add(restoreBinding);
+
+            _closeCommandTable.Add(win, closeBinding);
+            _minimizeCommandTable.Add(win, minimizeBinding);
+            _maximizeCommandTable.Add(win, maximizeBinding);
+            _restoreCommandTable.Add(win, restoreBinding);
 
 
             // WPFのSizeToContentのバグ対策
@@ -120,6 +146,57 @@ namespace SourceChord.FluentWPF
                 win.ContentRendered -= onContentRendered;
             }
             win.ContentRendered += onContentRendered;
+        }
+
+        internal static void DisableBlur(Window win)
+        {
+            var windowHelper = new WindowInteropHelper(win);
+
+            // アクリル効果を解除する
+            SetBlur(win, AcrylicAccentState.Disabled);
+
+            // コマンド解除
+            if (_closeCommandTable.TryGetValue(win, out var closeBinding))
+            {
+                win.CommandBindings.Remove(closeBinding);
+                _closeCommandTable.Remove(win);
+            }
+
+            if (_minimizeCommandTable.TryGetValue(win, out var minimizeBinding))
+            {
+                win.CommandBindings.Remove(minimizeBinding);
+                _minimizeCommandTable.Remove(win);
+            }
+
+            if (_maximizeCommandTable.TryGetValue(win, out var maximizeBinding))
+            {
+                win.CommandBindings.Remove(maximizeBinding);
+                _maximizeCommandTable.Remove(win);
+            }
+
+            if (_restoreCommandTable.TryGetValue(win, out var restoreBinding))
+            {
+                win.CommandBindings.Remove(restoreBinding);
+                _restoreCommandTable.Remove(win);
+            }
+        }
+
+        internal static void SetBlur(Window win, AcrylicAccentState state)
+        {
+            var windowHelper = new WindowInteropHelper(win);
+
+            // ウィンドウのアクリル効果を設定する
+            AccentState? value = state switch
+            {
+                AcrylicAccentState.Default => null,
+                AcrylicAccentState.Disabled => AccentState.ACCENT_DISABLED,
+                AcrylicAccentState.Gradient => AccentState.ACCENT_ENABLE_GRADIENT,
+                AcrylicAccentState.TransparentGradient => AccentState.ACCENT_ENABLE_TRANSPARENTGRADIENT,
+                AcrylicAccentState.BlurBehind => AccentState.ACCENT_ENABLE_BLURBEHIND,
+                AcrylicAccentState.AcrylicBlurBehind => AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND,
+                _ => throw new InvalidOperationException(),
+            };
+            AcrylicHelper.SetBlur(windowHelper.Handle, AccentFlagsType.Window, value);
         }
 
         #region Dependency Property
@@ -200,6 +277,17 @@ namespace SourceChord.FluentWPF
             obj.SetValue(AcrylicElement.FallbackColorProperty, value);
         }
 
+        // Using a DependencyProperty as the backing store for AcrylicAccentState.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AcrylicAccentStateProperty;
+        public static AcrylicAccentState GetAcrylicAccentState(DependencyObject obj)
+        {
+            return (AcrylicAccentState)obj.GetValue(AcrylicElement.AcrylicAccentStateProperty);
+        }
+
+        public static void SetAcrylicAccentState(DependencyObject obj, AcrylicAccentState value)
+        {
+            obj.SetValue(AcrylicElement.AcrylicAccentStateProperty, value);
+        }
 
         public bool ExtendViewIntoTitleBar
         {
@@ -309,6 +397,11 @@ namespace SourceChord.FluentWPF
                 win.Loaded += (_, __) => { EnableBlur(win); };
                 if(win.IsLoaded) EnableBlur(win);
             }
+            else
+            {
+                win.Style = null;
+                DisableBlur(win);
+            }
         }
         #endregion
     }
@@ -382,6 +475,37 @@ namespace SourceChord.FluentWPF
         public static readonly DependencyProperty FallbackColorProperty =
             DependencyProperty.RegisterAttached("FallbackColor", typeof(Color), typeof(AcrylicElement), new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.Inherits));
 
+
+        public static AcrylicAccentState GetAcrylicAccentState(DependencyObject obj)
+        {
+            return (AcrylicAccentState)obj.GetValue(AcrylicAccentStateProperty);
+        }
+
+        public static void SetAcrylicAccentState(DependencyObject obj, AcrylicAccentState value)
+        {
+            obj.SetValue(AcrylicAccentStateProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for AcrylicAccentState.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AcrylicAccentStateProperty =
+            DependencyProperty.RegisterAttached("AcrylicAccentState", typeof(AcrylicAccentState), typeof(AcrylicElement), new FrameworkPropertyMetadata(AcrylicAccentState.Default, FrameworkPropertyMetadataOptions.Inherits, OnAcrylicAccentStateChanged));
+
+        private static void OnAcrylicAccentStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            
+            var win = d as Window;
+            if (win == null) { return; }
+
+            var isAcrylic = win is AcrylicWindow ||
+                                  AcrylicWindow.GetEnabled(win);
+
+            var newValue = (AcrylicAccentState)e.NewValue;
+            var oldValue = (AcrylicAccentState)e.OldValue;
+            if (isAcrylic && newValue != oldValue)
+            {
+                AcrylicWindow.SetBlur(win, newValue);
+            }
+        }
 
         public static bool GetExtendViewIntoTitleBar(DependencyObject obj)
         {

@@ -31,8 +31,11 @@ namespace SourceChord.FluentWPF
                 EventHandler handler = null;
                 handler = (e, args) =>
                 {
-                    this.Initialize(Application.Current.MainWindow);
-                    Application.Current.Activated -= handler;
+                    if (Application.Current.MainWindow != null)
+                    {
+                        this.Initialize(Application.Current.MainWindow);
+                        Application.Current.Activated -= handler;
+                    }
                 };
                 Application.Current.Activated += handler;
             }

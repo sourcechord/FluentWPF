@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -105,14 +106,22 @@ namespace SourceChord.FluentWPF
             }
         }
 
-        internal static System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding> _closeCommandTable = new System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding>();
-        internal static System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding> _minimizeCommandTable = new System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding>();
-        internal static System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding> _maximizeCommandTable = new System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding>();
-        internal static System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding> _restoreCommandTable = new System.Runtime.CompilerServices.ConditionalWeakTable<Window, CommandBinding>();
+        private static readonly int WM_ENTERSIZEMOVE = 0x0231;
+        private static readonly int WM_EXITSIZEMOVE = 0x0232;
+        [DllImport("user32.dll")]
+        static extern bool InvalidateRect(IntPtr hWnd, IntPtr lpRect, bool bErase);
+
+        internal static ConditionalWeakTable<Window, CommandBinding> _closeCommandTable = new ConditionalWeakTable<Window, CommandBinding>();
+        internal static ConditionalWeakTable<Window, CommandBinding> _minimizeCommandTable = new ConditionalWeakTable<Window, CommandBinding>();
+        internal static ConditionalWeakTable<Window, CommandBinding> _maximizeCommandTable = new ConditionalWeakTable<Window, CommandBinding>();
+        internal static ConditionalWeakTable<Window, CommandBinding> _restoreCommandTable = new ConditionalWeakTable<Window, CommandBinding>();
 
         internal static void EnableBlur(Window win)
         {
             var windowHelper = new WindowInteropHelper(win);
+
+            var source = HwndSource.FromHwnd(windowHelper.Handle);
+            source.AddHook(WndProc);
 
             // ウィンドウに半透明のアクリル効果を適用する
             var state = AcrylicWindow.GetAcrylicAccentState(win);
@@ -152,6 +161,9 @@ namespace SourceChord.FluentWPF
         {
             var windowHelper = new WindowInteropHelper(win);
 
+            var source = HwndSource.FromHwnd(windowHelper.Handle);
+            source.RemoveHook(WndProc);
+
             // アクリル効果を解除する
             SetBlur(win, AcrylicAccentState.Disabled);
 
@@ -181,22 +193,36 @@ namespace SourceChord.FluentWPF
             }
         }
 
-        internal static void SetBlur(Window win, AcrylicAccentState state)
+        internal static void SetBlur(Window win, AcrylicAccentState state, AccentFlagsType style = AccentFlagsType.Window)
         {
             var windowHelper = new WindowInteropHelper(win);
 
-            // ウィンドウのアクリル効果を設定する
-            AccentState? value = state switch
+            var value = AcrylicHelper.SelectAccentState(state);
+            AcrylicHelper.SetBlur(windowHelper.Handle, style, value);
+        }
+
+        protected static IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == WM_ENTERSIZEMOVE)
             {
-                AcrylicAccentState.Default => null,
-                AcrylicAccentState.Disabled => AccentState.ACCENT_DISABLED,
-                AcrylicAccentState.Gradient => AccentState.ACCENT_ENABLE_GRADIENT,
-                AcrylicAccentState.TransparentGradient => AccentState.ACCENT_ENABLE_TRANSPARENTGRADIENT,
-                AcrylicAccentState.BlurBehind => AccentState.ACCENT_ENABLE_BLURBEHIND,
-                AcrylicAccentState.AcrylicBlurBehind => AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND,
-                _ => throw new InvalidOperationException(),
-            };
-            AcrylicHelper.SetBlur(windowHelper.Handle, AccentFlagsType.Window, value);
+                var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
+                var state = AcrylicWindow.GetAcrylicAccentState(win);
+                var value = AcrylicHelper.SelectAccentState(state);
+                if (value == AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND)
+                {
+                    AcrylicWindow.SetBlur(win, AcrylicAccentState.BlurBehind);
+                    InvalidateRect(hwnd, IntPtr.Zero, true);
+                }
+            }
+            else if (msg == WM_EXITSIZEMOVE)
+            {
+                var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
+                var state = AcrylicWindow.GetAcrylicAccentState(win);
+                AcrylicWindow.SetBlur(win, state);
+                InvalidateRect(hwnd, IntPtr.Zero, true);
+            }
+
+            return IntPtr.Zero;
         }
 
         #region Dependency Property
@@ -496,8 +522,7 @@ namespace SourceChord.FluentWPF
             var win = d as Window;
             if (win == null) { return; }
 
-            var isAcrylic = win is AcrylicWindow ||
-                                  AcrylicWindow.GetEnabled(win);
+            var isAcrylic = win is AcrylicWindow || AcrylicWindow.GetEnabled(win);
 
             var newValue = (AcrylicAccentState)e.NewValue;
             var oldValue = (AcrylicAccentState)e.OldValue;

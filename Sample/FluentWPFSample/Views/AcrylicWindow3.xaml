@@ -10,6 +10,7 @@
                   Title="AcrylicWindow3" Height="450" Width="800"
                   ResizeMode="CanResizeWithGrip"
                   fw:AcrylicWindow.AcrylicWindowStyle="{Binding SelectedValue, ElementName=cmbStyle}"
+                  fw:AcrylicWindow.AcrylicAccentState="{Binding SelectedValue, ElementName=cmbState}"
                   Icon="/Assets/Images/logo_icon.png">
     <Window.Style>
         <Style TargetType="{x:Type Window}">
@@ -46,12 +47,23 @@
                 <x:Type TypeName="fw:AcrylicWindowStyle"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider x:Key="states" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="fw:AcrylicAccentState"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Window.Resources>
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="AcrylicWindowStyle" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbStyle" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="120"
+        <TextBlock HorizontalAlignment="Left" Margin="10,32,0,0" TextWrapping="Wrap" Text="AcrylicAccentState" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbState" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Width="120"
+                  ItemsSource="{Binding Source={StaticResource states}}"
+                  SelectedIndex="5"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="10,111,0,0" TextWrapping="Wrap" Text="AcrylicWindowStyle" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbStyle" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="120"
                   ItemsSource="{Binding Source={StaticResource styles}}"
                   SelectedIndex="0"/>
-        <CheckBox x:Name="chkCustomTitleBar" Content="Custom TitleBar" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="chkCustomTitleBar" Content="Custom TitleBar" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </fw:AcrylicWindow>

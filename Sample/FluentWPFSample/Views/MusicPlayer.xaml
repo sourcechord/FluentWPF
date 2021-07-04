@@ -6,8 +6,7 @@
                   xmlns:local="clr-namespace:FluentWPFSample.Views"
                   xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
                   mc:Ignorable="d"
-                  Title="MusicPlayer" Height="300" Width="300"
-                  fw:AcrylicWindow.Enabled="True">
+                  Title="MusicPlayer" Height="300" Width="300">
     <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
         <Grid Height="70" VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <Grid.Resources>
@@ -18,8 +17,6 @@
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="FontSize" Value="20" />
                     <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
-                    <!--<Setter Property="VerticalAlignment" Value="Center" />
-                    <Setter Property="VerticalContentAlignment" Value="Center" />-->
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>

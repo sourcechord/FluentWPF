@@ -325,6 +325,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{Binding Path=(local:AccentColors.ImmersiveSystemAccentBrush)}" />
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="WindowStyle" Value="None" />
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>
@@ -388,7 +389,14 @@
             <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="None">
             </Trigger>
             <Trigger Property="WindowState" Value="Maximized">
-                <Setter Property="BorderThickness" Value="8" />
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome CaptionHeight="{x:Static SystemParameters.CaptionHeight}"
+                                      GlassFrameThickness="1"
+                                      ResizeBorderThickness="0" UseAeroCaptionButtons="False" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="0"/>
             </Trigger>
         </Style.Triggers>
     </Style>

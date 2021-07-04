@@ -106,90 +106,175 @@ namespace SourceChord.FluentWPF
             }
         }
 
+        private static readonly int WM_SIZE = 0x0005;
+        private static readonly int WM_WINDOWPOSCHANGING = 0x0046;
+        private static readonly int WM_SYSCOMMAND = 0x112;
+
         private static readonly int WM_ENTERSIZEMOVE = 0x0231;
         private static readonly int WM_EXITSIZEMOVE = 0x0232;
+        private static readonly int WM_GETMINMAXINFO = 0x0024;
         [DllImport("user32.dll")]
         static extern bool InvalidateRect(IntPtr hWnd, IntPtr lpRect, bool bErase);
 
-        internal static ConditionalWeakTable<Window, CommandBinding> _closeCommandTable = new ConditionalWeakTable<Window, CommandBinding>();
-        internal static ConditionalWeakTable<Window, CommandBinding> _minimizeCommandTable = new ConditionalWeakTable<Window, CommandBinding>();
-        internal static ConditionalWeakTable<Window, CommandBinding> _maximizeCommandTable = new ConditionalWeakTable<Window, CommandBinding>();
-        internal static ConditionalWeakTable<Window, CommandBinding> _restoreCommandTable = new ConditionalWeakTable<Window, CommandBinding>();
+        [DllImport("user32.dll")]
+        public static extern IntPtr MonitorFromWindow(IntPtr hwnd, int dwFlags);
+
+        [DllImport("user32.dll")]
+        public static extern bool GetMonitorInfo(IntPtr hMonitor, ref MONITORINFO lpmi);
+
+        [DllImport("shcore.dll")]
+        public static extern int GetDpiForMonitor(IntPtr hMonitor, int dpiType, out uint dpiX, out uint dpiY);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MONITORINFO
+        {
+            public int cbSize;
+            public RECT rcMonitor;
+            public RECT rcWork;
+            public int dwFlags;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int left;
+            public int top;
+            public int right;
+            public int bottom;
+        }
+
+        private struct POINT
+        {
+            public int x;
+            public int y;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct MINMAXINFO
+        {
+            public POINT ptReserved;
+            public POINT ptMaxSize;
+            public POINT ptMaxPosition;
+            public POINT ptMinTrackSize;
+            public POINT ptMaxTrackSize;
+        }
+
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WINDOWPOS
+        {
+            public IntPtr hwnd;
+            public IntPtr hwndInsertAfter;
+            public int x;
+            public int y;
+            public int cx;
+            public int cy;
+            public uint flags;
+        }
+
+        private static readonly int MONITOR_DEFAULTTOPRIMARY = 1;
+        private static readonly int MONITOR_DEFAULTTONEAREST = 2;
+
+        private enum SysCommands : int
+        {
+            SC_RESTORE = 0xF120,
+        }
+
+        private enum SizeEvents : int
+        {
+            SIZE_RESTORED = 0,
+            SIZE_MAXIMIZED = 2,
+        }
+
+        private enum WindowRestoringState
+        {
+            Default,    // Restored
+            Restoring,
+        }
+
+        private class AcrylicWindowInternalState
+        {
+            public WindowRestoringState RestoringState { get; set; }
+            public CommandBinding CloseCommand { get; set; }
+            public CommandBinding MinimizeCommand { get; set; }
+            public CommandBinding MaximizeCommand { get; set; }
+            public CommandBinding RestoreCommand { get; set; }
+        }
+
+        private static ConditionalWeakTable<Window, AcrylicWindowInternalState> _internalStateTable = new ConditionalWeakTable<Window, AcrylicWindowInternalState>();
 
         internal static void EnableBlur(Window win)
         {
-            var windowHelper = new WindowInteropHelper(win);
-
-            var source = HwndSource.FromHwnd(windowHelper.Handle);
-            source.AddHook(WndProc);
-
             // ウィンドウに半透明のアクリル効果を適用する
             var state = AcrylicWindow.GetAcrylicAccentState(win);
             SetBlur(win, state);
 
-            // タイトルバーの各種ボタンで利用するコマンドの設定
-            var closeBinding = new CommandBinding(SystemCommands.CloseWindowCommand, (_, __) => { SystemCommands.CloseWindow(win); });
-            var minimizeBinding = new CommandBinding(SystemCommands.MinimizeWindowCommand, (_, __) => { SystemCommands.MinimizeWindow(win); });
-            var maximizeBinding = new CommandBinding(SystemCommands.MaximizeWindowCommand, (_, __) => { SystemCommands.MaximizeWindow(win); });
-            var restoreBinding = new CommandBinding(SystemCommands.RestoreWindowCommand, (_, __) => { SystemCommands.RestoreWindow(win); });
-            win.CommandBindings.Add(closeBinding);
-            win.CommandBindings.Add(minimizeBinding);
-            win.CommandBindings.Add(maximizeBinding);
-            win.CommandBindings.Add(restoreBinding);
-
-            _closeCommandTable.Add(win, closeBinding);
-            _minimizeCommandTable.Add(win, minimizeBinding);
-            _maximizeCommandTable.Add(win, maximizeBinding);
-            _restoreCommandTable.Add(win, restoreBinding);
-
-
-            // WPFのSizeToContentのバグ対策
-            // (WindowChrome使用時に、SizeToContentのウィンドウサイズ計算が正しく行われない)
-            void onContentRendered(object sender, EventArgs e)
+            if (!_internalStateTable.TryGetValue(win, out var _))
             {
-                if (win.SizeToContent != SizeToContent.Manual)
-                {
-                    win.InvalidateMeasure();
-                }
+                var windowHelper = new WindowInteropHelper(win);
+                var source = HwndSource.FromHwnd(windowHelper.Handle);
+                source.AddHook(WndProc);
 
-                win.ContentRendered -= onContentRendered;
+                // タイトルバーの各種ボタンで利用するコマンドの設定
+                var closeBinding = new CommandBinding(SystemCommands.CloseWindowCommand, (_, __) => { SystemCommands.CloseWindow(win); });
+                var minimizeBinding = new CommandBinding(SystemCommands.MinimizeWindowCommand, (_, __) => { SystemCommands.MinimizeWindow(win); });
+                var maximizeBinding = new CommandBinding(SystemCommands.MaximizeWindowCommand, (_, __) => { SystemCommands.MaximizeWindow(win); });
+                var restoreBinding = new CommandBinding(SystemCommands.RestoreWindowCommand, (_, __) => { SystemCommands.RestoreWindow(win); });
+                win.CommandBindings.Add(closeBinding);
+                win.CommandBindings.Add(minimizeBinding);
+                win.CommandBindings.Add(maximizeBinding);
+                win.CommandBindings.Add(restoreBinding);
+
+                var internalState = new AcrylicWindowInternalState()
+                {
+                    RestoringState = WindowRestoringState.Default,
+                    CloseCommand = closeBinding,
+                    MinimizeCommand = minimizeBinding,
+                    MaximizeCommand = maximizeBinding,
+                    RestoreCommand = restoreBinding,
+                };
+                _internalStateTable.Add(win, internalState);
+
+                // WPFのSizeToContentのバグ対策
+                // (WindowChrome使用時に、SizeToContentのウィンドウサイズ計算が正しく行われない)
+                void onContentRendered(object sender, EventArgs e)
+                {
+                    if (win.SizeToContent != SizeToContent.Manual)
+                    {
+                        win.InvalidateMeasure();
+                    }
+
+                    win.ContentRendered -= onContentRendered;
+                    InvalidateRect(windowHelper.Handle, IntPtr.Zero, true);
+                }
+                win.ContentRendered += onContentRendered;
+                InvalidateRect(windowHelper.Handle, IntPtr.Zero, true);
             }
-            win.ContentRendered += onContentRendered;
         }
 
         internal static void DisableBlur(Window win)
         {
-            var windowHelper = new WindowInteropHelper(win);
-
-            var source = HwndSource.FromHwnd(windowHelper.Handle);
-            source.RemoveHook(WndProc);
-
             // アクリル効果を解除する
             SetBlur(win, AcrylicAccentState.Disabled);
 
-            // コマンド解除
-            if (_closeCommandTable.TryGetValue(win, out var closeBinding))
+            
+            if (_internalStateTable.TryGetValue(win, out var internalState))
             {
-                win.CommandBindings.Remove(closeBinding);
-                _closeCommandTable.Remove(win);
-            }
+                var windowHelper = new WindowInteropHelper(win);
+                var source = HwndSource.FromHwnd(windowHelper.Handle);
+                source.RemoveHook(WndProc);
 
-            if (_minimizeCommandTable.TryGetValue(win, out var minimizeBinding))
-            {
-                win.CommandBindings.Remove(minimizeBinding);
-                _minimizeCommandTable.Remove(win);
-            }
+                // コマンド解除
+                win.CommandBindings.Remove(internalState.CloseCommand);
+                win.CommandBindings.Remove(internalState.MinimizeCommand);
+                win.CommandBindings.Remove(internalState.MaximizeCommand);
+                win.CommandBindings.Remove(internalState.RestoreCommand);
 
-            if (_maximizeCommandTable.TryGetValue(win, out var maximizeBinding))
-            {
-                win.CommandBindings.Remove(maximizeBinding);
-                _maximizeCommandTable.Remove(win);
-            }
-
-            if (_restoreCommandTable.TryGetValue(win, out var restoreBinding))
-            {
-                win.CommandBindings.Remove(restoreBinding);
-                _restoreCommandTable.Remove(win);
+                _internalStateTable.Remove(win);
             }
         }
 
@@ -220,6 +305,87 @@ namespace SourceChord.FluentWPF
                 var state = AcrylicWindow.GetAcrylicAccentState(win);
                 AcrylicWindow.SetBlur(win, state);
                 InvalidateRect(hwnd, IntPtr.Zero, true);
+
+                if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
+                {
+                    internalState.RestoringState = WindowRestoringState.Default;
+                }
+            }
+            else if (msg == WM_GETMINMAXINFO)
+            {
+                handled = true;
+
+                var hMonitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+                var monitorInfo = new MONITORINFO
+                {
+                    cbSize = Marshal.SizeOf(typeof(MONITORINFO))
+                };
+
+                GetMonitorInfo(hMonitor, ref monitorInfo);
+                var info = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
+                var workingRectangle = monitorInfo.rcWork;
+                var monitorRectangle = monitorInfo.rcMonitor;
+
+                info.ptMaxPosition.x = Math.Abs(workingRectangle.left - monitorRectangle.left);
+                info.ptMaxPosition.y = Math.Abs(workingRectangle.top - monitorRectangle.top);
+                info.ptMaxSize.x = Math.Abs(workingRectangle.right - monitorRectangle.left);
+                info.ptMaxSize.y = Math.Abs(workingRectangle.bottom - monitorRectangle.top);
+                Marshal.StructureToPtr(info, lParam, true);
+                return IntPtr.Zero;
+            }
+            else if (msg == WM_SIZE && wParam == (IntPtr)SizeEvents.SIZE_MAXIMIZED)
+            {
+                var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
+                if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
+                {
+                    internalState.RestoringState = WindowRestoringState.Default;
+                }
+
+                var hMonitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+                var monitorInfo = new MONITORINFO
+                {
+                    cbSize = Marshal.SizeOf(typeof(MONITORINFO))
+                };
+
+                GetMonitorInfo(hMonitor, ref monitorInfo);
+                var workingRectangle = monitorInfo.rcWork;
+                var monitorRectangle = monitorInfo.rcMonitor;
+
+                var x = workingRectangle.left;
+                var y = workingRectangle.top;
+                var width = Math.Abs(workingRectangle.right - workingRectangle.left);
+                var height = Math.Abs(workingRectangle.bottom - workingRectangle.top);
+                MoveWindow(hwnd, x, y, width, height, true);
+            }
+            else if (msg == WM_SIZE && wParam == (IntPtr)SizeEvents.SIZE_RESTORED)
+            {
+                var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
+                if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
+                {
+                    if (win.WindowState == WindowState.Maximized) { internalState.RestoringState = WindowRestoringState.Restoring; }
+                }
+            }
+            else if (msg == WM_SYSCOMMAND && wParam == (IntPtr)SysCommands.SC_RESTORE)
+            {
+                var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
+                if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
+                {
+                    internalState.RestoringState = WindowRestoringState.Default;
+                }
+            }
+            else if (msg == WM_WINDOWPOSCHANGING)
+            {
+                var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
+                if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
+                {
+                    var pos = (WINDOWPOS)Marshal.PtrToStructure(lParam, typeof(WINDOWPOS));
+                    if (internalState.RestoringState == WindowRestoringState.Restoring &&
+                        !(pos.x == 0 && pos.y == 0 && pos.cx == 0 && pos.cy == 0))
+                    {
+                        pos.y -= 8;
+                        Marshal.StructureToPtr(pos, lParam, true);
+                    }
+                }
             }
 
             return IntPtr.Zero;
@@ -416,16 +582,25 @@ namespace SourceChord.FluentWPF
             var value = (bool)e.NewValue;
             if (value)
             {
-                var dic = new ResourceDictionary() { Source = new Uri("pack://application:,,,/FluentWPF;component/Styles/Window.xaml") };
-                var style = dic["AcrylicWindowStyle"] as Style;
-                win.Style = style;
+                win.SetResourceReference(FrameworkElement.StyleProperty, "AcrylicWindowStyle");
 
-                win.Loaded += (_, __) => { EnableBlur(win); };
-                if(win.IsLoaded) EnableBlur(win);
+                win.Loaded += (_, __) =>
+                {
+                    EnableBlur(win);
+                    var windowHelper = new WindowInteropHelper(win);
+                    InvalidateRect(windowHelper.Handle, IntPtr.Zero, true);
+                };
+                if (win.IsLoaded)
+                {
+                    EnableBlur(win);
+                    var windowHelper = new WindowInteropHelper(win);
+                    InvalidateRect(windowHelper.Handle, IntPtr.Zero, true);
+                }
             }
             else
             {
                 win.Style = null;
+                win.ClearValue(FrameworkElement.StyleProperty);
                 DisableBlur(win);
             }
         }

@@ -239,6 +239,13 @@ namespace SourceChord.FluentWPF
                 };
                 _internalStateTable.Add(win, internalState);
 
+
+                // フルスクリーン状態だったら、ウィンドウサイズの訂正をする
+                if (win.WindowState == WindowState.Maximized)
+                {
+                    FixMaximizedWindowSize(windowHelper.Handle);
+                }
+
                 // WPFのSizeToContentのバグ対策
                 // (WindowChrome使用時に、SizeToContentのウィンドウサイズ計算が正しく行われない)
                 void onContentRendered(object sender, EventArgs e)
@@ -284,6 +291,31 @@ namespace SourceChord.FluentWPF
 
             var value = AcrylicHelper.SelectAccentState(state);
             AcrylicHelper.SetBlur(windowHelper.Handle, style, value);
+        }
+
+        internal static void FixMaximizedWindowSize(IntPtr hwnd)
+        {
+            var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
+            if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
+            {
+                internalState.RestoringState = WindowRestoringState.Default;
+            }
+
+            var hMonitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+            var monitorInfo = new MONITORINFO
+            {
+                cbSize = Marshal.SizeOf(typeof(MONITORINFO))
+            };
+
+            GetMonitorInfo(hMonitor, ref monitorInfo);
+            var workingRectangle = monitorInfo.rcWork;
+            var monitorRectangle = monitorInfo.rcMonitor;
+
+            var x = workingRectangle.left;
+            var y = workingRectangle.top;
+            var width = Math.Abs(workingRectangle.right - workingRectangle.left);
+            var height = Math.Abs(workingRectangle.bottom - workingRectangle.top);
+            MoveWindow(hwnd, x, y, width, height, true);
         }
 
         protected static IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -335,27 +367,7 @@ namespace SourceChord.FluentWPF
             }
             else if (msg == WM_SIZE && wParam == (IntPtr)SizeEvents.SIZE_MAXIMIZED)
             {
-                var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
-                if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
-                {
-                    internalState.RestoringState = WindowRestoringState.Default;
-                }
-
-                var hMonitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
-                var monitorInfo = new MONITORINFO
-                {
-                    cbSize = Marshal.SizeOf(typeof(MONITORINFO))
-                };
-
-                GetMonitorInfo(hMonitor, ref monitorInfo);
-                var workingRectangle = monitorInfo.rcWork;
-                var monitorRectangle = monitorInfo.rcMonitor;
-
-                var x = workingRectangle.left;
-                var y = workingRectangle.top;
-                var width = Math.Abs(workingRectangle.right - workingRectangle.left);
-                var height = Math.Abs(workingRectangle.bottom - workingRectangle.top);
-                MoveWindow(hwnd, x, y, width, height, true);
+                FixMaximizedWindowSize(hwnd);
             }
             else if (msg == WM_SIZE && wParam == (IntPtr)SizeEvents.SIZE_RESTORED)
             {

@@ -92,6 +92,8 @@ namespace SourceChord.FluentWPF.Utility
                 // OSのバージョンに従い、AccentStateを切り替える
                 AcrylicAccentState.Default => SystemInfo.Version.Value switch
                 {
+                    // Windows11環境ではアクリル効果を無効にする
+                    var version when version >= VersionInfos.Windows11_Preview => AccentState.ACCENT_ENABLE_GRADIENT,
                     // Windows10 1903以降では、ACCENT_ENABLE_ACRYLICBLURBEHINDを用いると、ウィンドウのドラッグ移動などでマウス操作に追従しなくなる。
                     // ウィンドウの移動/リサイズ中だけ、ACCENT_ENABLE_ACRYLICBLURBEHINDを無効にして、この問題を回避する
                     //var version when version >= VersionInfos.Windows10_1903 => AccentState.ACCENT_ENABLE_BLURBEHIND,

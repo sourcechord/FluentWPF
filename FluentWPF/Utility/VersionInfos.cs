@@ -22,5 +22,10 @@ namespace SourceChord.FluentWPF.Utility
         public static VersionInfo Windows10_1803 { get { return new VersionInfo(10, 0, 17134); } }
         public static VersionInfo Windows10_1809 { get { return new VersionInfo(10, 0, 17763); } }
         public static VersionInfo Windows10_1903 { get { return new VersionInfo(10, 0, 18362); } }
+        public static VersionInfo Windows10_1909 { get { return new VersionInfo(10, 0, 18363); } }
+        public static VersionInfo Windows10_2004 { get { return new VersionInfo(10, 0, 19041); } }
+        public static VersionInfo Windows10_20H2 { get { return new VersionInfo(10, 0, 19042); } }
+        public static VersionInfo Windows10_21H1 { get { return new VersionInfo(10, 0, 19043); } }
+        public static VersionInfo Windows11_Preview { get { return new VersionInfo(10, 0, 21327); } }   // TBD
     }
 }

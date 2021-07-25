@@ -127,9 +127,7 @@
                                        BorderBrush="{TemplateBinding BorderBrush}"
                                        HorizontalContentAlignment="Stretch"
                                        Padding="{TemplateBinding Padding}">
-                        <ContentPresenter Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          TextBlock.Foreground="{TemplateBinding Foreground}"
+                        <ContentPresenter TextBlock.Foreground="{TemplateBinding Foreground}"
                                           TextBlock.FontSize="14"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"

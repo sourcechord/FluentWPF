@@ -16,29 +16,33 @@ namespace SourceChord.FluentWPF
 
         static ThemeHandler()
         {
-        }
-
-        public ThemeHandler()
-        {
             // 初期化メソッドを呼ぶ
             var win = Application.Current.MainWindow;
             if (win != null)
             {
-                this.Initialize(win);
+                Initialize(win);
             }
             else
             {
                 EventHandler handler = null;
                 handler = (e, args) =>
                 {
-                    this.Initialize(Application.Current.MainWindow);
+                    if (Application.Current.MainWindow != null)
+                    {
+                        Initialize(Application.Current.MainWindow);
+                    }
                     Application.Current.Activated -= handler;
                 };
                 Application.Current.Activated += handler;
             }
         }
 
-        private void Initialize(Window win)
+        public ThemeHandler()
+        {
+            WndProcEvent += this.WndProc;
+        }
+
+        public static void Initialize(Window win)
         {
             if (win.IsLoaded)
             {
@@ -53,11 +57,20 @@ namespace SourceChord.FluentWPF
             }
         }
 
-        protected virtual void InitializeCore(Window win)
+        protected static void InitializeCore(Window win)
         {
             var source = HwndSource.FromHwnd(new WindowInteropHelper(win).Handle);
-            source.AddHook(this.WndProc);
+            source.AddHook(WndProcCore);
         }
+
+        public delegate IntPtr WndProcEventHandler(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled);
+        protected static event WndProcEventHandler WndProcEvent;
+        private static IntPtr WndProcCore(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            WndProcEvent?.Invoke(hwnd, msg, wParam, lParam, ref handled);
+            return IntPtr.Zero;
+        }
+
 
         protected abstract IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled);
     }

@@ -222,6 +222,8 @@ To use the reveal effect, set `fw:PointerTracker.Enabled="True"` on a parent con
 |TextBox|TextBoxRevealStyle|
 |PasswordBox|PasswordBoxRevealStyle|
 |ListBox|ListBoxRevealStyle|
+|ComboBox|ComboBoxRevealStyle|
+
 
 ### ParallaxView
 
@@ -299,13 +301,13 @@ _Accent color depends on the accent color of the system._
 
 |Sample|Color|Brush|
 |-----|-----|-----|
-|![#a6d8ff](https://placehold.it/30/a6d8ff/000000?text=+)|ImmersiveSystemAccentLight3|ImmersiveSystemAccentLight3Brush|
-|![#76b9ed](https://placehold.it/30/76b9ed/000000?text=+)|ImmersiveSystemAccentLight2|ImmersiveSystemAccentLight2Brush|
-|![#429ce3](https://placehold.it/30/429ce3/000000?text=+)|ImmersiveSystemAccentLight1|ImmersiveSystemAccentLight1Brush|
-|![#0078d7](https://placehold.it/30/0078d7/000000?text=+)|ImmersiveSystemAccent|ImmersiveSystemAccentBrush|
-|![#005a9e](https://placehold.it/30/005a9e/000000?text=+)|ImmersiveSystemAccentDark1|ImmersiveSystemAccentDark1Brush|
-|![#004275](https://placehold.it/30/004275/000000?text=+)|ImmersiveSystemAccentDark2|ImmersiveSystemAccentDark2Brush|
-|![#002642](https://placehold.it/30/002642/000000?text=+)|ImmersiveSystemAccentDark3|ImmersiveSystemAccentDark3Brush|
+|<div class="rect" style="background: #a6d8ff"></div>#a6d8ff|ImmersiveSystemAccentLight3|ImmersiveSystemAccentLight3Brush|
+|<div class="rect" style="background: #76b9ed"></div>#76b9ed|ImmersiveSystemAccentLight2|ImmersiveSystemAccentLight2Brush|
+|<div class="rect" style="background: #429ce3"></div>#429ce3|ImmersiveSystemAccentLight1|ImmersiveSystemAccentLight1Brush|
+|<div class="rect" style="background: #0078d7"></div>#0078d7|ImmersiveSystemAccent|ImmersiveSystemAccentBrush|
+|<div class="rect" style="background: #005a9e"></div>#005a9e|ImmersiveSystemAccentDark1|ImmersiveSystemAccentDark1Brush|
+|<div class="rect" style="background: #004275"></div>#004275|ImmersiveSystemAccentDark2|ImmersiveSystemAccentDark2Brush|
+|<div class="rect" style="background: #002642"></div>#002642|ImmersiveSystemAccentDark3|ImmersiveSystemAccentDark3Brush|
 
 **Usage:**
 ```xml
@@ -319,11 +321,11 @@ _Accent color depends on the accent color of the system._
 
 |Light|Dark|Color|Brush|
 |-----|-----|-----|-----|
-|![#000000](https://placehold.it/30/000000/000000?text=+)|![#ffffff](https://placehold.it/30/ffffff/000000?text=+)|SystemBaseHighColor|SystemBaseHighColorBrush|
-|![#333333](https://placehold.it/30/333333/000000?text=+)|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|SystemBaseMediumHighColor|SystemBaseMediumHighColorBrush|
-|![#666666](https://placehold.it/30/666666/000000?text=+)|![#999999](https://placehold.it/30/999999/000000?text=+)|SystemBaseMediumColor|SystemBaseMediumColorBrush|
-|![#999999](https://placehold.it/30/999999/000000?text=+)|![#666666](https://placehold.it/30/666666/000000?text=+)|SystemBaseMediumLowColor|SystemBaseMediumLowColorBrush|
-|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|![#333333](https://placehold.it/30/333333/000000?text=+)|SystemBaseLowColor|SystemBaseLowColorBrush|
+|<div class="rect" style="background: #000000"></div>#000000|<div class="rect" style="background: #FFFFFF"></div>#FFFFFF|SystemBaseHighColor|SystemBaseHighColorBrush|
+|<div class="rect" style="background: #333333"></div>#333333|<div class="rect" style="background: #CCCCCC"></div>#CCCCCC|SystemBaseMediumHighColor|SystemBaseMediumHighColorBrush|
+|<div class="rect" style="background: #666666"></div>#666666|<div class="rect" style="background: #999999"></div>#999999|SystemBaseMediumColor|SystemBaseMediumColorBrush|
+|<div class="rect" style="background: #999999"></div>#999999|<div class="rect" style="background: #666666"></div>#666666|SystemBaseMediumLowColor|SystemBaseMediumLowColorBrush|
+|<div class="rect" style="background: #CCCCCC"></div>#CCCCCC|<div class="rect" style="background: #333333"></div>#333333|SystemBaseLowColor|SystemBaseLowColorBrush|
 
 **Usage:**
 ```xml
@@ -335,11 +337,11 @@ _Accent color depends on the accent color of the system._
 
 |Light|Dark|Color|Brush|
 |-----|-----|-----|-----|
-|![#ffffff](https://placehold.it/30/ffffff/000000?text=+)|![#000000](https://placehold.it/30/000000/000000?text=+)|SystemAltHighColor|SystemAltHighColorBrush|
-|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|![#333333](https://placehold.it/30/333333/000000?text=+)|SystemAltMediumHighColor|SystemAltMediumHighColorBrush|
-|![#999999](https://placehold.it/30/999999/000000?text=+)|![#666666](https://placehold.it/30/666666/000000?text=+)|SytemAltMediumColor|SytemAltMediumColorBrush|
-|![#666666](https://placehold.it/30/666666/000000?text=+)|![#999999](https://placehold.it/30/999999/000000?text=+)|SystemAltMediumLowColor|SystemAltMediumLowColorBrush|
-|![#333333](https://placehold.it/30/333333/000000?text=+)|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|SystemAltLowColor|SystemAltLowColorBrush|
+|<div class="rect" style="background: #FFFFFF"></div>#FFFFFF|<div class="rect" style="background: #000000"></div>#000000|SystemAltHighColor|SystemAltHighColorBrush|
+|<div class="rect" style="background: #CCCCCC"></div>#CCCCCC|<div class="rect" style="background: #333333"></div>#333333|SystemAltMediumHighColor|SystemAltMediumHighColorBrush|
+|<div class="rect" style="background: #999999"></div>#999999|<div class="rect" style="background: #666666"></div>#666666|SytemAltMediumColor|SytemAltMediumColorBrush|
+|<div class="rect" style="background: #666666"></div>#666666|<div class="rect" style="background: #999999"></div>#999999|SystemAltMediumLowColor|SystemAltMediumLowColorBrush|
+|<div class="rect" style="background: #333333"></div>#333333|<div class="rect" style="background: #CCCCCC"></div>#CCCCCC|SystemAltLowColor|SystemAltLowColorBrush|
 
 **Usage:**
 ```xml
@@ -350,10 +352,10 @@ _Accent color depends on the accent color of the system._
 
 |Light|Dark|Color|Brush|
 |-----|-----|-----|-----|
-|![#CCCCCC](https://placehold.it/30/CCCCCC/000000?text=+)|![#767676](https://placehold.it/30/767676/000000?text=+)|SystemChromeHighColor|SystemChromeHighColorBrush|
-|![#E6E6E6](https://placehold.it/30/E6E6E6/000000?text=+)|![#1F1F1F](https://placehold.it/30/1F1F1F/000000?text=+)|SytemAltMediumColor|SytemAltMediumColorBrush|
-|![#F2F2F2](https://placehold.it/30/F2F2F2/000000?text=+)|![#2B2B2B](https://placehold.it/30/2B2B2B/000000?text=+)|SystemChromeMediumLowColor|SystemChromeMediumLowColorBrush|
-|![#F2F2F2](https://placehold.it/30/F2F2F2/000000?text=+)|![#171717](https://placehold.it/30/171717/000000?text=+)|SystemChromeLowColor|SystemChromeLowColorBrush|
+|<div class="rect" style="background: #CCCCCC"></div>#CCCCCC|<div class="rect" style="background: #767676"></div>#767676|SystemChromeHighColor|SystemChromeHighColorBrush|
+|<div class="rect" style="background: #E6E6E6"></div>#E6E6E6|<div class="rect" style="background: #1F1F1F"></div>#1F1F1F|SytemAltMediumColor|SytemAltMediumColorBrush|
+|<div class="rect" style="background: #F2F2F2"></div>#F2F2F2|<div class="rect" style="background: #2B2B2B"></div>#2B2B2B|SystemChromeMediumLowColor|SystemChromeMediumLowColorBrush|
+|<div class="rect" style="background: #F2F2F2"></div>#F2F2F2|<div class="rect" style="background: #171717"></div>#171717|SystemChromeLowColor|SystemChromeLowColorBrush|
 
 **Usage:**
 ```xml
@@ -366,22 +368,30 @@ Windows includes a set of colors that differ only by their opacities:
 
 |Base Color|Opacity|Color|Brush|
 |-----|-----|-----|-----|
-|![#000000](https://placehold.it/30/000000/000000?text=+)|FF|SystemChromeBlackHighColor|SystemChromeBlackHighColorBrush|
-|![#000000](https://placehold.it/30/000000/000000?text=+)|CC|SystemChromeBlackMediumColor|SystemChromeBlackMediumColor|
-|![#000000](https://placehold.it/30/000000/000000?text=+)|66|SystemChromeBlackMediumLowColor|SystemChromeBlackMediumLowColorBrush|
-|![#000000](https://placehold.it/30/000000/000000?text=+)|33|SystemChromeBlackLowColor|SystemChromeBlackLowColorBrush|
-|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|33|SystemListMediumColor|SystemListMediumColorBrush|
-|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|19|SystemListLowColor|SystemListLowColorBrush|
+|<div class="rect" style="background: #000000"></div>#000000|FF|SystemChromeBlackHighColor|SystemChromeBlackHighColorBrush|
+|<div class="rect" style="background: #000000"></div>#000000|CC|SystemChromeBlackMediumColor|SystemChromeBlackMediumColor|
+|<div class="rect" style="background: #000000"></div>#000000|66|SystemChromeBlackMediumLowColor|SystemChromeBlackMediumLowColorBrush|
+|<div class="rect" style="background: #000000"></div>#000000|33|SystemChromeBlackLowColor|SystemChromeBlackLowColorBrush|
+|<div class="rect" style="background: #FFFFFF"></div>#FFFFFF|33|SystemListMediumColor|SystemListMediumColorBrush|
+|<div class="rect" style="background: #FFFFFF"></div>#FFFFFF|19|SystemListLowColor|SystemListLowColorBrush|
 
 
 #### Other Colors
+<style type="text/css" rel="styelsheet">
+div.rect {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+}
+</style> 
 
 |Light|Dark|Color|Brush|
 |-----|-----|-----|-----|
-|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|SystemChromeWhiteColor|SystemChromeWhiteColorBrush|
-|![#171717](https://placehold.it/30/171717/000000?text=+)|![#F2F2F2](https://placehold.it/30/F2F2F2/000000?text=+)|SystemChromeAltLowColor|SystemChromeAltLowColorBrush|
-|![#CCCCCC](https://placehold.it/30/CCCCCC/000000?text=+)|![#333333](https://placehold.it/30/333333/000000?text=+)|SystemChromeDisabledHighColor|SystemChromeDisabledHighColorBrush|
-|![#7A7A7A](https://placehold.it/30/7A7A7A/000000?text=+)|![#858585](https://placehold.it/30/858585/000000?text=+)|SystemChromeDisabledLowColor|SystemChromeDisabledLowColorBrush|
+|<div class="rect" style="background: #FFFFFF"></div>#FFFFFF|<div class="rect" style="background: #FFFFFF"></div>#FFFFFF|SystemChromeWhiteColor|SystemChromeWhiteColorBrush|
+|<div class="rect" style="background: #171717"></div>#171717|<div class="rect" style="background: #F2F2F2"></div>#F2F2F2|SystemChromeAltLowColor|SystemChromeAltLowColorBrush|
+|<div class="rect" style="background: #CCCCCC"></div>#CCCCCC|<div class="rect" style="background: #333333"></div>#333333|SystemChromeDisabledHighColor|SystemChromeDisabledHighColorBrush|
+|<div class="rect" style="background: #7A7A7A"></div>#7A7A7A|<div class="rect" style="background: #858585"></div>#858585|SystemChromeDisabledLowColor|SystemChromeDisabledLowColorBrush|
+
 
 
 

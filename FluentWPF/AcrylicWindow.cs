@@ -301,6 +301,8 @@ namespace SourceChord.FluentWPF
                 internalState.RestoringState = WindowRestoringState.Default;
             }
 
+            win.WindowStyle = WindowStyle.None;
+
             var hMonitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
             var monitorInfo = new MONITORINFO
             {
@@ -374,7 +376,11 @@ namespace SourceChord.FluentWPF
                 var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
                 if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
                 {
-                    if (win.WindowState == WindowState.Maximized) { internalState.RestoringState = WindowRestoringState.Restoring; }
+                    win.ClearValue(WindowStyleProperty);
+                    if (win.WindowState == WindowState.Maximized)
+                    {
+                        internalState.RestoringState = WindowRestoringState.Restoring;
+                    }
                 }
             }
             else if (msg == WM_SYSCOMMAND && wParam == (IntPtr)SysCommands.SC_RESTORE)
@@ -382,6 +388,7 @@ namespace SourceChord.FluentWPF
                 var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
                 if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
                 {
+                    win.ClearValue(WindowStyleProperty);
                     internalState.RestoringState = WindowRestoringState.Default;
                 }
             }

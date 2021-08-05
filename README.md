@@ -222,6 +222,7 @@ To use the reveal effect, set `fw:PointerTracker.Enabled="True"` on a parent con
 |TextBox|TextBoxRevealStyle|
 |PasswordBox|PasswordBoxRevealStyle|
 |ListBox|ListBoxRevealStyle|
+|ComboBox|ComboBoxRevealStyle|
 
 ### ParallaxView
 
@@ -299,13 +300,13 @@ _Accent color depends on the accent color of the system._
 
 |Sample|Color|Brush|
 |-----|-----|-----|
-|![#a6d8ff](https://placehold.it/30/a6d8ff/000000?text=+)|ImmersiveSystemAccentLight3|ImmersiveSystemAccentLight3Brush|
-|![#76b9ed](https://placehold.it/30/76b9ed/000000?text=+)|ImmersiveSystemAccentLight2|ImmersiveSystemAccentLight2Brush|
-|![#429ce3](https://placehold.it/30/429ce3/000000?text=+)|ImmersiveSystemAccentLight1|ImmersiveSystemAccentLight1Brush|
-|![#0078d7](https://placehold.it/30/0078d7/000000?text=+)|ImmersiveSystemAccent|ImmersiveSystemAccentBrush|
-|![#005a9e](https://placehold.it/30/005a9e/000000?text=+)|ImmersiveSystemAccentDark1|ImmersiveSystemAccentDark1Brush|
-|![#004275](https://placehold.it/30/004275/000000?text=+)|ImmersiveSystemAccentDark2|ImmersiveSystemAccentDark2Brush|
-|![#002642](https://placehold.it/30/002642/000000?text=+)|ImmersiveSystemAccentDark3|ImmersiveSystemAccentDark3Brush|
+|![#a6d8ff](https://via.placeholder.com/15/a6d8ff?text=+)|ImmersiveSystemAccentLight3|ImmersiveSystemAccentLight3Brush|
+|![#76b9ed](https://via.placeholder.com/15/76b9ed?text=+)|ImmersiveSystemAccentLight2|ImmersiveSystemAccentLight2Brush|
+|![#429ce3](https://via.placeholder.com/15/429ce3?text=+)|ImmersiveSystemAccentLight1|ImmersiveSystemAccentLight1Brush|
+|![#0078d7](https://via.placeholder.com/15/0078d7?text=+)|ImmersiveSystemAccent|ImmersiveSystemAccentBrush|
+|![#005a9e](https://via.placeholder.com/15/005a9e?text=+)|ImmersiveSystemAccentDark1|ImmersiveSystemAccentDark1Brush|
+|![#004275](https://via.placeholder.com/15/004275?text=+)|ImmersiveSystemAccentDark2|ImmersiveSystemAccentDark2Brush|
+|![#002642](https://via.placeholder.com/15/002642?text=+)|ImmersiveSystemAccentDark3|ImmersiveSystemAccentDark3Brush|
 
 **Usage:**
 ```xml
@@ -319,11 +320,11 @@ _Accent color depends on the accent color of the system._
 
 |Light|Dark|Color|Brush|
 |-----|-----|-----|-----|
-|![#000000](https://placehold.it/30/000000/000000?text=+)|![#ffffff](https://placehold.it/30/ffffff/000000?text=+)|SystemBaseHighColor|SystemBaseHighColorBrush|
-|![#333333](https://placehold.it/30/333333/000000?text=+)|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|SystemBaseMediumHighColor|SystemBaseMediumHighColorBrush|
-|![#666666](https://placehold.it/30/666666/000000?text=+)|![#999999](https://placehold.it/30/999999/000000?text=+)|SystemBaseMediumColor|SystemBaseMediumColorBrush|
-|![#999999](https://placehold.it/30/999999/000000?text=+)|![#666666](https://placehold.it/30/666666/000000?text=+)|SystemBaseMediumLowColor|SystemBaseMediumLowColorBrush|
-|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|![#333333](https://placehold.it/30/333333/000000?text=+)|SystemBaseLowColor|SystemBaseLowColorBrush|
+|![#000000](https://via.placeholder.com/15/000000?text=+)|![#ffffff](https://via.placeholder.com/15/ffffff?text=+)|SystemBaseHighColor|SystemBaseHighColorBrush|
+|![#333333](https://via.placeholder.com/15/333333?text=+)|![#cccccc](https://via.placeholder.com/15/cccccc?text=+)|SystemBaseMediumHighColor|SystemBaseMediumHighColorBrush|
+|![#666666](https://via.placeholder.com/15/666666?text=+)|![#999999](https://via.placeholder.com/15/999999?text=+)|SystemBaseMediumColor|SystemBaseMediumColorBrush|
+|![#999999](https://via.placeholder.com/15/999999?text=+)|![#666666](https://via.placeholder.com/15/666666?text=+)|SystemBaseMediumLowColor|SystemBaseMediumLowColorBrush|
+|![#cccccc](https://via.placeholder.com/15/cccccc?text=+)|![#333333](https://via.placeholder.com/15/333333?text=+)|SystemBaseLowColor|SystemBaseLowColorBrush|
 
 **Usage:**
 ```xml
@@ -335,11 +336,11 @@ _Accent color depends on the accent color of the system._
 
 |Light|Dark|Color|Brush|
 |-----|-----|-----|-----|
-|![#ffffff](https://placehold.it/30/ffffff/000000?text=+)|![#000000](https://placehold.it/30/000000/000000?text=+)|SystemAltHighColor|SystemAltHighColorBrush|
-|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|![#333333](https://placehold.it/30/333333/000000?text=+)|SystemAltMediumHighColor|SystemAltMediumHighColorBrush|
-|![#999999](https://placehold.it/30/999999/000000?text=+)|![#666666](https://placehold.it/30/666666/000000?text=+)|SytemAltMediumColor|SytemAltMediumColorBrush|
-|![#666666](https://placehold.it/30/666666/000000?text=+)|![#999999](https://placehold.it/30/999999/000000?text=+)|SystemAltMediumLowColor|SystemAltMediumLowColorBrush|
-|![#333333](https://placehold.it/30/333333/000000?text=+)|![#cccccc](https://placehold.it/30/cccccc/000000?text=+)|SystemAltLowColor|SystemAltLowColorBrush|
+|![#ffffff](https://via.placeholder.com/15/ffffff?text=+)|![#000000](https://via.placeholder.com/15/000000?text=+)|SystemAltHighColor|SystemAltHighColorBrush|
+|![#cccccc](https://via.placeholder.com/15/cccccc?text=+)|![#333333](https://via.placeholder.com/15/333333?text=+)|SystemAltMediumHighColor|SystemAltMediumHighColorBrush|
+|![#999999](https://via.placeholder.com/15/999999?text=+)|![#666666](https://via.placeholder.com/15/666666?text=+)|SytemAltMediumColor|SytemAltMediumColorBrush|
+|![#666666](https://via.placeholder.com/15/666666?text=+)|![#999999](https://via.placeholder.com/15/999999?text=+)|SystemAltMediumLowColor|SystemAltMediumLowColorBrush|
+|![#333333](https://via.placeholder.com/15/333333?text=+)|![#cccccc](https://via.placeholder.com/15/cccccc?text=+)|SystemAltLowColor|SystemAltLowColorBrush|
 
 **Usage:**
 ```xml
@@ -350,10 +351,10 @@ _Accent color depends on the accent color of the system._
 
 |Light|Dark|Color|Brush|
 |-----|-----|-----|-----|
-|![#CCCCCC](https://placehold.it/30/CCCCCC/000000?text=+)|![#767676](https://placehold.it/30/767676/000000?text=+)|SystemChromeHighColor|SystemChromeHighColorBrush|
-|![#E6E6E6](https://placehold.it/30/E6E6E6/000000?text=+)|![#1F1F1F](https://placehold.it/30/1F1F1F/000000?text=+)|SytemAltMediumColor|SytemAltMediumColorBrush|
-|![#F2F2F2](https://placehold.it/30/F2F2F2/000000?text=+)|![#2B2B2B](https://placehold.it/30/2B2B2B/000000?text=+)|SystemChromeMediumLowColor|SystemChromeMediumLowColorBrush|
-|![#F2F2F2](https://placehold.it/30/F2F2F2/000000?text=+)|![#171717](https://placehold.it/30/171717/000000?text=+)|SystemChromeLowColor|SystemChromeLowColorBrush|
+|![#CCCCCC](https://via.placeholder.com/15/CCCCCC?text=+)|![#767676](https://via.placeholder.com/15/767676?text=+)|SystemChromeHighColor|SystemChromeHighColorBrush|
+|![#E6E6E6](https://via.placeholder.com/15/E6E6E6?text=+)|![#1F1F1F](https://via.placeholder.com/15/1F1F1F?text=+)|SytemAltMediumColor|SytemAltMediumColorBrush|
+|![#F2F2F2](https://via.placeholder.com/15/F2F2F2?text=+)|![#2B2B2B](https://via.placeholder.com/15/2B2B2B?text=+)|SystemChromeMediumLowColor|SystemChromeMediumLowColorBrush|
+|![#F2F2F2](https://via.placeholder.com/15/F2F2F2?text=+)|![#171717](https://via.placeholder.com/15/171717?text=+)|SystemChromeLowColor|SystemChromeLowColorBrush|
 
 **Usage:**
 ```xml
@@ -366,22 +367,22 @@ Windows includes a set of colors that differ only by their opacities:
 
 |Base Color|Opacity|Color|Brush|
 |-----|-----|-----|-----|
-|![#000000](https://placehold.it/30/000000/000000?text=+)|FF|SystemChromeBlackHighColor|SystemChromeBlackHighColorBrush|
-|![#000000](https://placehold.it/30/000000/000000?text=+)|CC|SystemChromeBlackMediumColor|SystemChromeBlackMediumColor|
-|![#000000](https://placehold.it/30/000000/000000?text=+)|66|SystemChromeBlackMediumLowColor|SystemChromeBlackMediumLowColorBrush|
-|![#000000](https://placehold.it/30/000000/000000?text=+)|33|SystemChromeBlackLowColor|SystemChromeBlackLowColorBrush|
-|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|33|SystemListMediumColor|SystemListMediumColorBrush|
-|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|19|SystemListLowColor|SystemListLowColorBrush|
+|![#000000](https://via.placeholder.com/15/000000?text=+)|FF|SystemChromeBlackHighColor|SystemChromeBlackHighColorBrush|
+|![#000000](https://via.placeholder.com/15/000000?text=+)|CC|SystemChromeBlackMediumColor|SystemChromeBlackMediumColor|
+|![#000000](https://via.placeholder.com/15/000000?text=+)|66|SystemChromeBlackMediumLowColor|SystemChromeBlackMediumLowColorBrush|
+|![#000000](https://via.placeholder.com/15/000000?text=+)|33|SystemChromeBlackLowColor|SystemChromeBlackLowColorBrush|
+|![#FFFFFF](https://via.placeholder.com/15/FFFFFF?text=+)|33|SystemListMediumColor|SystemListMediumColorBrush|
+|![#FFFFFF](https://via.placeholder.com/15/FFFFFF?text=+)|19|SystemListLowColor|SystemListLowColorBrush|
 
 
 #### Other Colors
 
 |Light|Dark|Color|Brush|
 |-----|-----|-----|-----|
-|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|![#FFFFFF](https://placehold.it/30/FFFFFF/000000?text=+)|SystemChromeWhiteColor|SystemChromeWhiteColorBrush|
-|![#171717](https://placehold.it/30/171717/000000?text=+)|![#F2F2F2](https://placehold.it/30/F2F2F2/000000?text=+)|SystemChromeAltLowColor|SystemChromeAltLowColorBrush|
-|![#CCCCCC](https://placehold.it/30/CCCCCC/000000?text=+)|![#333333](https://placehold.it/30/333333/000000?text=+)|SystemChromeDisabledHighColor|SystemChromeDisabledHighColorBrush|
-|![#7A7A7A](https://placehold.it/30/7A7A7A/000000?text=+)|![#858585](https://placehold.it/30/858585/000000?text=+)|SystemChromeDisabledLowColor|SystemChromeDisabledLowColorBrush|
+|![#FFFFFF](https://via.placeholder.com/15/FFFFFF?text=+)|![#FFFFFF](https://via.placeholder.com/15/FFFFFF?text=+)|SystemChromeWhiteColor|SystemChromeWhiteColorBrush|
+|![#171717](https://via.placeholder.com/15/171717?text=+)|![#F2F2F2](https://via.placeholder.com/15/F2F2F2?text=+)|SystemChromeAltLowColor|SystemChromeAltLowColorBrush|
+|![#CCCCCC](https://via.placeholder.com/15/CCCCCC?text=+)|![#333333](https://via.placeholder.com/15/333333?text=+)|SystemChromeDisabledHighColor|SystemChromeDisabledHighColorBrush|
+|![#7A7A7A](https://via.placeholder.com/15/7A7A7A?text=+)|![#858585](https://via.placeholder.com/15/858585?text=+)|SystemChromeDisabledLowColor|SystemChromeDisabledLowColorBrush|
 
 
 

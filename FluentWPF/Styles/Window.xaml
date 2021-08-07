@@ -325,7 +325,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{Binding Path=(local:AccentColors.ImmersiveSystemAccentBrush)}" />
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="WindowStyle" Value="None" />
+        <Setter Property="WindowStyle" Value="SingleBorderWindow" />
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>

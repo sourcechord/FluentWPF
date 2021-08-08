@@ -106,6 +106,9 @@ namespace SourceChord.FluentWPF
             }
         }
 
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool GetCursorPos(out POINT lpPoint);
+
         private static readonly int WM_SIZE = 0x0005;
         private static readonly int WM_WINDOWPOSCHANGING = 0x0046;
         private static readonly int WM_SYSCOMMAND = 0x112;
@@ -194,6 +197,7 @@ namespace SourceChord.FluentWPF
         {
             Default,    // Restored
             Restoring,
+            RestoreMove,
         }
 
         private class AcrylicWindowInternalState
@@ -377,9 +381,14 @@ namespace SourceChord.FluentWPF
                 if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
                 {
                     win.ClearValue(WindowStyleProperty);
-                    if (win.WindowState == WindowState.Maximized)
+                    if (win.WindowState == WindowState.Maximized &&
+                        internalState.RestoringState == WindowRestoringState.Default)
                     {
-                        internalState.RestoringState = WindowRestoringState.Restoring;
+                        internalState.RestoringState = WindowRestoringState.RestoreMove;
+                    }
+                    if (internalState.RestoringState == WindowRestoringState.Restoring)
+                    {
+                        internalState.RestoringState = WindowRestoringState.Default;
                     }
                 }
             }
@@ -388,8 +397,7 @@ namespace SourceChord.FluentWPF
                 var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
                 if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
                 {
-                    win.ClearValue(WindowStyleProperty);
-                    internalState.RestoringState = WindowRestoringState.Default;
+                    internalState.RestoringState = WindowRestoringState.Restoring;
                 }
             }
             else if (msg == WM_WINDOWPOSCHANGING)
@@ -398,10 +406,11 @@ namespace SourceChord.FluentWPF
                 if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
                 {
                     var pos = (WINDOWPOS)Marshal.PtrToStructure(lParam, typeof(WINDOWPOS));
-                    if (internalState.RestoringState == WindowRestoringState.Restoring &&
+                    if (internalState.RestoringState == WindowRestoringState.RestoreMove &&
                         !(pos.x == 0 && pos.y == 0 && pos.cx == 0 && pos.cy == 0))
                     {
-                        pos.y -= 8;
+                        GetCursorPos(out var cur);
+                        pos.y = cur.y - 8;
                         Marshal.StructureToPtr(pos, lParam, true);
                     }
                 }
@@ -712,7 +721,7 @@ namespace SourceChord.FluentWPF
 
         private static void OnAcrylicAccentStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            
+
             var win = d as Window;
             if (win == null) { return; }
 

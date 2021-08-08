@@ -239,7 +239,7 @@
                     <ContentControl x:Name="customTitleBar"
                                     Grid.Column="1"
                                     Content="{Binding (local:AcrylicWindow.TitleBar), RelativeSource={RelativeSource AncestorType=Window}}"/>
-                    
+
                     <StackPanel Grid.Column="2"
                                 HorizontalAlignment="Right" VerticalAlignment="Top"
                                 Orientation="Horizontal"
@@ -386,8 +386,6 @@
             <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoIcon">
                 <Setter Property="Template" Value="{StaticResource AcrylicWindowTemplate}"/>
             </Trigger>
-            <Trigger Property="local:AcrylicWindow.AcrylicWindowStyle" Value="None">
-            </Trigger>
             <Trigger Property="WindowState" Value="Maximized">
                 <Setter Property="WindowChrome.WindowChrome">
                     <Setter.Value>
@@ -398,6 +396,22 @@
                 </Setter>
                 <Setter Property="BorderThickness" Value="0"/>
             </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="local:AcrylicWindow.AcrylicWindowStyle" Value="None" />
+                    <Condition Property="WindowState" Value="Maximized" />
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="WindowChrome.WindowChrome">
+                        <Setter.Value>
+                            <WindowChrome CaptionHeight="0"
+                                      GlassFrameThickness="1"
+                                      ResizeBorderThickness="0" UseAeroCaptionButtons="False" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

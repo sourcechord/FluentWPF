@@ -4,6 +4,15 @@ FluentWPF
 </h1>
 <h4 align="center">Fluent Design System for WPF</h4>
 
+<div align="center">
+
+[![NuGet](https://img.shields.io/nuget/v/FluentWPF.svg)](https://www.nuget.org/packages/FluentWPF/latest)
+[![NuGet(preview)](https://img.shields.io/nuget/vpre/FluentWPF.svg)](https://www.nuget.org/packages/FluentWPF/latest/prerelease)
+[![NuGet(download)](https://img.shields.io/nuget/dt/FluentWPF.svg)](https://www.nuget.org/packages/FluentWPF/)
+[![License](https://img.shields.io/github/license/sourcechord/FluentWPF)](https://github.com/sourcechord/FluentWPF/blob/master/LICENSE)
+
+</div>
+
 ## Overview
 
 * Acrylic

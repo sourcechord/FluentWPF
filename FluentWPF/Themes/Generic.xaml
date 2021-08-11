@@ -498,8 +498,7 @@
                                            ShadowOpacity="0.3"
                                            Margin="0,-30,0,0"
                                            BlurRadius="6"
-                                           Background="{DynamicResource SystemAltLowColorBrush}"
-                                           local:PointerTracker.Enabled="True">
+                                           Background="{DynamicResource SystemAltLowColorBrush}">
                         <Grid Margin="0,30,0,0">
                             <Grid Height="30"
                                   VerticalAlignment="Top">

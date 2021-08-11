@@ -476,76 +476,90 @@
     </Style>
 
     <Style TargetType="{x:Type local:AcrylicMessageBox}" BasedOn="{StaticResource {x:Type local:AcrylicWindow}}">
-        <Setter Property="Background" Value=" #80FFFFFF" />
+        <Setter Property="Background" Value="{DynamicResource SystemAltMediumColorBrush}" />
         <Setter Property="MinWidth" Value="154" />
         <Setter Property="MinHeight" Value="140" />
         <Setter Property="ResizeMode" Value="NoResize" />
         <Setter Property="ShowInTaskbar" Value="False" />
         <Setter Property="SizeToContent" Value="WidthAndHeight" />
         <Setter Property="local:AcrylicWindow.AcrylicWindowStyle" Value="NoIcon" />
-
+        <Setter Property="fw:ExtendViewIntoTitleBar" Value="True" />
         <Setter Property="Content">
             <Setter.Value>
-                <Grid>
+                <Grid local:PointerTracker.Enabled="True"
+                      Background="Transparent">
                     <Grid.RowDefinitions>
                         <RowDefinition />
-                        <RowDefinition Height="48" />
+                        <RowDefinition Height="42" />
                     </Grid.RowDefinitions>
                     <!--  メッセージ本文  -->
-                    <TextBlock Margin="12,26,39,27"
+                    <local:DropShadowPanel Grid.Row="0"
+                                           ShadowMode="Outer"
+                                           ShadowOpacity="0.3"
+                                           Margin="0,-30,0,0"
+                                           BlurRadius="6"
+                                           Background="{DynamicResource SystemAltLowColorBrush}"
+                                           local:PointerTracker.Enabled="True">
+                        <Grid Margin="0,30,0,0">
+                            <Grid Height="30"
+                                  VerticalAlignment="Top">
+                                <TextBlock x:Name="captionText"
+                                           Margin="8,0,0,0"
+                                           Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
+                                           VerticalAlignment="Center"
+                                           TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+                            </Grid>
+                            <TextBlock Margin="12,56,39,27"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Message}"
                                TextOptions.TextFormattingMode="Display">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <!--  メッセージが空の時は、TextBlockを非表示にする  -->
-                                <Style.Triggers>
-                                    <Trigger Property="Text" Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </Trigger>
-                                    <Trigger Property="Text" Value="">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-
-                    <!--  メッセージボックス下部のボタン領域  -->
-                    <local:DropShadowPanel Grid.Row="1"
-                                           ShadowMode="Outer"
-                                           ShadowOpacity="0.3"
-                                           BlurRadius="10"
-                                           Background="#20F0F0F0"
-                                           local:PointerTracker.Enabled="True">
-                        <Grid x:Name="PART_ButtonsArea" Margin="38,0,5,0" HorizontalAlignment="Right">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.Resources>
-                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MessageBoxButtonBaseStyle}" />
-                            </Grid.Resources>
-                            <Button x:Name="PART_OkButton"
-                                    Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=OkButtonContent}"
-                                    Visibility="Collapsed" />
-                            <Button x:Name="PART_YesButton"
-                                    Grid.Column="1"
-                                    Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=YesButtonContent}"
-                                    Visibility="Collapsed" />
-                            <Button x:Name="PART_NoButton"
-                                    Grid.Column="2"
-                                    Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=NoButtonContent}"
-                                    Visibility="Collapsed" />
-                            <Button x:Name="PART_CancelButton"
-                                    Grid.Column="3"
-                                    Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=CancelButtonContent}"
-                                    Visibility="Collapsed" />
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <!--  メッセージが空の時は、TextBlockを非表示にする  -->
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                         </Grid>
                     </local:DropShadowPanel>
+
+                    <!--  メッセージボックス下部のボタン領域  -->
+                    <Grid x:Name="PART_ButtonsArea"
+                            Grid.Row="1"
+                            Margin="38,0,5,0" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MessageBoxButtonBaseStyle}" />
+                        </Grid.Resources>
+                        <Button x:Name="PART_OkButton"
+                                Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=OkButtonContent}"
+                                Visibility="Collapsed" />
+                        <Button x:Name="PART_YesButton"
+                                Grid.Column="1"
+                                Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=YesButtonContent}"
+                                Visibility="Collapsed" />
+                        <Button x:Name="PART_NoButton"
+                                Grid.Column="2"
+                                Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=NoButtonContent}"
+                                Visibility="Collapsed" />
+                        <Button x:Name="PART_CancelButton"
+                                Grid.Column="3"
+                                Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=CancelButtonContent}"
+                                Visibility="Collapsed" />
+                    </Grid>
                 </Grid>
             </Setter.Value>
         </Setter>

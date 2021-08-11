@@ -64,6 +64,8 @@ namespace SourceChord.FluentWPF
         private ButtonBase _noButton;
         private ButtonBase _cancelButton;
 
+        private ButtonBase _closeButton;
+
         static AcrylicMessageBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AcrylicMessageBox), new FrameworkPropertyMetadata(typeof(AcrylicMessageBox)));
@@ -194,6 +196,13 @@ namespace SourceChord.FluentWPF
         #endregion
 
 
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            // ウィンドウの「閉じる」ボタン要素を取得
+            this._closeButton = GetTemplateChild("btnCloseButton") as ButtonBase;
+        }
+
         protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);
@@ -289,24 +298,28 @@ namespace SourceChord.FluentWPF
                     this._yesButton.Visibility = Visibility.Collapsed;
                     this._noButton.Visibility = Visibility.Collapsed;
                     this._cancelButton.Visibility = Visibility.Collapsed;
+                    this._closeButton.IsEnabled = true;
                     break;
                 case MessageBoxButton.OKCancel:
                     this._okButton.Visibility = Visibility.Visible;
                     this._yesButton.Visibility = Visibility.Collapsed;
                     this._noButton.Visibility = Visibility.Collapsed;
                     this._cancelButton.Visibility = Visibility.Visible;
+                    this._closeButton.IsEnabled = true;
                     break;
                 case MessageBoxButton.YesNo:
                     this._okButton.Visibility = Visibility.Collapsed;
                     this._yesButton.Visibility = Visibility.Visible;
                     this._noButton.Visibility = Visibility.Visible;
                     this._cancelButton.Visibility = Visibility.Collapsed;
+                    this._closeButton.IsEnabled = false;
                     break;
                 case MessageBoxButton.YesNoCancel:
                     this._okButton.Visibility = Visibility.Collapsed;
                     this._yesButton.Visibility = Visibility.Visible;
                     this._noButton.Visibility = Visibility.Visible;
                     this._cancelButton.Visibility = Visibility.Visible;
+                    this._closeButton.IsEnabled = true;
                     break;
                 default:
                     break;

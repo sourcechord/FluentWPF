@@ -25,16 +25,16 @@
                     Background="{DynamicResource SystemAltMediumColorBrush}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}" />
-            <TextBlock x:Name="DropDownGlyph"
-                       Grid.Column="1"
-                       IsHitTestVisible="False"
-                       Margin="0,10,10,10"
-                       Foreground="{DynamicResource SystemBaseMediumHighColorBrush}"
-                       FontFamily="Segoe MDL2 Assets"
-                       FontSize="12"
-                       Text="&#xE0E5;"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Center"/>
+            <Path x:Name="DropDownGlyph"
+                  Grid.Column="1"
+                  IsHitTestVisible="False"
+                  Width="12" Height="12"
+                  Margin="0,10,10,10"
+                  Data="F1 M 11.25,0.0L 11.78,0.53L 5.89,6.42L 0.0,0.53L 0.53,0.0L 5.89,5.36L 11.25,0.0 Z "
+                  Fill="{DynamicResource SystemBaseMediumHighColorBrush}"
+                  RenderTransformOrigin="0.5,0.5" Stretch="Uniform"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"/>
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />

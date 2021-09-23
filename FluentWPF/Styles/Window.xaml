@@ -173,6 +173,7 @@
     </Style>
 
     <Style x:Key="AcrylicContentControlStyle" TargetType="{x:Type ContentControl}">
+        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ContentControl}">
@@ -237,6 +238,7 @@
                                TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
 
                     <ContentControl x:Name="customTitleBar"
+                                    IsTabStop="False"
                                     Grid.Column="1"
                                     Content="{Binding (local:AcrylicWindow.TitleBar), RelativeSource={RelativeSource AncestorType=Window}}"/>
 
@@ -342,7 +344,7 @@
                             </Grid.RowDefinitions>
                             <AdornerDecorator x:Name="content"
                                               Grid.Row="1">
-                                <ContentControl Content="{Binding}" ClipToBounds="True"/>
+                                <ContentControl Content="{Binding}" IsTabStop="False" ClipToBounds="True"/>
                             </AdornerDecorator>
                         </Grid>
                     </Grid>

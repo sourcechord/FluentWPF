@@ -125,7 +125,7 @@ namespace SourceChord.FluentWPF
         public static extern bool GetMonitorInfo(IntPtr hMonitor, ref MONITORINFO lpmi);
 
         [DllImport("shcore.dll")]
-        public static extern int GetDpiForMonitor(IntPtr hMonitor, int dpiType, out uint dpiX, out uint dpiY);
+        public static extern int GetDpiForMonitor(IntPtr hMonitor, MONITOR_DPI_TYPE dpiType, out uint dpiX, out uint dpiY);
 
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
@@ -138,6 +138,14 @@ namespace SourceChord.FluentWPF
             public RECT rcMonitor;
             public RECT rcWork;
             public int dwFlags;
+        }
+
+        public enum MONITOR_DPI_TYPE : int
+        {
+            MDT_EFFECTIVE_DPI = 0,
+            MDT_ANGULAR_DPI,
+            MDT_RAW_DPI,
+            MDT_DEFAULT
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -364,8 +372,12 @@ namespace SourceChord.FluentWPF
                 var monitorRectangle = monitorInfo.rcMonitor;
 
                 var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
-                var maxWidth = (int)Math.Min(Math.Abs(workingRectangle.right - monitorRectangle.left), win.MaxWidth);
-                var maxHeight = (int)Math.Min(Math.Abs(workingRectangle.bottom - monitorRectangle.top), win.MaxHeight);
+                GetDpiForMonitor(hMonitor, MONITOR_DPI_TYPE.MDT_EFFECTIVE_DPI, out var dpiX, out var dpiY);
+                var windowMaxWidth = win.MaxWidth / 96.0 * dpiX;
+                var windowMaxHeight = win.MaxHeight / 96.0 * dpiY;
+
+                var maxWidth = (int)Math.Min(Math.Abs(workingRectangle.right - monitorRectangle.left), windowMaxWidth);
+                var maxHeight = (int)Math.Min(Math.Abs(workingRectangle.bottom - monitorRectangle.top), windowMaxHeight);
 
                 info.ptMaxPosition.x = Math.Abs(workingRectangle.left - monitorRectangle.left);
                 info.ptMaxPosition.y = Math.Abs(workingRectangle.top - monitorRectangle.top);
@@ -416,8 +428,13 @@ namespace SourceChord.FluentWPF
                         pos.y = cur.y - 8;
                     }
 
-                    var maxWidth = (int)Math.Min(pos.cx, win.MaxWidth);
-                    var maxHeight = (int)Math.Min(pos.cy, win.MaxHeight);
+                    var hMonitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+                    GetDpiForMonitor(hMonitor, MONITOR_DPI_TYPE.MDT_EFFECTIVE_DPI, out var dpiX, out var dpiY);
+                    var windowMaxWidth = win.MaxWidth / 96.0 * dpiX;
+                    var windowMaxHeight = win.MaxHeight / 96.0 * dpiY;
+
+                    var maxWidth = (int)Math.Min(pos.cx, windowMaxWidth);
+                    var maxHeight = (int)Math.Min(pos.cy, windowMaxHeight);
                     pos.cx = maxWidth;
                     pos.cy = maxHeight;
 

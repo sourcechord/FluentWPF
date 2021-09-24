@@ -363,10 +363,14 @@ namespace SourceChord.FluentWPF
                 var workingRectangle = monitorInfo.rcWork;
                 var monitorRectangle = monitorInfo.rcMonitor;
 
+                var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
+                var maxWidth = Math.Min(Math.Abs(workingRectangle.right - monitorRectangle.left), (int)win.MaxWidth);
+                var maxHeight = Math.Min(Math.Abs(workingRectangle.bottom - monitorRectangle.top), (int)win.MaxHeight);
+
                 info.ptMaxPosition.x = Math.Abs(workingRectangle.left - monitorRectangle.left);
                 info.ptMaxPosition.y = Math.Abs(workingRectangle.top - monitorRectangle.top);
-                info.ptMaxSize.x = Math.Abs(workingRectangle.right - monitorRectangle.left);
-                info.ptMaxSize.y = Math.Abs(workingRectangle.bottom - monitorRectangle.top);
+                info.ptMaxSize.x = maxWidth;
+                info.ptMaxSize.y = maxHeight;
                 Marshal.StructureToPtr(info, lParam, true);
                 return IntPtr.Zero;
             }
@@ -410,8 +414,14 @@ namespace SourceChord.FluentWPF
                     {
                         GetCursorPos(out var cur);
                         pos.y = cur.y - 8;
-                        Marshal.StructureToPtr(pos, lParam, true);
                     }
+
+                    var maxWidth = Math.Min(pos.cx, (int)win.MaxWidth);
+                    var maxHeight = Math.Min(pos.cy, (int)win.MaxHeight);
+                    pos.cx = maxWidth;
+                    pos.cy = maxHeight;
+
+                    Marshal.StructureToPtr(pos, lParam, true);
                 }
             }
 

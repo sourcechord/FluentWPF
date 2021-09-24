@@ -364,8 +364,8 @@ namespace SourceChord.FluentWPF
                 var monitorRectangle = monitorInfo.rcMonitor;
 
                 var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
-                var maxWidth = Math.Min(Math.Abs(workingRectangle.right - monitorRectangle.left), (int)win.MaxWidth);
-                var maxHeight = Math.Min(Math.Abs(workingRectangle.bottom - monitorRectangle.top), (int)win.MaxHeight);
+                var maxWidth = (int)Math.Min(Math.Abs(workingRectangle.right - monitorRectangle.left), win.MaxWidth);
+                var maxHeight = (int)Math.Min(Math.Abs(workingRectangle.bottom - monitorRectangle.top), win.MaxHeight);
 
                 info.ptMaxPosition.x = Math.Abs(workingRectangle.left - monitorRectangle.left);
                 info.ptMaxPosition.y = Math.Abs(workingRectangle.top - monitorRectangle.top);
@@ -416,8 +416,8 @@ namespace SourceChord.FluentWPF
                         pos.y = cur.y - 8;
                     }
 
-                    var maxWidth = Math.Min(pos.cx, (int)win.MaxWidth);
-                    var maxHeight = Math.Min(pos.cy, (int)win.MaxHeight);
+                    var maxWidth = (int)Math.Min(pos.cx, win.MaxWidth);
+                    var maxHeight = (int)Math.Min(pos.cy, win.MaxHeight);
                     pos.cx = maxWidth;
                     pos.cy = maxHeight;
 

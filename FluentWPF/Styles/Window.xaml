@@ -323,6 +323,7 @@
     <Style x:Key="AcrylicWindowStyle" TargetType="{x:Type Window}">
         <Setter Property="local:AcrylicWindow.TintColor" Value="{DynamicResource SystemControlAcrylicWindowTintColor}"/>
         <Setter Property="local:AcrylicWindow.FallbackColor" Value="{DynamicResource SystemControlAcrylicWindowFallbackColor}"/>
+        <Setter Property="local:AcrylicWindow.Enabled" Value="True" />
         <Setter Property="Foreground" Value="{DynamicResource SystemControlAcrylicWindowForegroundBrush}"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{Binding Path=(local:AccentColors.ImmersiveSystemAccentBrush)}" />

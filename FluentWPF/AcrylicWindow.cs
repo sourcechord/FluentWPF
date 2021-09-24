@@ -93,7 +93,6 @@ namespace SourceChord.FluentWPF
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            EnableBlur(this);
 
             var caption = this.GetTemplateChild("captionGrid") as FrameworkElement;
             if (caption != null)

@@ -145,6 +145,7 @@
         <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
         <Setter Property="Padding" Value="5"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="local:Extensions.IsPasswordBoxExtensionAttached" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type PasswordBox}">
@@ -152,7 +153,7 @@
                         <Storyboard x:Key="enterGotFocus">
                             <DoubleAnimation Storyboard.TargetName="TextBlock_PlaceHolder"
                                              Storyboard.TargetProperty="Opacity"
-                                             To=".0"
+                                             To=".2"
                                              Duration="0:0:0.2" />
                         </Storyboard>
                         <Storyboard x:Key="exitGotFocus">
@@ -225,7 +226,7 @@
                         </DataTrigger>
 
 
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Password, Mode=OneWay}" Value="">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(local:Extensions.IsPasswordEmpty), Mode=OneWay}" Value="True">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource exitHasText}" />
                             </DataTrigger.EnterActions>

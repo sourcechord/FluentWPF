@@ -41,6 +41,7 @@ namespace SourceChord.FluentWPF
             if (msg == WM_DWMCOLORIZATIONCOLORCHANGED)
             {
                 // 再取得
+                //Console.WriteLine("WM_DWMCOLORIZATIONCOLORCHANGED");
                 Initialize();
             }
 
@@ -164,34 +165,36 @@ namespace SourceChord.FluentWPF
             // 各種Color定義
             if (!SystemInfo.IsWin7())
             {
-                ImmersiveSystemAccent = GetColorByTypeName("ImmersiveSystemAccent");
-                ImmersiveSystemAccentDark1 = GetColorByTypeName("ImmersiveSystemAccentDark1");
-                ImmersiveSystemAccentDark2 = GetColorByTypeName("ImmersiveSystemAccentDark2");
-                ImmersiveSystemAccentDark3 = GetColorByTypeName("ImmersiveSystemAccentDark3");
-                ImmersiveSystemAccentLight1 = GetColorByTypeName("ImmersiveSystemAccentLight1");
-                ImmersiveSystemAccentLight2 = GetColorByTypeName("ImmersiveSystemAccentLight2");
-                ImmersiveSystemAccentLight3 = GetColorByTypeName("ImmersiveSystemAccentLight3");
+                immersiveSystemAccent = GetColorByTypeName("ImmersiveSystemAccent");
+                immersiveSystemAccentDark1 = GetColorByTypeName("ImmersiveSystemAccentDark1");
+                immersiveSystemAccentDark2 = GetColorByTypeName("ImmersiveSystemAccentDark2");
+                immersiveSystemAccentDark3 = GetColorByTypeName("ImmersiveSystemAccentDark3");
+                immersiveSystemAccentLight1 = GetColorByTypeName("ImmersiveSystemAccentLight1");
+                immersiveSystemAccentLight2 = GetColorByTypeName("ImmersiveSystemAccentLight2");
+                immersiveSystemAccentLight3 = GetColorByTypeName("ImmersiveSystemAccentLight3");
             }
             else
             {
                 // Windows7の場合は、OSにテーマカラーの設定はないので、固定値を使用する。
-                ImmersiveSystemAccent = (Color)ColorConverter.ConvertFromString("#FF2990CC");
-                ImmersiveSystemAccentDark1 = (Color)ColorConverter.ConvertFromString("#FF2481B6");
-                ImmersiveSystemAccentDark2 = (Color)ColorConverter.ConvertFromString("#FF2071A1");
-                ImmersiveSystemAccentDark3 = (Color)ColorConverter.ConvertFromString("#FF205B7E");
-                ImmersiveSystemAccentLight1 = (Color)ColorConverter.ConvertFromString("#FF2D9FE1");
-                ImmersiveSystemAccentLight2 = (Color)ColorConverter.ConvertFromString("#FF51A5D6");
-                ImmersiveSystemAccentLight3 = (Color)ColorConverter.ConvertFromString("#FF7BB1D0");
+                immersiveSystemAccent = (Color)ColorConverter.ConvertFromString("#FF2990CC");
+                immersiveSystemAccentDark1 = (Color)ColorConverter.ConvertFromString("#FF2481B6");
+                immersiveSystemAccentDark2 = (Color)ColorConverter.ConvertFromString("#FF2071A1");
+                immersiveSystemAccentDark3 = (Color)ColorConverter.ConvertFromString("#FF205B7E");
+                immersiveSystemAccentLight1 = (Color)ColorConverter.ConvertFromString("#FF2D9FE1");
+                immersiveSystemAccentLight2 = (Color)ColorConverter.ConvertFromString("#FF51A5D6");
+                immersiveSystemAccentLight3 = (Color)ColorConverter.ConvertFromString("#FF7BB1D0");
             }
 
             // ブラシ類の定義
-            ImmersiveSystemAccentBrush = CreateBrush(ImmersiveSystemAccent);
-            ImmersiveSystemAccentDark1Brush = CreateBrush(ImmersiveSystemAccentDark1);
-            ImmersiveSystemAccentDark2Brush = CreateBrush(ImmersiveSystemAccentDark2);
-            ImmersiveSystemAccentDark3Brush = CreateBrush(ImmersiveSystemAccentDark3);
-            ImmersiveSystemAccentLight1Brush = CreateBrush(ImmersiveSystemAccentLight1);
-            ImmersiveSystemAccentLight2Brush = CreateBrush(ImmersiveSystemAccentLight2);
-            ImmersiveSystemAccentLight3Brush = CreateBrush(ImmersiveSystemAccentLight3);
+            immersiveSystemAccentBrush = CreateBrush(ImmersiveSystemAccent);
+            immersiveSystemAccentDark1Brush = CreateBrush(ImmersiveSystemAccentDark1);
+            immersiveSystemAccentDark2Brush = CreateBrush(ImmersiveSystemAccentDark2);
+            immersiveSystemAccentDark3Brush = CreateBrush(ImmersiveSystemAccentDark3);
+            immersiveSystemAccentLight1Brush = CreateBrush(ImmersiveSystemAccentLight1);
+            immersiveSystemAccentLight2Brush = CreateBrush(ImmersiveSystemAccentLight2);
+            immersiveSystemAccentLight3Brush = CreateBrush(ImmersiveSystemAccentLight3);
+
+            OnStaticPropertyChanged();
         }
 
         internal static Brush CreateBrush(Color color)

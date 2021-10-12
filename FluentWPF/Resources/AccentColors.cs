@@ -1,13 +1,11 @@
 ﻿using SourceChord.FluentWPF.Utility;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Threading;
+using Windows.UI.ViewManagement;
 
 namespace SourceChord.FluentWPF
 {
@@ -22,12 +20,16 @@ namespace SourceChord.FluentWPF
 
 
         private static readonly int WM_DWMCOLORIZATIONCOLORCHANGED = 0x0320;
-
+        private static readonly UISettings settings = new UISettings();
 
 
         static AccentColors()
         {
             AccentColors.Instance = new AccentColors();
+            if (SystemInfo.IsWin10())
+            {
+                settings.ColorValuesChanged += OnWin10AccentColorChanged;
+            }
             Initialize();
         }
 
@@ -36,9 +38,17 @@ namespace SourceChord.FluentWPF
 
         }
 
+        private static void OnWin10AccentColorChanged(UISettings sender, object args)
+        {
+            Dispatcher.CurrentDispatcher.Invoke(() =>
+            {
+                Initialize();
+            });
+        }
+
         protected override IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            if (msg == WM_DWMCOLORIZATIONCOLORCHANGED)
+            if (!SystemInfo.IsWin10() && msg == WM_DWMCOLORIZATIONCOLORCHANGED)
             {
                 // 再取得
                 //Console.WriteLine("WM_DWMCOLORIZATIONCOLORCHANGED");
@@ -158,43 +168,54 @@ namespace SourceChord.FluentWPF
         }
         #endregion
 
-
-
         internal static void Initialize()
         {
             // 各種Color定義
-            if (!SystemInfo.IsWin7())
+            if (SystemInfo.IsWin10())
             {
-                immersiveSystemAccent = GetColorByTypeName("ImmersiveSystemAccent");
-                immersiveSystemAccentDark1 = GetColorByTypeName("ImmersiveSystemAccentDark1");
-                immersiveSystemAccentDark2 = GetColorByTypeName("ImmersiveSystemAccentDark2");
-                immersiveSystemAccentDark3 = GetColorByTypeName("ImmersiveSystemAccentDark3");
-                immersiveSystemAccentLight1 = GetColorByTypeName("ImmersiveSystemAccentLight1");
-                immersiveSystemAccentLight2 = GetColorByTypeName("ImmersiveSystemAccentLight2");
-                immersiveSystemAccentLight3 = GetColorByTypeName("ImmersiveSystemAccentLight3");
+                ImmersiveSystemAccent = TranslateColor(settings.GetColorValue(UIColorType.Accent));
+                ImmersiveSystemAccentDark1 = TranslateColor(settings.GetColorValue(UIColorType.AccentDark1));
+                ImmersiveSystemAccentDark2 = TranslateColor(settings.GetColorValue(UIColorType.AccentDark2));
+                ImmersiveSystemAccentDark3 = TranslateColor(settings.GetColorValue(UIColorType.AccentDark3));
+                ImmersiveSystemAccentLight1 = TranslateColor(settings.GetColorValue(UIColorType.AccentLight1));
+                ImmersiveSystemAccentLight2 = TranslateColor(settings.GetColorValue(UIColorType.AccentLight1));
+                ImmersiveSystemAccentLight3 = TranslateColor(settings.GetColorValue(UIColorType.AccentLight2));
+            }
+            else if (!SystemInfo.IsWin7())
+            {
+                ImmersiveSystemAccent = GetColorByTypeName("ImmersiveSystemAccent");
+                ImmersiveSystemAccentDark1 = GetColorByTypeName("ImmersiveSystemAccentDark1");
+                ImmersiveSystemAccentDark2 = GetColorByTypeName("ImmersiveSystemAccentDark2");
+                ImmersiveSystemAccentDark3 = GetColorByTypeName("ImmersiveSystemAccentDark3");
+                ImmersiveSystemAccentLight1 = GetColorByTypeName("ImmersiveSystemAccentLight1");
+                ImmersiveSystemAccentLight2 = GetColorByTypeName("ImmersiveSystemAccentLight2");
+                ImmersiveSystemAccentLight3 = GetColorByTypeName("ImmersiveSystemAccentLight3");
             }
             else
             {
                 // Windows7の場合は、OSにテーマカラーの設定はないので、固定値を使用する。
-                immersiveSystemAccent = (Color)ColorConverter.ConvertFromString("#FF2990CC");
-                immersiveSystemAccentDark1 = (Color)ColorConverter.ConvertFromString("#FF2481B6");
-                immersiveSystemAccentDark2 = (Color)ColorConverter.ConvertFromString("#FF2071A1");
-                immersiveSystemAccentDark3 = (Color)ColorConverter.ConvertFromString("#FF205B7E");
-                immersiveSystemAccentLight1 = (Color)ColorConverter.ConvertFromString("#FF2D9FE1");
-                immersiveSystemAccentLight2 = (Color)ColorConverter.ConvertFromString("#FF51A5D6");
-                immersiveSystemAccentLight3 = (Color)ColorConverter.ConvertFromString("#FF7BB1D0");
+                ImmersiveSystemAccent = (Color)ColorConverter.ConvertFromString("#FF2990CC");
+                ImmersiveSystemAccentDark1 = (Color)ColorConverter.ConvertFromString("#FF2481B6");
+                ImmersiveSystemAccentDark2 = (Color)ColorConverter.ConvertFromString("#FF2071A1");
+                ImmersiveSystemAccentDark3 = (Color)ColorConverter.ConvertFromString("#FF205B7E");
+                ImmersiveSystemAccentLight1 = (Color)ColorConverter.ConvertFromString("#FF2D9FE1");
+                ImmersiveSystemAccentLight2 = (Color)ColorConverter.ConvertFromString("#FF51A5D6");
+                ImmersiveSystemAccentLight3 = (Color)ColorConverter.ConvertFromString("#FF7BB1D0");
             }
 
             // ブラシ類の定義
-            immersiveSystemAccentBrush = CreateBrush(ImmersiveSystemAccent);
-            immersiveSystemAccentDark1Brush = CreateBrush(ImmersiveSystemAccentDark1);
-            immersiveSystemAccentDark2Brush = CreateBrush(ImmersiveSystemAccentDark2);
-            immersiveSystemAccentDark3Brush = CreateBrush(ImmersiveSystemAccentDark3);
-            immersiveSystemAccentLight1Brush = CreateBrush(ImmersiveSystemAccentLight1);
-            immersiveSystemAccentLight2Brush = CreateBrush(ImmersiveSystemAccentLight2);
-            immersiveSystemAccentLight3Brush = CreateBrush(ImmersiveSystemAccentLight3);
+            ImmersiveSystemAccentBrush = CreateBrush(ImmersiveSystemAccent);
+            ImmersiveSystemAccentDark1Brush = CreateBrush(ImmersiveSystemAccentDark1);
+            ImmersiveSystemAccentDark2Brush = CreateBrush(ImmersiveSystemAccentDark2);
+            ImmersiveSystemAccentDark3Brush = CreateBrush(ImmersiveSystemAccentDark3);
+            ImmersiveSystemAccentLight1Brush = CreateBrush(ImmersiveSystemAccentLight1);
+            ImmersiveSystemAccentLight2Brush = CreateBrush(ImmersiveSystemAccentLight2);
+            ImmersiveSystemAccentLight3Brush = CreateBrush(ImmersiveSystemAccentLight3);
+        }
 
-            OnStaticPropertyChanged();
+        internal static Color TranslateColor(Windows.UI.Color color)
+        {
+            return Color.FromArgb(color.A, color.R, color.G, color.B);
         }
 
         internal static Brush CreateBrush(Color color)
@@ -206,7 +227,7 @@ namespace SourceChord.FluentWPF
 
 
         public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
-        protected static void OnStaticPropertyChanged([CallerMemberName]string propertyName = null)
+        protected static void OnStaticPropertyChanged([CallerMemberName] string propertyName = null)
         {
             StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(propertyName));
         }

@@ -1,13 +1,11 @@
 ﻿using SourceChord.FluentWPF.Utility;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Threading;
+using Windows.UI.ViewManagement;
 
 namespace SourceChord.FluentWPF
 {
@@ -22,12 +20,16 @@ namespace SourceChord.FluentWPF
 
 
         private static readonly int WM_DWMCOLORIZATIONCOLORCHANGED = 0x0320;
-
+        private static readonly UISettings settings = new UISettings();
 
 
         static AccentColors()
         {
             AccentColors.Instance = new AccentColors();
+            if (SystemInfo.IsWin10())
+            {
+                settings.ColorValuesChanged += OnWin10AccentColorChanged;
+            }
             Initialize();
         }
 
@@ -36,11 +38,20 @@ namespace SourceChord.FluentWPF
 
         }
 
+        private static void OnWin10AccentColorChanged(UISettings sender, object args)
+        {
+            Dispatcher.CurrentDispatcher.Invoke(() =>
+            {
+                Initialize();
+            });
+        }
+
         protected override IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            if (msg == WM_DWMCOLORIZATIONCOLORCHANGED)
+            if (!SystemInfo.IsWin10() && msg == WM_DWMCOLORIZATIONCOLORCHANGED)
             {
                 // 再取得
+                //Console.WriteLine("WM_DWMCOLORIZATIONCOLORCHANGED");
                 Initialize();
             }
 
@@ -157,12 +168,20 @@ namespace SourceChord.FluentWPF
         }
         #endregion
 
-
-
         internal static void Initialize()
         {
             // 各種Color定義
-            if (!SystemInfo.IsWin7())
+            if (SystemInfo.IsWin10())
+            {
+                ImmersiveSystemAccent = TranslateColor(settings.GetColorValue(UIColorType.Accent));
+                ImmersiveSystemAccentDark1 = TranslateColor(settings.GetColorValue(UIColorType.AccentDark1));
+                ImmersiveSystemAccentDark2 = TranslateColor(settings.GetColorValue(UIColorType.AccentDark2));
+                ImmersiveSystemAccentDark3 = TranslateColor(settings.GetColorValue(UIColorType.AccentDark3));
+                ImmersiveSystemAccentLight1 = TranslateColor(settings.GetColorValue(UIColorType.AccentLight1));
+                ImmersiveSystemAccentLight2 = TranslateColor(settings.GetColorValue(UIColorType.AccentLight1));
+                ImmersiveSystemAccentLight3 = TranslateColor(settings.GetColorValue(UIColorType.AccentLight2));
+            }
+            else if (!SystemInfo.IsWin7())
             {
                 ImmersiveSystemAccent = GetColorByTypeName("ImmersiveSystemAccent");
                 ImmersiveSystemAccentDark1 = GetColorByTypeName("ImmersiveSystemAccentDark1");
@@ -194,6 +213,11 @@ namespace SourceChord.FluentWPF
             ImmersiveSystemAccentLight3Brush = CreateBrush(ImmersiveSystemAccentLight3);
         }
 
+        internal static Color TranslateColor(Windows.UI.Color color)
+        {
+            return Color.FromArgb(color.A, color.R, color.G, color.B);
+        }
+
         internal static Brush CreateBrush(Color color)
         {
             var brush = new SolidColorBrush(color);
@@ -203,7 +227,7 @@ namespace SourceChord.FluentWPF
 
 
         public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
-        protected static void OnStaticPropertyChanged([CallerMemberName]string propertyName = null)
+        protected static void OnStaticPropertyChanged([CallerMemberName] string propertyName = null)
         {
             StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(propertyName));
         }

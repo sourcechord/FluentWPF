@@ -19,8 +19,10 @@ namespace SourceChord.FluentWPF.Utility
             {
                 if (appIcon == null)
                 {
-                    var path = System.Reflection.Assembly.GetEntryAssembly().Location;
-                    appIcon = GetIcon(path);
+                    var assembly = System.Reflection.Assembly.GetEntryAssembly();
+                    assembly ??= System.Reflection.Assembly.GetCallingAssembly();
+
+                    appIcon = GetIcon(assembly.Location);
                 }
                 return appIcon;
             }

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -19,8 +15,10 @@ namespace SourceChord.FluentWPF.Utility
             {
                 if (appIcon == null)
                 {
-                    var path = System.Reflection.Assembly.GetEntryAssembly().Location;
-                    appIcon = GetIcon(path);
+                    var assembly = System.Reflection.Assembly.GetEntryAssembly();
+                    assembly ??= System.Reflection.Assembly.GetExecutingAssembly();
+
+                    appIcon = GetIcon(assembly.Location);
                 }
                 return appIcon;
             }

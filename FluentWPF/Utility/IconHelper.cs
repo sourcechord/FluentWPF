@@ -16,7 +16,7 @@ namespace SourceChord.FluentWPF.Utility
                 if (appIcon == null)
                 {
                     var assembly = System.Reflection.Assembly.GetEntryAssembly();
-                    assembly ??= System.Reflection.Assembly.GetCallingAssembly();
+                    assembly ??= System.Reflection.Assembly.GetExecutingAssembly();
 
                     appIcon = GetIcon(assembly.Location);
                 }

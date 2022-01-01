@@ -372,7 +372,19 @@ namespace SourceChord.FluentWPF
                 var monitorRectangle = monitorInfo.rcMonitor;
 
                 var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
-                GetDpiForMonitor(hMonitor, MONITOR_DPI_TYPE.MDT_EFFECTIVE_DPI, out var dpiX, out var dpiY);
+                if (Environment.OSVersion.Version.Major >= 10 || (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor == 3))
+                {
+                    GetDpiForMonitor(hMonitor, MONITOR_DPI_TYPE.MDT_EFFECTIVE_DPI, out var dpiX, out var dpiY);
+                }
+                else
+                {
+                    // must be an old version of Windows (7 or 8)
+                    // an old version of Windows (7 or 8)
+                    // Get scale of main window and assume scale is the same for all monitors
+                    var dpiScale = VisualTreeHelper.GetDpi(Application.Current.MainWindow);
+                    dpiX = dpiScale.DpiScaleX;
+                    dpiY = dpiScale.DpiScaleY;
+                }
                 var maxWidth = win.MaxWidth / 96.0 * dpiX;
                 var maxHeight = win.MaxHeight / 96.0 * dpiY;
                 var minWidth = win.MinWidth / 96.0 * dpiX;

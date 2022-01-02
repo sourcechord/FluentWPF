@@ -372,7 +372,7 @@ namespace SourceChord.FluentWPF
                 var monitorRectangle = monitorInfo.rcMonitor;
 
                 var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
-                uint dpiX, dpiY;
+                uint dpiX = 96, dpiY = 96;
                 if (Environment.OSVersion.Version.Major >= 10 || (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor == 3))
                 {
                     GetDpiForMonitor(hMonitor, MONITOR_DPI_TYPE.MDT_EFFECTIVE_DPI, out dpiX, out dpiY);
@@ -382,10 +382,23 @@ namespace SourceChord.FluentWPF
                     // must be an old version of Windows (7 or 8)
                     // an old version of Windows (7 or 8)
                     // Get scale of main window and assume scale is the same for all monitors
-                    var dpiXProperty = typeof(SystemParameters).GetProperty("DpiX", BindingFlags.NonPublic | BindingFlags.Static);
-                    var dpiYProperty = typeof(SystemParameters).GetProperty("Dpi", BindingFlags.NonPublic | BindingFlags.Static);
-                    dpiX = (uint)dpiXProperty.GetValue(null, null);
-                    dpiY = (uint)dpiYProperty.GetValue(null, null);
+                    using (ManagementClass mc = new ManagementClass("Win32_DesktopMonitor"))
+                    {
+                        using (ManagementObjectCollection moc = mc.GetInstances())
+                        {
+
+                            uint PixelsPerXLogicalInch = 0; // dpi for x
+                            uint PixelsPerYLogicalInch = 0; // dpi for y
+
+                            foreach (ManagementObject each in moc)
+                            {
+                                PixelsPerXLogicalInch = uint.Parse((each.Properties["PixelsPerXLogicalInch"].Value.ToString()));
+                                PixelsPerYLogicalInch = uint.Parse((each.Properties["PixelsPerYLogicalInch"].Value.ToString()));
+                            }
+                            dpiX = PixelsPerXLogicalInch;
+                            dpiY = PixelsPerYLogicalInch;
+                        }
+                    }
                 }
                 var maxWidth = win.MaxWidth / 96.0 * dpiX;
                 var maxHeight = win.MaxHeight / 96.0 * dpiY;

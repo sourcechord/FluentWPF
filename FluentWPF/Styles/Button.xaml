@@ -148,7 +148,7 @@
                                         <animation:BrushAnimation Storyboard.TargetProperty="(TextElement.Foreground)" Storyboard.TargetName="contentPresenter"
                                                                   Duration="0:0:0.100" AutoReverse="False">
                                             <animation:BrushAnimation.To>
-                                                <SolidColorBrush Color="#FF838383"/>
+                                                <SolidColorBrush Color="#66FFFFFF"/>
                                             </animation:BrushAnimation.To>
                                             <animation:BrushAnimation.EasingFunction>
                                                 <SineEase EasingMode="EaseInOut"/>

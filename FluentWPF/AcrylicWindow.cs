@@ -310,25 +310,25 @@ namespace SourceChord.FluentWPF
             if (win != null && _internalStateTable.TryGetValue(win, out var internalState))
             {
                 internalState.RestoringState = WindowRestoringState.Default;
+
+                win.WindowStyle = WindowStyle.None;
+
+                var hMonitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+                var monitorInfo = new MONITORINFO
+                {
+                    cbSize = Marshal.SizeOf(typeof(MONITORINFO))
+                };
+
+                GetMonitorInfo(hMonitor, ref monitorInfo);
+                var workingRectangle = monitorInfo.rcWork;
+                var monitorRectangle = monitorInfo.rcMonitor;
+
+                var x = workingRectangle.left;
+                var y = workingRectangle.top;
+                var width = Math.Abs(workingRectangle.right - workingRectangle.left);
+                var height = Math.Abs(workingRectangle.bottom - workingRectangle.top) - 1;
+                MoveWindow(hwnd, x, y, width, height, true);
             }
-
-            win.WindowStyle = WindowStyle.None;
-
-            var hMonitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
-            var monitorInfo = new MONITORINFO
-            {
-                cbSize = Marshal.SizeOf(typeof(MONITORINFO))
-            };
-
-            GetMonitorInfo(hMonitor, ref monitorInfo);
-            var workingRectangle = monitorInfo.rcWork;
-            var monitorRectangle = monitorInfo.rcMonitor;
-
-            var x = workingRectangle.left;
-            var y = workingRectangle.top;
-            var width = Math.Abs(workingRectangle.right - workingRectangle.left);
-            var height = Math.Abs(workingRectangle.bottom - workingRectangle.top);
-            MoveWindow(hwnd, x, y, width, height, true);
         }
 
         protected static IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -372,25 +372,29 @@ namespace SourceChord.FluentWPF
                 var monitorRectangle = monitorInfo.rcMonitor;
 
                 var win = (Window)HwndSource.FromHwnd(hwnd).RootVisual;
-                GetDpiForMonitor(hMonitor, MONITOR_DPI_TYPE.MDT_EFFECTIVE_DPI, out var dpiX, out var dpiY);
-                var maxWidth = win.MaxWidth / 96.0 * dpiX;
-                var maxHeight = win.MaxHeight / 96.0 * dpiY;
-                var minWidth = win.MinWidth / 96.0 * dpiX;
-                var minHeight = win.MinHeight / 96.0 * dpiY;
+                if (win != null)
+                {
+                    GetDpiForMonitor(hMonitor, MONITOR_DPI_TYPE.MDT_EFFECTIVE_DPI, out var dpiX, out var dpiY);
 
-                // ウィンドウ最大化時の位置とサイズを指定
-                info.ptMaxPosition.x = Math.Abs(workingRectangle.left - monitorRectangle.left);
-                info.ptMaxPosition.y = Math.Abs(workingRectangle.top - monitorRectangle.top);
-                info.ptMaxSize.x = (int)Math.Min(Math.Abs(workingRectangle.right - monitorRectangle.left), maxWidth);
-                info.ptMaxSize.y = (int)Math.Min(Math.Abs(workingRectangle.bottom - monitorRectangle.top), maxHeight);
+                    var maxWidth = win.MaxWidth / 96.0 * dpiX;
+                    var maxHeight = win.MaxHeight / 96.0 * dpiY;
+                    var minWidth = win.MinWidth / 96.0 * dpiX;
+                    var minHeight = win.MinHeight / 96.0 * dpiY;
 
-                // ウィンドウのリサイズ可能サイズを設定
-                info.ptMaxTrackSize.x = (int)Math.Min(info.ptMaxTrackSize.x, maxWidth);
-                info.ptMaxTrackSize.y = (int)Math.Min(info.ptMaxTrackSize.y, maxHeight);
-                info.ptMinTrackSize.x = (int)Math.Max(info.ptMinTrackSize.x, minWidth);
-                info.ptMinTrackSize.y = (int)Math.Max(info.ptMinTrackSize.y, minHeight);
+                    // ウィンドウ最大化時の位置とサイズを指定
+                    info.ptMaxPosition.x = Math.Abs(workingRectangle.left - monitorRectangle.left);
+                    info.ptMaxPosition.y = Math.Abs(workingRectangle.top - monitorRectangle.top);
+                    info.ptMaxSize.x = (int)Math.Min(Math.Abs(workingRectangle.right - monitorRectangle.left), maxWidth);
+                    info.ptMaxSize.y = (int)Math.Min(Math.Abs(workingRectangle.bottom - monitorRectangle.top), maxHeight);
 
-                Marshal.StructureToPtr(info, lParam, true);
+                    // ウィンドウのリサイズ可能サイズを設定
+                    info.ptMaxTrackSize.x = (int)Math.Min(info.ptMaxTrackSize.x, maxWidth);
+                    info.ptMaxTrackSize.y = (int)Math.Min(info.ptMaxTrackSize.y, maxHeight);
+                    info.ptMinTrackSize.x = (int)Math.Max(info.ptMinTrackSize.x, minWidth);
+                    info.ptMinTrackSize.y = (int)Math.Max(info.ptMinTrackSize.y, minHeight);
+
+                    Marshal.StructureToPtr(info, lParam, true);
+                } 
                 return IntPtr.Zero;
             }
             else if (msg == WM_SIZE && wParam == (IntPtr)SizeEvents.SIZE_MAXIMIZED)
